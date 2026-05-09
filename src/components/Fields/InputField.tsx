@@ -14,7 +14,7 @@ export const InputField = ({
     <div className={`flex flex-col ${containerWidth} ${containerHeight} ${gap}`}>
       <p className="font-primary font-md">{label}</p>
       <input value={value} onChange={onChange}
-        className={`${width} ${height} bg-[#D9D9D9] border rounded px-2 ${
+        className={`${width} ${height} bg-[#D9D9D9] border rounded px-2 focus:outline-none ${
           error ? "border-red-500" : "border-gray-300"
         }`}
       />

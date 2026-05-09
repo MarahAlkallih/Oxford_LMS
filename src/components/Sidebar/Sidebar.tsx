@@ -3,11 +3,7 @@ import  {  menuItems} from "./menuitems"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import CloseIcon from "@mui/icons-material/Close"
 import logo from "../../assets/logo.png"
-
-interface SidebarProps {
-  open?: boolean
-  onClose?: () => void
-}
+import type { SidebarProps } from "../../types/Sidebar"
 
 export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
   const [openMenu, setOpenMenu] = useState<string | null>(null)
@@ -21,8 +17,6 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
           onClick={onClose}
         />
       )}
-
-      {/* Sidebar */}
       <div className={`fixed lg:static left-0 top-0 h-screen w-64 bg-white text-[#1f2937] p-4 flex flex-col transition-all duration-300 z-50 lg:z-0 border-r border-slate-200 shadow-sm ${
         open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       }`}>
@@ -35,7 +29,7 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
             className="w-[70%] h-auto transition-transform duration-300 hover:scale-110 hover:-rotate-1" 
           />
         </div>
-        {/* Close button for mobile */}
+
         <button
           onClick={onClose}
           className="lg:hidden p-2 hover:bg-slate-100 rounded-lg transition-all"
@@ -52,31 +46,28 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
 
           return (
             <div key={item.label}>
-
-             
-              <div
-                className="flex items-center justify-between cursor-pointer p-3 rounded-lg
-                           transition-all duration-300
-                           hover:bg-slate-100 hover:shadow-sm hover:scale-[1.02]
-                           active:scale-95"
-                onClick={() => setOpenMenu(isOpen ? null : item.label)}
-              >
-                <div className="flex items-center gap-4 justify-center flex-1">
-                  <Icon className="transition-transform duration-300 hover:rotate-6 text-[#4B5945]" />
-                  <span className="font-medium">{item.label}</span>
-                </div>
-
-                {/* arrow */}
-                {item.children && (
-                  <ExpandMoreIcon
-                    className={`transition-all duration-300 ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                )}
-              </div>
-
-              {/* children */}
+            <div
+  className="flex items-center justify-between cursor-pointer p-3 rounded-lg
+             transition-all duration-300
+             hover:bg-slate-100 hover:shadow-sm hover:scale-[1.02]
+             active:scale-95"
+  onClick={() => setOpenMenu(isOpen ? null : item.label)}
+>
+  {/* left side */}
+  <div className="flex items-center gap-3">
+    <Icon className="w-5 h-5 text-[#4B5945]" />
+    <span className="font-medium">{item.label}</span>
+  </div>
+  <div className="w-5 flex justify-center">
+    {item.children && (
+      <ExpandMoreIcon
+        className={`transition-all duration-300 ${
+          isOpen ? "rotate-180" : ""
+        }`}
+      />
+    )}
+  </div>
+</div>
               {item.children && (
                 <div
                   className={`ml-4 overflow-hidden transition-all duration-300 ${

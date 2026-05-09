@@ -2,17 +2,34 @@ import { useState } from "react";
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useNavigate } from "react-router-dom";
+import { clearAuthSession } from "../../features/admin/auth/authStorage";
+import { useLogoutUserMutation } from "../../features/admin/auth/authService";
 interface HeaderProps {
   onMenuToggle: () => void;
 }
 
 export const Header = ({ onMenuToggle }: HeaderProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [logoutUser] = useLogoutUserMutation();
   const role=localStorage.getItem("role");
+  
+  const navigate=useNavigate();
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+const handleLogout = async () => {
+  try {
 
+    await logoutUser(undefined).unwrap();
+
+  } catch (err) {
+    console.log(err);
+  } finally {
+    clearAuthSession();
+    navigate("/login", { replace: true });
+  }
+};
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
@@ -102,9 +119,10 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
           <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </Box>
     </Box>
   );
 };
+

@@ -7,14 +7,15 @@ import {
   People as PeopleIcon,
   Settings as SettingsIcon,
   Circle as CircleIcon,
-  AdminPanelSettings as AdminPanelSettingsIcon
+  AdminPanelSettings as AdminPanelSettingsIcon,
+  Language as LanguageIcon
 } from "@mui/icons-material"
 
 export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/" },
    { icon: PeopleIcon, label: "Users", path: "/users",
     children:[
-      {icon:AdminPanelSettingsIcon,label:"Roles",path:"/users/roles"}
+      {icon:LanguageIcon,label:"Language",path:"/users/languages"}
     ]
    },
    {

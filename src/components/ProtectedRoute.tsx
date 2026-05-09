@@ -1,15 +1,13 @@
-import { Navigate } from 'react-router-dom';
+import type { ReactNode } from "react";
+import { Navigate } from "react-router-dom";
+import { getAccessToken, getRefreshToken } from "../features/admin/auth/authStorage";
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-}
+export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+  const token = getAccessToken() || getRefreshToken();
 
-export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn")==="true";
-
-  if (!isLoggedIn) {
-    return <Navigate to="/login" replace />;
+  if (!token) {
+    return <Navigate to="/splash" replace />;
   }
 
-  return <>{children}</>;
+  return children;
 };

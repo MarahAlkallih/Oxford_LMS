@@ -1,49 +1,130 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import type { RootState } from "../app/store"
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { clearAuthSession, getAccessToken, getRefreshToken, persistAuthSession } from "../features/admin/auth/authStorage";
 
-
- export const baseQuery = fetchBaseQuery({
+export const baseQuery = fetchBaseQuery({
   baseUrl: "/",
-  credentials: "include", 
+  credentials: "include",
 
-  prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.accessToken
+  prepareHeaders: (headers) => {
+    const token = getAccessToken();
 
     if (token) {
-      headers.set("Authorization", `Bearer ${token}`)
+      headers.set("Authorization", `Bearer ${token}`);
     }
 
-    return headers
+    return headers;
   },
-})
+});
 const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
-  let result = await baseQuery(args, api, extraOptions)
+  let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
+    const refreshToken = getRefreshToken();
 
     const refreshResult = await baseQuery(
-      { url: "/refresh", method: "GET" },
+      {
+        url: "auth/refresh",
+        method: "POST",
+        body: { refreshToken },
+      },
       api,
       extraOptions
-    )
+    );
 
     if (refreshResult.data) {
-    
-      api.dispatch({
-        type: "auth/setTokens",
-        payload: refreshResult.data,
-      })
-      result = await baseQuery(args, api, extraOptions)
-
+      persistAuthSession(refreshResult.data);
+      result = await baseQuery(args, api, extraOptions);
     } else {
-      api.dispatch({ type: "auth/logout" })
+      clearAuthSession();
     }
   }
 
-  return result
-}
+  return result;
+};
+
+export const refreshAuth = async () => {
+  const refreshToken = getRefreshToken();
+
+  if (!refreshToken) {
+    clearAuthSession();
+    return { data: null };
+  }
+
+  const refreshResult = await baseQuery(
+    {
+      url: "auth/refresh",
+      method: "POST",
+      body: { refreshToken }, 
+    },
+    { dispatch: () => undefined, getState: () => ({}) } as any,
+    {}
+  );
+
+  if (refreshResult.data) {
+    persistAuthSession(refreshResult.data);
+  } else {
+    clearAuthSession();
+  }
+
+  return refreshResult;
+};
+
 export const baseApi = createApi({
   reducerPath: "api",
-  baseQuery: baseQueryWithReauth, 
+  baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-})
+});
+
+
+
+
+
+// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+// import type { RootState } from "../app/store"
+
+
+//  export const baseQuery = fetchBaseQuery({
+//   baseUrl: "/",
+//   credentials: "include", 
+
+//   prepareHeaders: (headers, { getState }) => {
+//     const token = (getState() as RootState).auth.accessToken
+
+//     if (token) {
+//       headers.set("Authorization", `Bearer ${token}`)
+//     }
+
+//     return headers
+//   },
+// })
+// const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
+//   let result = await baseQuery(args, api, extraOptions)
+
+//   if (result.error && result.error.status === 401) {
+
+//     const refreshResult = await baseQuery(
+//       { url: "/refresh", method: "GET" },
+//       api,
+//       extraOptions
+//     )
+
+//     if (refreshResult.data) {
+    
+//       api.dispatch({
+//         type: "auth/setTokens",
+//         payload: refreshResult.data,
+//       })
+//       result = await baseQuery(args, api, extraOptions)
+
+//     } else {
+//       api.dispatch({ type: "auth/logout" })
+//     }
+//   }
+
+//   return result
+// }
+// export const baseApi = createApi({
+//   reducerPath: "api",
+//   baseQuery: baseQueryWithReauth, 
+//   endpoints: () => ({}),
+// })
