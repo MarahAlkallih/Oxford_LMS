@@ -15,8 +15,6 @@ export const MainLayout = () => {
       <Box sx={{ display: { xs: "block", lg: "none" } }}>
         <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       </Box>
-
-      {/* Main Content */}
       <Box
         sx={{
           display: "flex",

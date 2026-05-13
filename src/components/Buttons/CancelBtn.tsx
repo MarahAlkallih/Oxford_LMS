@@ -1,17 +1,17 @@
 import type { Btn } from "../../types/submitBtn"
 
-export const Button = ({ name, onClick }: Btn) => {
+export const CancelBtn = ({ name, onClick }: Btn) => {
     return (
-        <div className="w-full px-4 h-[50px]">
+        <div className="w-full h-[50px]">
             <button
                 onClick={onClick}
                 className="
                     w-full h-full
                     p-2
-                    bg-[#4B5945]
-                    rounded
-                    text-amber-50
+                    bg-gray-300
+                    hover:bg-gray-400
                     cursor-pointer
+                    rounded
                 "
             >
                 {name}

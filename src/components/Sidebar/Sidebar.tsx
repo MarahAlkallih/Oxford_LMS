@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import  {  menuItems} from "./menuitems"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import CloseIcon from "@mui/icons-material/Close"
@@ -7,6 +8,7 @@ import type { SidebarProps } from "../../types/Sidebar"
 
 export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
   const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const navigate = useNavigate()
 
   return (
     <>
@@ -51,7 +53,14 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
              transition-all duration-300
              hover:bg-slate-100 hover:shadow-sm hover:scale-[1.02]
              active:scale-95"
-  onClick={() => setOpenMenu(isOpen ? null : item.label)}
+  onClick={() => {
+    if (item.children) {
+      setOpenMenu(isOpen ? null : item.label)
+    } else if (item.path) {
+      navigate(item.path)
+      onClose()
+    }
+  }}
 >
   {/* left side */}
   <div className="flex items-center gap-3">
@@ -85,6 +94,12 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
                                      transition-all duration-300
                                      hover:bg-slate-100 hover:translate-x-2 hover:shadow-sm
                                      active:scale-95"
+                          onClick={() => {
+                            if (child.path) {
+                              navigate(child.path)
+                              onClose()
+                            }
+                          }}
                         >
                           <ChildIcon size={16} className="transition-transform duration-300 hover:scale-125 text-[#4B5945]" />
                           <span>{child.label}</span>

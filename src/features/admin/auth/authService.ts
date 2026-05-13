@@ -1,16 +1,24 @@
 import type { User } from "../../../types/user";
 import { baseApi } from "../../../api/baseApi";
+import { persistAuthSession } from "./authStorage";
 
 export const authService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
 
-    // LOGIN
     login: builder.mutation<any, User>({
       query: (data) => ({
         url: "/auth/admin/login",
         method: "POST",
         body: data,
       }),
+      transformResponse: (response: any) => {
+        
+        const authData = response?.data || response?.payload || response;
+    
+        persistAuthSession(authData);
+        
+        return authData;
+      },
     }),
 
 
