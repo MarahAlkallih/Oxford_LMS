@@ -2,22 +2,24 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { clearAuthSession, getAccessToken, getRefreshToken, persistAuthSession } from "../features/admin/auth/authStorage";
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: "/",
+  baseUrl: "/api",
   credentials: "include",
 
-  prepareHeaders: (headers) => {
-    const token = getAccessToken();
+prepareHeaders: (headers) => {
+  const token = getAccessToken();
 
-    if (token) {
-      headers.set("Authorization", `Bearer ${token}`);
-    }
+  headers.set("Content-Type", "application/json");
 
-    return headers;
-  },
+  if (token) {
+    headers.set("Authorization", `Bearer ${token}`);
+  }
+
+  return headers;
+},
 });
 const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
-
+      console.log(result)
   if (result.error && result.error.status === 401) {
     const refreshToken = getRefreshToken();
 
@@ -72,6 +74,10 @@ export const refreshAuth = async () => {
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
+    tagTypes: [
+    "Language",
+    
+  ],
   endpoints: () => ({}),
 });
 

@@ -4,7 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
 import { clearAuthSession } from "../../features/admin/auth/authStorage";
-import { useLogoutUserMutation } from "../../features/admin/auth/authService";
+import { useLogoutUserMutation } from "../../services/auth/authService";
 interface HeaderProps {
   onMenuToggle: () => void;
 }

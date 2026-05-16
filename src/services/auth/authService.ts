@@ -1,6 +1,6 @@
-import type { User } from "../../../types/user";
-import { baseApi } from "../../../api/baseApi";
-import { persistAuthSession } from "./authStorage";
+import type { User } from "../../types/user";
+import { baseApi } from "../../api/baseApi";
+import { persistAuthSession } from "../../features/admin/auth/authStorage";
 
 export const authService = baseApi.injectEndpoints({
   endpoints: (builder) => ({

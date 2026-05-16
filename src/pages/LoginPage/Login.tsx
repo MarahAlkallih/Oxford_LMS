@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Buttons/SubmitBtn";
 import logo from "../../assets/logo.png"
-import { useLoginMutation } from "../../features/admin/auth/authService"
+import { useLoginMutation } from "../../services/auth/authService"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 const Login = (): JSX.Element => {
