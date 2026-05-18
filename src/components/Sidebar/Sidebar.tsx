@@ -19,7 +19,9 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
           onClick={onClose}
         />
       )}
-      <div className={`fixed lg:static left-0 top-0 h-screen w-64 bg-white text-[#1f2937] p-4 flex flex-col transition-all duration-300 z-50 lg:z-0 border-r border-slate-200 shadow-sm ${
+      <div className={`fixed lg:static left-0 
+      top-0 h-screen w-64 bg-white text-[#1f2937] p-4 flex flex-col 
+      transition-all duration-300 z-50 lg:z-0 border-r border-slate-200 shadow-sm ${
         open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       }`}>
     

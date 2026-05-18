@@ -5,6 +5,8 @@ import { ProtectedRoute } from "../components/ProtectedRoute";
 import StaticsPage from "../pages/home/statics";
 import SplashScreen from "../pages/splash/SplashScreen"
 import { LanguagesPage } from "../pages/languages/LanguagesPage";
+import UsersPage from "../pages/Users/Users"
+import { AddUserPage } from "../pages/Users/AddUser"
 function AppRoutes() {
   return (
     <Routes>
@@ -22,6 +24,8 @@ function AppRoutes() {
       >
         <Route path="/dashboard" element={<StaticsPage />} />
         <Route path="/users/languages" element={<LanguagesPage />} />
+        <Route path="users/display" element={<UsersPage/>}/>
+        <Route path="users/add" element={<AddUserPage/>}/>
       </Route>
     </Routes>
   );

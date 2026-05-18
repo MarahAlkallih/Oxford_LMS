@@ -13,7 +13,7 @@ export const ConfirmModal = (props: ConfirmModalProps) => {
 
   return (
     <Modal open={open} onClose={onClose}>
-      <div className="text-center w-56">
+      <div className="text-center w-fit">
         <Delete sx={{ fontSize: 56 }} className="mx-auto text-red-500" />
 
         <div className="mx-auto my-4 w-48">

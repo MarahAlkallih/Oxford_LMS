@@ -8,7 +8,7 @@ export const MainLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh", background: "#eef1f4", position: "relative" }}>
+    <Box sx={{ display: "flex", height: "100vh",overflow:"hidden", background: "#eef1f4", position: "relative" }}>
       <Box sx={{ display: { xs: "none", lg: "block" }, flexShrink: 0, position: "relative", zIndex: 0 }}>
         <Sidebar open={true} onClose={() => setSidebarOpen(false)} />
       </Box>
@@ -39,7 +39,7 @@ export const MainLayout = () => {
           sx={{
             flex: 1,
             p: { xs: 2, md: 4 },
-            overflow: "auto",
+             overflowY: "auto",
             background: "#ffffff",
           }}
         >
