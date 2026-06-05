@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react";
 import { Button } from "../../components/Buttons/SubmitBtn";
 import { rules } from "../../utils/validationRules";
-import type { User } from "../../types/user";
-import { useCreateUserMutation } from "../../services/users/User";
+import type { Trainer } from "../../types/user";
+import { useCreateTrainerMutation } from "../../services/trainer/createTrainer";
 import { toast } from "react-toastify";
 import { UserForm } from "../../components/User/UserForm";
 
-export const AddUserPage = () => {
+export const TrainerPage = () => {
   const navigate = useNavigate();
 
   const initialUser = {
@@ -19,15 +19,15 @@ export const AddUserPage = () => {
     gender: "",
     languageId: 0,
     phoneNumber: "",
-    role: "",
+   
   };
   const [user, setUser] = useState(initialUser);
-  const [createUser, { isLoading, error }] = useCreateUserMutation();
+  const [createUser, { isLoading, error }] = useCreateTrainerMutation();
   const [errors, setErrors] = useState<
-    Partial<Record<keyof User, string>>
+    Partial<Record<keyof Trainer, string>>
   >({});
   const validate = () => {
-    const newErrors: Partial<Record<keyof User, string>> = {};
+    const newErrors: Partial<Record<keyof Trainer, string>> = {};
 
     newErrors.firstName = rules.required(user.firstName);
     newErrors.lastName = rules.required(user.lastName);
@@ -58,7 +58,7 @@ export const AddUserPage = () => {
 
     return Object.keys(filteredErrors).length === 0;
   };
-  const handleChange = (key: keyof User, value: string | number) => {
+  const handleChange = (key: keyof Trainer, value: string | number) => {
     setUser((prev) => ({
       ...prev,
       [key]: value,
@@ -101,18 +101,18 @@ export const AddUserPage = () => {
 
       {/* Form Container */}
       {/* Main Layout */}
-      <UserForm<User>
+      <UserForm<Trainer>
         user={user}
         errors={errors}
         onChange={handleChange}
-        showRole
+       
       />
 
       {/* Submit Button */}
       <div className="flex justify-center mt-12">
         <div className="w-48">
           <Button
-            name={isLoading ? "Loading..." : "Add"}
+            name={isLoading ? "Loading..." : "Add Trainer"}
             onClick={handleAdd}
           />
         </div>

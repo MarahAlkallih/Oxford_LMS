@@ -8,7 +8,8 @@ export default defineConfig({
     proxy: {
       '/api': {
         //https://oxford-lms.onrender.com
-        target: 'http://localhost:3000',
+        //http://localhost:3000
+        target: 'https://oxford-lms.onrender.com',
         changeOrigin: true,
 
         rewrite: (path) => path.replace(/^\/api/, ''),

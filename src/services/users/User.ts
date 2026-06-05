@@ -1,5 +1,5 @@
 import {baseApi} from "../../api/baseApi"
-import type {User } from "../../types/user"
+import type {User, UserInfo } from "../../types/user"
 const createUserApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createUser: builder.mutation({
@@ -14,9 +14,13 @@ const createUserApi = baseApi.injectEndpoints({
         query:()=>"/admin",
         providesTags:["users"]
 
-      })
+      }),
+ getUserById: builder.query<UserInfo, number>({
+  query: (id) => `/admin/${id}`,
+  transformResponse: (res: any) => res.data,
+})
     
   })
 });
 
-export const { useCreateUserMutation,useGetUsersQuery } = createUserApi;
+export const { useCreateUserMutation,useGetUsersQuery,useGetUserByIdQuery } = createUserApi;

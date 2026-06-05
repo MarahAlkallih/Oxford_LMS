@@ -65,21 +65,22 @@ export const RightCard=({ children }: RightCardProps)=>{
         }}
       />
 
-      <MuiBox
-        sx={{
-          position: "relative",
-          zIndex: 2,
-          width: "100%",
-          height: "100%",
-          p: { xs: 2.5, sm: 3, md: 4 },
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: 2,
-        }}
-      >
-        {children}
-      </MuiBox>
+ <MuiBox
+  sx={{
+    position: "relative",
+    zIndex: 2,
+    width: "100%",
+    height: "100%",
+    p: { xs: 2.5, sm: 3, md: 4 },
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 2,
+  }}
+>
+  {children}
+</MuiBox>
 
       {/* الكارد */}
       {/* <MuiBox

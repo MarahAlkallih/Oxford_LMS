@@ -60,7 +60,7 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
       setOpenMenu(isOpen ? null : item.label)
     } else if (item.path) {
       navigate(item.path)
-      onClose()
+    //  onClose()
     }
   }}
 >
@@ -99,7 +99,7 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
                           onClick={() => {
                             if (child.path) {
                               navigate(child.path)
-                              onClose()
+                             // onClose()
                             }
                           }}
                         >

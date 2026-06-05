@@ -15,6 +15,7 @@ export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/" },
    { icon: PeopleIcon, label: "Users", path: "/users",
     children:[
+       {icon:PeopleIcon,label:"Trainer",path:"/users/trainer"},
       {icon:LanguageIcon,label:"Language",path:"/users/languages"},
       {icon:AdminPanelSettingsIcon,label:"Users",path:"/users/display"},
     ]

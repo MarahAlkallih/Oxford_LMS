@@ -7,6 +7,8 @@ import SplashScreen from "../pages/splash/SplashScreen"
 import { LanguagesPage } from "../pages/languages/LanguagesPage";
 import UsersPage from "../pages/Users/Users"
 import { AddUserPage } from "../pages/Users/AddUser"
+import { DisplayUserInfo } from "../pages/Users/UserById";
+import { TrainerPage } from "../pages/Users/AddTrainer";
 function AppRoutes() {
   return (
     <Routes>
@@ -25,7 +27,9 @@ function AppRoutes() {
         <Route path="/dashboard" element={<StaticsPage />} />
         <Route path="/users/languages" element={<LanguagesPage />} />
         <Route path="users/display" element={<UsersPage/>}/>
+        <Route path="users/display/:id" element={<DisplayUserInfo/>}/>
         <Route path="users/add" element={<AddUserPage/>}/>
+        <Route path="users/trainer" element={<TrainerPage/>} />
       </Route>
     </Routes>
   );

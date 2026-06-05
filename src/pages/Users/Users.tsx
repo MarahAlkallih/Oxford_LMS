@@ -11,7 +11,7 @@ import CustomDataGrid from "../../components/DataGrid/DataGrid";
 const UsersPage = () => {
 const navigate = useNavigate();
 const {data,isLoading}=useGetUsersQuery();
-
+console.log(data)
 type UserRow = User & {
     id?: string | number;
 };
@@ -24,7 +24,7 @@ const columns: GridColDef<UserRow>[] = [
     { field: "userName", headerName: "User Name", flex: 1, minWidth: 150 },
     { field: "email", headerName: "Email", flex: 1.2, minWidth: 200 },
     { field: "phoneNumber", headerName: "Phone", flex: 1, minWidth: 140 },
-    { field: "role", headerName: "Role", flex: 0.8, minWidth: 120 },
+    { field: "roles", headerName: "Role", flex: 0.8, minWidth: 120 },
     {
         field: "actions",
         headerName: "Actions",
@@ -40,7 +40,7 @@ const columns: GridColDef<UserRow>[] = [
       <IconButton
         size="small"
         sx={{ color: "#1976d2" }}
-        onClick={() => console.log("view", params.row)}
+        onClick={() => navigate(`${params.row.id}`)}
       >
         <VisibilityOutlinedIcon fontSize="small" />
       </IconButton>
