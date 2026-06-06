@@ -9,6 +9,10 @@ import UsersPage from "../pages/Users/Users"
 import { AddUserPage } from "../pages/Users/AddUser"
 import { DisplayUserInfo } from "../pages/Users/UserById";
 import { TrainerPage } from "../pages/Users/AddTrainer";
+import { TrainingPlanPage } from "../pages/Courses/TrainingPlan/TrainingPlan";
+import { AddFiles } from "../pages/Courses/TrainingPlan/AddFiles";
+import { TrainingPlanDetails } from "../pages/Courses/TrainingPlan/TrainingPlanDetails ";
+
 function AppRoutes() {
   return (
     <Routes>
@@ -30,6 +34,9 @@ function AppRoutes() {
         <Route path="users/display/:id" element={<DisplayUserInfo/>}/>
         <Route path="users/add" element={<AddUserPage/>}/>
         <Route path="users/trainer" element={<TrainerPage/>} />
+        <Route path="courses/training-plan" element={<TrainingPlanPage/>} />
+         <Route path="courses/training-plan/add-files" element={<AddFiles/>} />
+         <Route path="courses/training-plan/:id" element={<TrainingPlanDetails />} />
       </Route>
     </Routes>
   );

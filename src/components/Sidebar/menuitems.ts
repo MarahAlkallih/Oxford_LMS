@@ -8,7 +8,8 @@ import {
   Settings as SettingsIcon,
   Circle as CircleIcon,
   AdminPanelSettings as AdminPanelSettingsIcon,
-  Language as LanguageIcon
+  Language as LanguageIcon,
+  EventNote as EventNoteIcon
 } from "@mui/icons-material"
 
 export const menuItems: MenuItem[] = [
@@ -25,9 +26,9 @@ export const menuItems: MenuItem[] = [
      label: "Courses",
      children: [
        {
-         icon: CircleIcon,
-         label: "Current Courses",
-         path: "/courses/current",
+         icon: EventNoteIcon,
+         label: "Training Plan",
+         path: "/courses/training-plan",
        },
        {
          icon: CircleIcon,

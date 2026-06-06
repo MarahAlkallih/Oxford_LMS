@@ -8,7 +8,7 @@ export const baseQuery = fetchBaseQuery({
 prepareHeaders: (headers) => {
   const token = getAccessToken();
 
-  headers.set("Content-Type", "application/json");
+   headers.set("Content-Type", "application/json");
 
   if (token) {
     headers.set("Authorization", `Bearer ${token}`);
@@ -77,7 +77,8 @@ export const baseApi = createApi({
     tagTypes: [
     "Language",
     "users",
-    "user"
+    "user",
+    "TrainingPlan"
   ],
   endpoints: () => ({}),
 });
