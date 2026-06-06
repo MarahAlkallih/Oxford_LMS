@@ -9,7 +9,10 @@ import {
   Circle as CircleIcon,
   AdminPanelSettings as AdminPanelSettingsIcon,
   Language as LanguageIcon,
-  EventNote as EventNoteIcon
+  EventNote as EventNoteIcon,
+  Public as PublicIcon,
+  LocationOn as  LocationOnIcon ,
+ MenuBook as MenuBookIcon
 } from "@mui/icons-material"
 
 export const menuItems: MenuItem[] = [
@@ -29,6 +32,23 @@ export const menuItems: MenuItem[] = [
          icon: EventNoteIcon,
          label: "Training Plan",
          path: "/courses/training-plan",
+       },
+       {
+         icon: PublicIcon,
+         label: "Venues",
+         path: "/courses/venues",
+       },
+       
+       {
+         icon: LocationOnIcon,
+         label: "Location",
+         path: "/courses/location",
+       },
+       
+       {
+         icon: MenuBookIcon,
+         label: "Catygory",
+         path: "/courses/catygory",
        },
        {
          icon: CircleIcon,

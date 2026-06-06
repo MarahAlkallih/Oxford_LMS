@@ -54,11 +54,13 @@ export const TrainingPlanPage = () => {
         <h1 className="text-2xl font-bold">
           Training Plans
         </h1>
-
-        <Button
+       <div>
+         <Button
           name="Add Training Plan"
           onClick={() => navigate("add-files")}
         />
+       </div>
+       
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

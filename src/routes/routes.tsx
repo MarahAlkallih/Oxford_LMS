@@ -12,6 +12,7 @@ import { TrainerPage } from "../pages/Users/AddTrainer";
 import { TrainingPlanPage } from "../pages/Courses/TrainingPlan/TrainingPlan";
 import { AddFiles } from "../pages/Courses/TrainingPlan/AddFiles";
 import { TrainingPlanDetails } from "../pages/Courses/TrainingPlan/TrainingPlanDetails ";
+import { VenuesPage } from "../pages/Courses/Venues/Venues";
 
 function AppRoutes() {
   return (
@@ -35,6 +36,7 @@ function AppRoutes() {
         <Route path="users/add" element={<AddUserPage/>}/>
         <Route path="users/trainer" element={<TrainerPage/>} />
         <Route path="courses/training-plan" element={<TrainingPlanPage/>} />
+        <Route path="courses/venues" element={<VenuesPage/>} />
          <Route path="courses/training-plan/add-files" element={<AddFiles/>} />
          <Route path="courses/training-plan/:id" element={<TrainingPlanDetails />} />
       </Route>

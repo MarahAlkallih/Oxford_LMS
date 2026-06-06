@@ -85,7 +85,7 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
                     isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
-                  <div className="space-y-1 mt-2">
+                  <div className="space-y-1 mt-2 ">
                     {item.children.map((child) => {
                       const ChildIcon = child.icon
 
@@ -103,7 +103,7 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
                             }
                           }}
                         >
-                          <ChildIcon size={16} className="transition-transform duration-300 hover:scale-125 text-[#4B5945]" />
+                          <ChildIcon size={16} className="transition-transform duration-300 hover:scale-125 text-[#4B5945] " />
                           <span>{child.label}</span>
                         </div>
                       )
