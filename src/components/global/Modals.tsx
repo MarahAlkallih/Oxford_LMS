@@ -9,7 +9,7 @@ export const Modal = (props: ModalProps) => {
       <div
         onClick={(e) => e.stopPropagation()}
        className={`
-    bg-white rounded-xl shadow p-6 w-[400px]
+    bg-white rounded-xl shadow p-6 
     transition-all relative
     ${props.open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
 `}>

@@ -1,5 +1,6 @@
 export interface ConfirmModalProps {
-  open: boolean;
+    open: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  isLoading?: boolean;
 }

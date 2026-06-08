@@ -2,7 +2,7 @@ import type { Btn } from "../../types/submitBtn"
 
 export const CancelBtn = ({ name, onClick }: Btn) => {
     return (
-        <div className="w-full h-[50px]">
+        <div className="w-full px-4 h-[50px]">
             <button
                 onClick={onClick}
                 className="

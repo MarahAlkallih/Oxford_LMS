@@ -2,44 +2,52 @@ import { Delete } from "@mui/icons-material";;
 import {Modal} from "../global/Modals";
 import type {ConfirmModalProps} from "../../types/ConfirmModalProps ";
 export const ConfirmModal = (props: ConfirmModalProps) => {
-  const { open, onClose } = props;
-  const handleCancel = () => {
-    onClose();
-  };
+  const { open, onClose,isLoading=false } = props;
+  // const handleCancel = () => {
+  //   onClose();
+  // };
 
-  const handleDelete = () => {
-    props.onConfirm();
-  };
+  // const handleDelete = () => {
+  //   props.onConfirm();
+  // };
 
-  return (
+   return (
     <Modal open={open} onClose={onClose}>
-      <div className="text-center ">
-        <Delete sx={{ fontSize: 56 }} className="mx-auto text-red-500" />
+      <div className="text-center">
+
+        <Delete
+          sx={{ fontSize: 56 }}
+          className="mx-auto text-red-500"
+        />
 
         <div className="mx-auto my-4 w-48">
           <h3 className="text-lg font-black text-gray-800">
             Confirm Delete
           </h3>
+
           <p className="text-sm text-gray-500">
             Are you sure you want to delete this item?
           </p>
         </div>
 
         <div className="flex gap-4">
-            <button
-            className="btn btn-danger w-full bg-red-500 hover:bg-red-700 cursor-pointer rounded"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
+
           <button
-            className="btn btn-light w-full bg-gray-300 hover:bg-gray-400 cursor-pointer rounded"
-            onClick={handleCancel}
+            disabled={isLoading}
+            className="w-full bg-red-500 hover:bg-red-700 text-white rounded py-2 disabled:opacity-50"
+            onClick={props.onConfirm}
+          >
+            {isLoading ? "Deleting..." : "Delete"}
+          </button>
+
+          <button
+            disabled={isLoading}
+            className="w-full bg-gray-300 hover:bg-gray-400 rounded py-2 disabled:opacity-50"
+            onClick={onClose}
           >
             Cancel
           </button>
 
-          
         </div>
       </div>
     </Modal>
