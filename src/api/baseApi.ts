@@ -80,7 +80,9 @@ export const baseApi = createApi({
     "user",
     "TrainingPlan",
     "Venues",
-    "Locations"
+    "Locations",
+    "Categories",
+    "Trainers"
   ],
   endpoints: () => ({}),
 });

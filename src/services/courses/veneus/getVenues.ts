@@ -9,4 +9,14 @@ const GetVenueApi = baseApi.injectEndpoints({
     }),
     })
 })
+const GetUnActiveVenueApi = baseApi.injectEndpoints({
+    endpoints: (builder) => ({
+    getUnActiveVenues: builder.query<Venue[], void>({
+      query: () => "/venue/allUnActive",
+
+      providesTags: ["Venues"],
+    }),
+    })
+})
+export const {  useGetUnActiveVenuesQuery } = GetUnActiveVenueApi;
 export const {  useGetVenuesQuery } = GetVenueApi;

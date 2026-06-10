@@ -86,6 +86,7 @@ const getRowId = (row: UserRow) => row.id ?? row.userName ?? row.email;
                                     {isLoading ? (
                                         <p className="text-center text-sm text-gray-500">Loading users...</p>
                                     ) : (
+
                                         <CustomDataGrid
                                             rows={rows}
                                             columns={columns}

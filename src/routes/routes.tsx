@@ -14,6 +14,9 @@ import { AddFiles } from "../pages/Courses/TrainingPlan/AddFiles";
 import { TrainingPlanDetails } from "../pages/Courses/TrainingPlan/TrainingPlanDetails ";
 import { VenuesPage } from "../pages/Courses/Venues/Venues";
 import { LocationPage } from "../pages/Courses/Location/Location";
+import { CatygoriesPage } from "../pages/Courses/category/CatygoriesPage";
+import { Trainers } from "../pages/Users/Trainers";
+import { TrainerInfo } from "../pages/Users/TrainerInfo";
 
 function AppRoutes() {
   return (
@@ -35,10 +38,13 @@ function AppRoutes() {
         <Route path="users/display" element={<UsersPage/>}/>
         <Route path="users/display/:id" element={<DisplayUserInfo/>}/>
         <Route path="users/add" element={<AddUserPage/>}/>
-        <Route path="users/trainer" element={<TrainerPage/>} />
+        <Route  path="users/trainer" element={<Trainers/>}    />
+        <Route  path="users/trainer/:id" element={<TrainerInfo/>}    />
+        <Route path="users/trainer/addtrainer" element={<TrainerPage/>} />
         <Route path="courses/training-plan" element={<TrainingPlanPage/>} />
         <Route path="courses/venues" element={<VenuesPage/>} />
         <Route path="courses/location" element={<LocationPage/>} />
+        <Route path="courses/category" element={<CatygoriesPage/>} />
          <Route path="courses/training-plan/add-files" element={<AddFiles/>} />
          <Route path="courses/training-plan/:id" element={<TrainingPlanDetails />} />
       </Route>

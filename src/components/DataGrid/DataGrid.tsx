@@ -10,6 +10,14 @@ type CustomDataGridProps<T extends GridValidRowModel> = {
   autoHeight?: boolean;
   getRowId?: (row: T) => string | number;
   sx?: any;
+
+  loading?: boolean;
+  rowCount?: number;
+  paginationMode?: "client" | "server";
+  paginationModel?: GridPaginationModel;
+  onPaginationModelChange?: (
+    model: GridPaginationModel
+  ) => void;
 };
 
 export function CustomDataGrid<T extends GridValidRowModel>({
@@ -20,85 +28,90 @@ export function CustomDataGrid<T extends GridValidRowModel>({
   autoHeight = true,
   getRowId,
   sx,
+
+  loading = false,
+  rowCount = 0,
+  paginationMode = "client",
+  paginationModel: externalPaginationModel,
+  onPaginationModelChange: externalOnPaginationChange,
 }: CustomDataGridProps<T>) {
-  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
-    pageSize: initialPageSize,
-    page: 0,
-  });
+  const [internalPaginationModel, setInternalPaginationModel] =
+    useState<GridPaginationModel>({
+      pageSize: initialPageSize,
+      page: 0,
+    });
+
+  const paginationModel =
+    externalPaginationModel ?? internalPaginationModel;
+
+  const handlePaginationChange = (
+    model: GridPaginationModel
+  ) => {
+    if (externalOnPaginationChange) {
+      externalOnPaginationChange(model);
+    } else {
+      setInternalPaginationModel(model);
+    }
+  };
 
   return (
-   <Paper
-  elevation={0}
+    <Paper
+      elevation={0}
+      sx={{
+        overflow: "hidden",
+        borderRadius: 3,
+        background: "var(--bg-color)",
+        color: "var(--text-color)",
+      }}
+    >
+     <DataGrid
+  rows={rows}
+  columns={columns as GridColDef[]}
+  getRowId={getRowId}
+  disableRowSelectionOnClick
+  autoHeight={autoHeight}
+  pageSizeOptions={pageSizeOptions}
+  paginationModel={paginationModel}
+  onPaginationModelChange={handlePaginationChange}
+  paginationMode={paginationMode}
+  rowCount={rowCount}
+  loading={loading}
   sx={{
-    overflow: "hidden",
-    borderRadius: 3,
-    background: "var(--bg-color)",
-    color: "var(--text-color)",
-  }}
->
-      <DataGrid
-        rows={rows}
-        columns={columns as GridColDef[]}
-        getRowId={getRowId}
-        disableRowSelectionOnClick
-        autoHeight={autoHeight}
-        pageSizeOptions={pageSizeOptions}
-        paginationModel={paginationModel}
-        onPaginationModelChange={setPaginationModel}
-   sx={{
-  border: "none",
-
-  "& .MuiDataGrid-root": {
     border: "none",
-  },
 
-  "& .MuiDataGrid-main": {
-    backgroundColor: "var(--bg-color)",
-    color: "var(--text-color)",
-  },
+    "& .MuiDataGrid-main": {
+      backgroundColor: "var(--bg-color)",
+      color: "var(--text-color)",
+    },
 
-  "& .MuiDataGrid-columnHeaders": {
-    backgroundColor: "var(--grey-color)",
-    borderBottom: "none",
-  },
+    "& .MuiDataGrid-columnHeaders": {
+      backgroundColor: "var(--grey-color)",
+      borderBottom: "none",
+    },
 
-  "& .MuiDataGrid-columnHeader": {
-    backgroundColor: "transparent",
-    outline: "none",
-  },
+    "& .MuiDataGrid-columnHeaderTitle": {
+      fontWeight: 600,
+    },
 
-  "& .MuiDataGrid-columnHeaderTitle": {
-    fontWeight: 600,
-  },
+    "& .MuiDataGrid-cell": {
+      borderBottom: "1px solid rgba(0,0,0,0.05)",
+    },
 
-  "& .MuiDataGrid-cell": {
-    borderBottom: "1px solid rgba(0,0,0,0.05)",
-    outline: "none",
-  },
+    "& .MuiDataGrid-row:hover": {
+      backgroundColor: "rgba(0,0,0,0.04)",
+    },
 
-  "& .MuiDataGrid-row": {
-    backgroundColor: "var(--bg-color)",
-  },
+    "& .MuiDataGrid-footerContainer": {
+      borderTop: "none",
+    },
 
-  "& .MuiDataGrid-row:hover": {
-    backgroundColor: "rgba(0,0,0,0.04)",
-  },
+    "& .MuiDataGrid-columnSeparator": {
+      display: "none",
+    },
 
-  "& .MuiDataGrid-footerContainer": {
-    borderTop: "none",
-  },
-
-  "& .MuiDataGrid-columnSeparator": {
-    display: "none",
-  },
-
-  "& .MuiSvgIcon-root": {
-    color: "inherit",
-  },
-
-  ...sx,
-}}
-      />
+    ...sx,
+  }}
+/>
     </Paper>
   );
 }
