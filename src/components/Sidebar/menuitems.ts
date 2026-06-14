@@ -14,8 +14,10 @@ import {
   LocationOn as  LocationOnIcon ,
  MenuBook as MenuBookIcon,
  Group as GroupIcon
+ 
 } from "@mui/icons-material"
 import CoPresentIcon from "@mui/icons-material/CoPresent";
+import QuizIcon from "@mui/icons-material/Quiz";
 export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/", adminRoles:["SUPER"] },
    { icon: PeopleIcon, label: "Users", path: "/users",
@@ -43,6 +45,7 @@ export const menuItems: MenuItem[] = [
          icon: PublicIcon,
          label: "Venues",
          path: "/courses/venues",
+           adminRoles: ["SUPER"]
        },
        
        {
@@ -65,10 +68,11 @@ export const menuItems: MenuItem[] = [
      path: ""
    },
   
-  { icon: AssignmentIcon, label: "Assignments", path: "/assignments",
+  { icon: AssignmentIcon, label: "Exams", path: "/assignments",
+    adminRoles:["SUPER"],
 
     children:[
-      {icon: AssignmentIcon, label: "Exam Constants", path: "/assignments/types",}
+      {icon: QuizIcon, label: "Exam Constants", path: "/assignments/types", adminRoles:["SUPER"],}
     ]
    },
  

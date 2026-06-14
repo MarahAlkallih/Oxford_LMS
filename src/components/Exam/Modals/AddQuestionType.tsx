@@ -3,31 +3,32 @@ import { Button } from "../../Buttons/SubmitBtn";
 import { InputField } from "../../Fields/InputField";
 import { Modal } from "../../global/Modals";
 import { CancelBtn } from "../../Buttons/CancelBtn";
- import { useCreateExamTypeMutation } from "../../../services/exams/exam-types/typeMutation";
+
 import { toast } from "react-toastify";
-interface AddExamTypeModalProps {
+import { useCreateQuestionTypeMutation } from "../../../services/exams/quest-types/typeMutation";
+interface AddQuestionTypeModalProps {
     open: boolean;
     onClose: () => void;
 }
 
-export const AddExamTypeModal = ({ open, onClose }: AddExamTypeModalProps) => {
- const [examType, setExamType] = useState({
-    name:"",
+export const AddQuestionTypeModal = ({ open, onClose }: AddQuestionTypeModalProps) => {
+ const [questionType, setQuestionType] = useState({
+    type:"",
     description:""
  });
-  const [createExamType, { isLoading ,isSuccess}] =useCreateExamTypeMutation();
+  const [createQuestionType, { isLoading ,isSuccess}] =useCreateQuestionTypeMutation();
 
  const handleAddType = async () => {
   try {
-    await createExamType({
-      name: examType.name,
-      description: examType.description,
+    await createQuestionType({
+      type: questionType.type,
+      description: questionType.description,
     }).unwrap();
 
     toast.success("Added Successfully");
 
-    setExamType({
-      name: "",
+    setQuestionType({
+      type: "",
       description: "",
     });
 
@@ -43,23 +44,23 @@ export const AddExamTypeModal = ({ open, onClose }: AddExamTypeModalProps) => {
   <div className="flex flex-col gap-4 p-4 min-w-87.5">
 
     <h2 className="text-xl font-semibold text-center">
-      Add New Exam Type
+      Add New Question Type
     </h2>
    <div className="flex flex-col align-center ">
   <InputField
-      label="Name"
-      value={examType.name}
+      label="Type"
+      value={questionType.type}
       onChange={(e) =>
-        setExamType({ ...examType, name: e.target.value })
+        setQuestionType({ ...questionType, type: e.target.value })
       }
     />
 
     <InputField
       label="Description"
-      value={examType.description}
+      value={questionType.description}
       onChange={(e) =>
-        setExamType({
-          ...examType,
+        setQuestionType({
+          ...questionType,
           description: e.target.value,
         })
       }

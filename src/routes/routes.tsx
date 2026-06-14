@@ -19,7 +19,7 @@ import { Trainers } from "../pages/Users/Trainers";
 import { TrainerInfo } from "../pages/Users/TrainerInfo";
 import { TraineesPage } from "../pages/Users/Trainees";
 import { TraineeInfo } from "../pages/Users/Trainee";
-import { ExamConstants } from "../pages/Exams/ExamConstatnt";
+import { ExamConstants } from "../pages/Exams/ExamConstatnts/ExamConstatnt";
 
 function AppRoutes() {
   return (
