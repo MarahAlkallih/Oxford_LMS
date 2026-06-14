@@ -20,8 +20,10 @@ export const Modal = (props: ModalProps) => {
         >
           <span aria-hidden="true">x</span>
         </button>
-
-        {props.children}
+        <div >
+           {props.children}
+        </div>
+       
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ export const ConfirmModal = (props: ConfirmModalProps) => {
 
           <button
             disabled={isLoading}
-            className="w-full bg-red-500 hover:bg-red-700 text-white rounded py-2 disabled:opacity-50"
+            className="w-full bg-red-500 hover:bg-red-700 text-white rounded py-2 disabled:opacity-50 cursor-pointer"
             onClick={props.onConfirm}
           >
             {isLoading ? "Deleting..." : "Delete"}

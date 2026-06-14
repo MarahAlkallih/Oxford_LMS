@@ -11,6 +11,8 @@ interface Props {
   onEditImage: (venue: Venue, file?: File) => void;
   onToggleActive: (id: number) => void;
   isUpdatingImage?: boolean;
+  isActivating?: boolean;
+  inactiveMode?: boolean;
 }
 
 export const VenueCard = ({

@@ -17,6 +17,8 @@ export const VenuesPage = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditTitle, setOpenEditTitle] = useState(false);
+  const [activatingId, setActivatingId] =
+  useState<number | null>(null);
   const [updatingImageId, setUpdatingImageId] =
     useState<number | null>(null);
   const [selectedVenueId, setSelectedVenueId] =
@@ -91,16 +93,19 @@ export const VenuesPage = () => {
     }
   };
 
-  const handleToggle = async (id: number) => {
-    try {
-      await toggleVenue({ id }).unwrap();
+const handleToggle = async (id: number) => {
+  try {
+    setActivatingId(id);
 
-      toast.success("Status updated");
-    } catch {
-      toast.error("Update failed");
-    }
-  };
+    await toggleVenue({ id }).unwrap();
 
+    toast.success("Venue Activated");
+  } catch {
+    toast.error("Update failed");
+  } finally {
+    setActivatingId(null);
+  }
+};
   if (isLoading) return <p>Loading...</p>;
 
   return (
@@ -120,21 +125,53 @@ export const VenuesPage = () => {
       </div>
 <div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {data?.map((venue) => (
-          <VenueCard
-            key={venue.id}
-            venue={venue}
-            onDelete={handleOpenDelete}
-            onEditTitle={handleEditTitle}
-            onEditImage={handleEditImage}
-            onToggleActive={handleToggle}
-            isUpdatingImage={updatingImageId === venue.id}
-          />
+    <div className="space-y-8">
 
-    
-        ))}
-      </div>
+  {/* Active Venues */}
+  <div>
+    <h2 className="text-xl font-semibold mb-4 text-green-600">
+      Active Venues
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      {data?.map((venue) => (
+      <VenueCard
+  key={venue.id}
+  venue={venue}
+  onDelete={handleOpenDelete}
+  onEditTitle={handleEditTitle}
+  onEditImage={handleEditImage}
+  onToggleActive={handleToggle}
+  isUpdatingImage={updatingImageId === venue.id}
+  isActivating={activatingId === venue.id}
+  inactiveMode={true}
+/>
+      ))}
+    </div>
+  </div>
+
+  {/* Inactive Venues */}
+  <div>
+    <h2 className="text-xl font-semibold mb-4 text-red-600">
+      Inactive Venues
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      {inActive?.map((venue) => (
+        <VenueCard
+          key={venue.id}
+          venue={venue}
+          onDelete={handleOpenDelete}
+          onEditTitle={handleEditTitle}
+          onEditImage={handleEditImage}
+          onToggleActive={handleToggle}
+          isUpdatingImage={updatingImageId === venue.id}
+          inactiveMode={true}
+        />
+      ))}
+    </div>
+  </div>
+</div>
 </div>
       <AddVenueModal
         open={openAddModal}

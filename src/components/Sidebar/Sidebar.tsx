@@ -5,11 +5,42 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CloseIcon from "@mui/icons-material/Close";
 import logo from "../../assets/logo.png";
 import type { SidebarProps } from "../../types/Sidebar";
+import type { MenuItem } from "../../types/MenuItem";
 
 export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const navigate = useNavigate();
+ const role = localStorage.getItem("role") || "";
+const adminRole = localStorage.getItem("adminRoles") || "";
 
+const hasPermission = (item: MenuItem) => {
+  if (item.role && item.role === role) {
+    return true;
+  }
+
+  if (
+    item.adminRoles?.length &&
+    item.adminRoles.includes(adminRole)
+  ) {
+    return true;
+  }
+
+  if (!item.role && !item.adminRoles?.length) {
+    return false;
+  }
+
+  return false;
+};
+const filteredMenu = menuItems
+  .map((item) => ({
+    ...item,
+    children: item.children?.filter(hasPermission),
+  }))
+  .filter(
+    (item) =>
+      hasPermission(item) ||
+      (item.children && item.children.length > 0)
+  );
   return (
     <>
       {/* Overlay */}
@@ -46,7 +77,7 @@ export const Sidebar = ({ open = true, onClose }: SidebarProps) => {
 
         {/* MENU */}
         <div className="flex-1 overflow-y-auto pr-1 scrollbar-hide space-y-2">
-          {menuItems.map((item) => {
+          {filteredMenu.map((item) => {
             const Icon = item.icon;
             const isOpen = openMenu === item.label;
 

@@ -82,7 +82,8 @@ export const baseApi = createApi({
     "Venues",
     "Locations",
     "Categories",
-    "Trainers"
+    "Trainers",
+    "Exam-types"
   ],
   endpoints: () => ({}),
 });

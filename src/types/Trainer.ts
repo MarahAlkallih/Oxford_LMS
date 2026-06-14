@@ -1,3 +1,5 @@
+import type { Language } from "./Trainees";
+
 export interface TrainerAccount {
   id: number;
   firstName: string;
@@ -5,6 +7,9 @@ export interface TrainerAccount {
   email: string;
   phoneNumber: string;
   gender: string;
+  birthDate?:Date | null;
+  aboutMe?:string | null;
+  language?:Language
 }
 
 export interface Trainer {
@@ -23,4 +28,12 @@ export interface TrainerResponse {
     totalPages: number;
     totalRecords: number;
   };
+}
+export interface TrainerInfo{
+  account:TrainerAccount;
+   id: number,
+   accountId: number,
+    createdAt: Date,
+    updatedAt: Date,
+
 }
