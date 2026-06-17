@@ -9,11 +9,13 @@ export const InputField = ({
   height = "h-10",
   gap = "gap-2",
   error,
+  type
+  
 }: InputProps) => {
   return (
     <div className={`flex flex-col ${containerWidth} ${containerHeight} ${gap}`}>
       <p className="font-primary font-md">{label}</p>
-      <input value={value} onChange={onChange}
+      <input value={value} onChange={onChange} type={type}
         className={`${width} ${height} bg-[#D9D9D9] border rounded px-2 focus:outline-none ${
           error ? "border-red-500" : "border-gray-300"
         }`}

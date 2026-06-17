@@ -20,6 +20,9 @@ import { TrainerInfo } from "../pages/Users/TrainerInfo";
 import { TraineesPage } from "../pages/Users/Trainees";
 import { TraineeInfo } from "../pages/Users/Trainee";
 import { ExamConstants } from "../pages/Exams/ExamConstatnts/ExamConstatnt";
+import { AddCoursePage } from "../pages/Courses/Course/AddCourse";
+import { CoursesPage } from "../pages/Courses/Course/CoursesPage";
+import { CourseDetails } from "../pages/Courses/Course/CourseDetails";
 
 function AppRoutes() {
   return (
@@ -50,6 +53,9 @@ function AppRoutes() {
         <Route path="courses/venues" element={<VenuesPage/>} />
         <Route path="courses/location" element={<LocationPage/>} />
         <Route path="courses/category" element={<CatygoriesPage/>} />
+           <Route path="/courses/add-course" element={<AddCoursePage/>} />
+            <Route path="/courses" element={<CoursesPage/>} />
+            <Route path="/courses/:id" element={<CourseDetails/>} />
         <Route path="assignments/types" element={<ExamConstants/>} />
          <Route path="courses/training-plan/add-files" element={<AddFiles/>} />
          <Route path="courses/training-plan/:id" element={<TrainingPlanDetails />} />

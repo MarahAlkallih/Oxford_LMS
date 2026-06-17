@@ -21,12 +21,13 @@ import QuizIcon from "@mui/icons-material/Quiz";
 export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/", adminRoles:["SUPER"] },
    { icon: PeopleIcon, label: "Users", path: "/users",
-    children:[
-       {icon:LanguageIcon,label:"Language",path:"/users/languages"},
-      {icon:AdminPanelSettingsIcon,label:"Users",path:"/users/display", adminRoles: ["SUPER", "HR"]},
-       {icon:CoPresentIcon,label:"Trainer",path:"users/trainer"},
      
-      {icon:PeopleIcon,label:"Trainees",path:"users/trainees"},
+    children:[
+       {icon:LanguageIcon,label:"Language",path:"/users/languages",  adminRoles: ["SUPER"]},
+      {icon:AdminPanelSettingsIcon,label:"Users",path:"/users/display", adminRoles: ["SUPER", "HR"]},
+       {icon:CoPresentIcon,label:"Trainer",path:"users/trainer",  adminRoles: ["SUPER"]},
+     
+      {icon:PeopleIcon,label:"Trainees",path:"users/trainees", adminRoles: ["SUPER"]},
     ],
     adminRoles:["SUPER"]
    },
@@ -34,6 +35,13 @@ export const menuItems: MenuItem[] = [
      icon: SchoolIcon,
      label: "Courses",
      children: [
+        {
+         icon: SchoolIcon,
+         label: "Courses",
+         path: "/courses",
+       
+  adminRoles: ["SUPER"]
+       },
        {
          icon: EventNoteIcon,
          label: "Training Plan",
@@ -52,17 +60,20 @@ export const menuItems: MenuItem[] = [
          icon: LocationOnIcon,
          label: "Location",
          path: "/courses/location",
+          adminRoles: ["SUPER"]
        },
        
        {
          icon: MenuBookIcon,
          label: "Category",
          path: "/courses/category",
+           adminRoles: ["SUPER"]
        },
        {
          icon: CircleIcon,
-         label: "Finished Courses",
-         path: "/courses/finished",
+         label: "Add Courses",
+         path: "/courses/add-course",
+         adminRoles:["SUPER"]
        },
      ],
      path: ""

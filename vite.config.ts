@@ -12,7 +12,8 @@ export default defineConfig({
       '/api': {
         //https://oxford-lms.onrender.com
         //http://localhost:3000
-        target: 'https://oxford-lms.onrender.com',
+        //http://153.92.210.41:3000
+        target: 'http://153.92.210.41:3000',
         changeOrigin: true,
 
         rewrite: (path) => path.replace(/^\/api/, ''),

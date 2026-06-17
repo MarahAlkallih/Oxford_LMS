@@ -8,5 +8,6 @@ export interface InputProps {
     height?:string,
     gap?:string,
     error?:string;
+    type?:string
     
 }
