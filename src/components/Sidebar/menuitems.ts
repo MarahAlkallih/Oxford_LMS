@@ -12,11 +12,10 @@ import {
   EventNote as EventNoteIcon,
   Public as PublicIcon,
   LocationOn as  LocationOnIcon ,
- MenuBook as MenuBookIcon,
- Group as GroupIcon
- 
+ MenuBook as MenuBookIcon 
 } from "@mui/icons-material"
 import CoPresentIcon from "@mui/icons-material/CoPresent";
+
 import QuizIcon from "@mui/icons-material/Quiz";
 export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/", adminRoles:["SUPER"] },
@@ -83,7 +82,8 @@ export const menuItems: MenuItem[] = [
     adminRoles:["SUPER"],
 
     children:[
-      {icon: QuizIcon, label: "Exam Constants", path: "/assignments/types", adminRoles:["SUPER"],}
+      {icon: QuizIcon, label: "Exam Constants", path: "/assignments/types", adminRoles:["SUPER"],},
+       {icon: AssignmentIcon, label: "Forms", path: "/assignments/forms", adminRoles:["SUPER"],}
     ]
    },
  
