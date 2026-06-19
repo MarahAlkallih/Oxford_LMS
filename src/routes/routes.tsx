@@ -24,6 +24,7 @@ import { AddCoursePage } from "../pages/Courses/Course/AddCourse";
 import { CoursesPage } from "../pages/Courses/Course/CoursesPage";
 import { CourseDetails } from "../pages/Courses/Course/CourseDetails";
 import { FormsPage } from "../pages/Exams/Forms/Form";
+import { ExamInstances } from "../pages/Exams/Instances/Instances";
 
 function AppRoutes() {
   return (
@@ -59,6 +60,7 @@ function AppRoutes() {
             <Route path="/courses/:id" element={<CourseDetails/>} />
         <Route path="assignments/types" element={<ExamConstants/>} />
         <Route path="assignments/forms" element={<FormsPage/>} />
+        <Route path="assignments/instances" element={<ExamInstances/>} />
          <Route path="courses/training-plan/add-files" element={<AddFiles/>} />
          <Route path="courses/training-plan/:id" element={<TrainingPlanDetails />} />
       </Route>

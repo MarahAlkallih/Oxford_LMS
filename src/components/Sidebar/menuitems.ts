@@ -15,7 +15,7 @@ import {
  MenuBook as MenuBookIcon 
 } from "@mui/icons-material"
 import CoPresentIcon from "@mui/icons-material/CoPresent";
-
+import FactCheckIcon from '@mui/icons-material/FactCheck'
 import QuizIcon from "@mui/icons-material/Quiz";
 export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/", adminRoles:["SUPER"] },
@@ -83,7 +83,8 @@ export const menuItems: MenuItem[] = [
 
     children:[
       {icon: QuizIcon, label: "Exam Constants", path: "/assignments/types", adminRoles:["SUPER"],},
-       {icon: AssignmentIcon, label: "Forms", path: "/assignments/forms", adminRoles:["SUPER"],}
+       {icon: AssignmentIcon, label: "Forms", path: "/assignments/forms", adminRoles:["SUPER"],},
+       {icon: FactCheckIcon, label: "Instances", path: "/assignments/instances", adminRoles:["SUPER"],}
     ]
    },
  

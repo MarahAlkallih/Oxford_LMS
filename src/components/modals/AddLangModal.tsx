@@ -11,7 +11,7 @@ interface AddLangModalProps {
 
 export const AddLangModal = ({ open, onClose }: AddLangModalProps) => {
  const [lang, setLang] = useState({
-    Type:"",
+    name:"",
     description:""
  });
   const [createLanguage, { isLoading ,isSuccess}] =
@@ -31,7 +31,7 @@ export const AddLangModal = ({ open, onClose }: AddLangModalProps) => {
       if(isSuccess){
        onClose();
 
-    setLang({ Type: "", description: "" });
+    setLang({ name: "", description: "" });
       }
      
       
@@ -54,7 +54,7 @@ export const AddLangModal = ({ open, onClose }: AddLangModalProps) => {
       label="Name"
       value={lang.name}
       onChange={(e) =>
-        setLang({ ...lang, Type: e.target.value })
+        setLang({ ...lang, name: e.target.value })
       }
     />
 
