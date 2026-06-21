@@ -1,14 +1,22 @@
 import { baseApi } from "../../../api/baseApi";
-import type { Form } from "../../../types/Form";
+import type {Form, FormsResponse } from "../../../types/Form";
 const GetStartFormsApi = baseApi.injectEndpoints({
-    endpoints: (builder) => ({
-    getStartForms: builder.query<Form[], void>({
-      query: () => "/start-forms",
-
+  endpoints: (builder) => ({
+    getStartForms: builder.query<
+      FormsResponse,
+      { page: number; limit: number }
+    >({
+      query: ({ page, limit }) => ({
+        url: "/start-forms",
+        params: {
+          page,
+          limit,
+        },
+      }),
       providesTags: ["StartForms"],
     }),
-    })
-})
+  }),
+});
 const GetStartFormByIdApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
     getStartFormById: builder.query<Form, { id: number }>({

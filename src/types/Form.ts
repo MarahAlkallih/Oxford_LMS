@@ -9,3 +9,14 @@ export interface Form{
     showConfiguration:boolean,
     showCondition:boolean
 }
+export interface PaginationMeta {
+  totalRecords: number;
+  currentPage: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface FormsResponse {
+  data: Form[];
+  meta: PaginationMeta;
+}

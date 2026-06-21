@@ -1,4 +1,4 @@
-import React from "react";
+
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -12,6 +12,7 @@ export interface ExamInstanceData {
   description: string;
   startFormId: number;
   endFormId: number;
+  numberOfQuestions:number;
   createdAt: string;
   updatedAt: string;
 }
@@ -53,9 +54,12 @@ export const ExamInstanceCard = ({ data, onEdit, onDelete }: ExamInstanceCardPro
       </div>
 
       {/* 2. قسم الوصف (Description) */}
-      <div className="flex flex-grow flex-col px-5 py-3">
-        <p className="line-clamp-2 min-h-[2.5rem] text-sm text-gray-600">
+      <div className="flex grow flex-col px-5 py-3">
+        <p className="line-clamp-2 min-h-10 text-sm text-gray-600">
           {data.description || <span className="italic text-gray-400">No description provided.</span>}
+        </p>
+         <p className="line-clamp-2 min-h-10 text-sm text-gray-600">
+         Number of questions: {data.numberOfQuestions }
         </p>
 
 

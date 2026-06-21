@@ -5,12 +5,18 @@ import { useGetAllInstancesQuery } from "../../../services/exams/exam-instances/
 import { ExamInstanceCard } from "../../../components/Exam/Instances/ExamInstanceCard"
 import {EditInstanceModal} from "../../../components/Exam/Instances/EditInstance"
 import { DeleteInstanceModal } from "../../../components/Exam/Instances/DeleteInstanceModal"
+import { CustomPagination } from "../../../components/global/CustomPagination"
 export const ExamInstances=()=>{
      const [isOpenAdd,setIsOpen]=useState(false)
      const [isOpenEdit,setIsOpenEdit]=useState(false)
      const [isOpenDelete,setIsOpenDelete]=useState(false)
      const [selectedId,setSelectedId]=useState(0)
-     const {data,isLoading}=useGetAllInstancesQuery()
+      const [page, setPage] = useState(1);
+    const [pageSize] = useState(3);
+     const {data,isLoading}=useGetAllInstancesQuery({
+        page,
+        limit:pageSize
+     })
      console.log(data)
     return(
        
@@ -24,9 +30,10 @@ export const ExamInstances=()=>{
                 />
             </div>
             </div>
-            {isLoading ? <p>Loading...</p> : null}
-            <div className="grid grid-cols-3 p-2 gap-2">
- {data?.map((instance) => 
+              {isLoading ? <p>Loading...</p> : null}
+            {data?.data.length === 0 ? <p>Instance is empty</p>:
+               <div className="grid grid-cols-3 p-2 gap-2">
+ {data?.data.map((instance) => 
             <ExamInstanceCard key={instance.id} data={instance} onEdit={
                 ()=>{
                     
@@ -42,7 +49,14 @@ export const ExamInstances=()=>{
                 />
             )}
             </div>
-           
+            }
+          
+         
+           <CustomPagination 
+  currentPage={page} 
+  totalPages={data?.meta.totalPages || 1} 
+  onPageChange={(newPage) => setPage(newPage)} 
+/>
             <AddInstanceModal
             open={isOpenAdd}
             onClose={()=>setIsOpen(false)}

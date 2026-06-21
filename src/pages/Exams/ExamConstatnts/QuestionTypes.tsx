@@ -5,6 +5,7 @@ import { AddQuestionTypeModal } from "../../../components/Exam/Modals/AddQuestio
 import { EditQuestionTypeModal } from "../../../components/Exam/Modals/EditQuestionType";
 import { useGetAllQuestTypesQuery } from "../../../services/exams/quest-types/typeQuery";
 import { DeleteQuestionTypeModal } from "../../../components/Exam/Modals/DeleteQuetionType";
+import { CustomPagination } from "../../../components/global/CustomPagination";
 
 
 export const QuestionTypes = () => {
@@ -12,7 +13,12 @@ export const QuestionTypes = () => {
     const [isEditExamType, setIsEditExamType] = useState(false);
     const [isDeletedExamType, setIsDeleteExamType] = useState(false);
     const [selectedId, setSelectedId] = useState<number>()
-    const { data, isLoading } = useGetAllQuestTypesQuery();
+    const [page, setPage] = useState(1);
+        const [pageSize] = useState(3);
+    const { data, isLoading } = useGetAllQuestTypesQuery({
+             page,
+             limit:pageSize 
+    });
     console.log("questtt",data)
     return (
         <div>
@@ -25,7 +31,7 @@ export const QuestionTypes = () => {
             </div>
             {isLoading ? <p>Loaading...</p> :
                 <div className="grid grid-cols-3 gap-4 m-4">
-                    {data?.map((t) =>
+                    {data?.data.map((t) =>
                         <div className="p-2 flex-col border rounded-md shadow-sm" key={t.id}>
                             <h1>Type: {t.type}</h1>
                             <p>Description:{t.description} </p>
@@ -47,9 +53,15 @@ export const QuestionTypes = () => {
                             </span>
 
                         </div>)}
+                       
                 </div>
 
             }
+    <CustomPagination 
+  currentPage={page} 
+  totalPages={data?.meta.totalPages || 1} 
+  onPageChange={(newPage) => setPage(newPage)} 
+/>
             <AddQuestionTypeModal
                 open={isAddExamType}
                 onClose={() => setIsAddExamType(false)}

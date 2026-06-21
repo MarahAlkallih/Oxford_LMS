@@ -22,13 +22,22 @@ export const EditInstanceModal = ({ open, onClose ,id}: EditInstanceModalProps) 
     startFormId: 0,
     endFormId: 0,
     name: "",
-    // numberOfQuestions:0,
+    numberOfQuestions:0,
     description: ""
  });
 
+const [startPage] = useState(1);
+const [endPage] = useState(1);
 
-const {data:starts,isLoading:isStatrtLoad}=useGetStartFormsQuery();
-const {data:ends,isLoading:isEndLoad}=useGetEndFormsQuery();
+const { data: startsData } = useGetStartFormsQuery({
+  page: startPage,
+  limit: 100,
+});
+
+const { data: endsData } = useGetEndFormsQuery({
+  page: endPage,
+  limit: 100,
+});
 const {data:inst,isLoading:isLoadGet}=useGetOneInstanceQuery({id:id})
 const [editInst,{isLoading:isEditLoading}]=useEditExamInstanceMutation()
  useEffect(()=>{
@@ -37,7 +46,8 @@ const [editInst,{isLoading:isEditLoading}]=useEditExamInstanceMutation()
             startFormId:inst.startFormId,
             endFormId:inst.endFormId,
             name:inst.name,
-            description:inst.description
+            description:inst.description,
+            numberOfQuestions:inst.numberOfQuestions
         })
     }
  },[inst])
@@ -71,7 +81,7 @@ const [editInst,{isLoading:isEditLoading}]=useEditExamInstanceMutation()
         setInstance({ ...instance, name: e.target.value })
       }
     />
-{/* 
+
   <InputField
       label="Number of Questions"
       value={String(instance.numberOfQuestions)}
@@ -79,7 +89,7 @@ const [editInst,{isLoading:isEditLoading}]=useEditExamInstanceMutation()
       onChange={(e) =>
         setInstance({ ...instance, numberOfQuestions: parseInt(e.target.value) || 0 })
       }
-    /> */}
+    />
   
     </div>
     <div>
@@ -91,37 +101,36 @@ const [editInst,{isLoading:isEditLoading}]=useEditExamInstanceMutation()
       }
     />
    <div className="p-4">
- <CustomDropdown
-               options={starts?.map((s) => s.title) || []}
-               placeholder="Select Start Form"
-               onSelect={(value) => {
-                 const selected = starts?.find(
-                   (s) => s.title === value
-                 );
-   
-                 setInstance({
-                   ...instance,
-                   startFormId: selected?.id || 0,
-                 });
-               }}
-             />
+<CustomDropdown
+  options={startsData?.data.map((s) => s.title) || []}
+  placeholder="Select Start Form"
+  onSelect={(value) => {
+    const selected = startsData?.data.find(
+      (s) => s.title === value
+    );
+
+    setInstance({
+      ...instance,
+      startFormId: selected?.id || 0,
+    });
+  }}
+/>
                 </div>
                 <div className="p-4">
-                   <CustomDropdown
-               options={ends?.map((e) => e.title) || []}
-               placeholder="Select End Form"
-               onSelect={(value) => {
-                 const selected = ends?.find(
-                   (e) => e.title === value
-                 );
-   
-                 setInstance({
-                   ...instance,
-                   endFormId: selected?.id || 0,
-                 });
-               }}
-             />
+                <CustomDropdown
+  options={endsData?.data.map((e) => e.title) || []}
+  placeholder="Select End Form"
+  onSelect={(value) => {
+    const selected = endsData?.data.find(
+      (e) => e.title === value
+    );
 
+    setInstance({
+      ...instance,
+      endFormId: selected?.id || 0,
+    });
+  }}
+/>
                 </div>
              
 

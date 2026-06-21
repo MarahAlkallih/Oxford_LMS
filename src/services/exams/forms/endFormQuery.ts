@@ -1,9 +1,15 @@
 import { baseApi } from "../../../api/baseApi";
-import type { Form } from "../../../types/Form";
+import type { Form,FormsResponse } from "../../../types/Form";
 const GetEndFormsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-    getEndForms: builder.query<Form[], void>({
-      query: () => "/end-forms",
+    getEndForms: builder.query<FormsResponse, { page: number; limit: number }>({
+      query: ({ page, limit }) => ({
+        url: "/end-forms",
+        params: {
+          page,
+          limit,
+        },
+      }),
 
       providesTags: ["EndForms"],
     }),

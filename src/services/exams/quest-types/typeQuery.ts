@@ -7,10 +7,27 @@ interface QuestionTypes{
   updatedAt?:Date
 
 }
+export interface PaginationMeta {
+  totalRecords: number;
+  currentPage: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface QuestionTypesResponse {
+  data: QuestionTypes[];
+  meta: PaginationMeta;
+}
 const GetQuestTypesApi=baseApi.injectEndpoints({
     endpoints:(builder)=>({
-        getAllQuestTypes:builder.query<QuestionTypes[],void>({
-            query:()=>"/question-types",
+        getAllQuestTypes:builder.query<QuestionTypesResponse,{page:number,limit:number}>({
+            query:({page,limit})=>({
+                url:"/question-types",
+                params:{
+                    page,
+                    limit
+                }
+            }),
             providesTags:["Questions-types"]
         })
     })
