@@ -5,6 +5,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import EditIcon from "@mui/icons-material/Edit";
 import { Delete } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 export interface ExamInstanceData {
   id: number;
@@ -33,10 +34,13 @@ const formatDate = (dateString: string) => {
 };
 
 export const ExamInstanceCard = ({ data, onEdit, onDelete }: ExamInstanceCardProps) => {
+  const navigate=useNavigate()
   return (
-    <div className="group relative flex w-full max-w-sm flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <div 
+    onClick={()=>navigate(`${data.id}`)}
+    className="group relative flex w-full max-w-sm flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
 
-      <div className="h-2 w-full bg-(--main-color)"></div>
+      <div className="h-2 w-full bg-(--main-color)" ></div>
       <div className="flex items-start justify-between p-5 pb-2">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-(--main-color)">

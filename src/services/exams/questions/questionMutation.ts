@@ -17,7 +17,7 @@ export const { useAddQuestWithFieldsMutation } =AddQuestionWithFieldsApi;
 // {add quest}
 const AddQuestionApi= baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    addQuestion: builder.mutation<any, FormData>({
+    addQuestion: builder.mutation<any, any>({
       query: (data) => ({
         url: "/questions",
         method: "POST",
