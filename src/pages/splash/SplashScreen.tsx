@@ -25,8 +25,8 @@ const SplashScreen = () => {
   }, [isLoading, isAuthenticated, navigate]);
 
   return (
-    <div className="h-screen flex flex-col items-center bg-bg-[#4B5945] justify-center">
-      <div className="animate-spin w-10 h-10 border-4 border-gray-300 border-t-pink-500 rounded-full mb-4" />
+    <div className="h-screen flex flex-col items-center bg-(--main-color) justify-center">
+      <div className="animate-spin w-10 h-10 border-4 border-gray-300 border-t-(--color-watermelon) rounded-full mb-4" />
       <p>Checking session...</p>
     </div>
   );

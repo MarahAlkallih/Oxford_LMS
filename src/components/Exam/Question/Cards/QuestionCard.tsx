@@ -65,16 +65,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
         {/* أزرار الأكشن الاحترافية الثلاثة */}
         <div className="flex items-center gap-1 bg-gray-50 p-1 rounded-xl border border-gray-100 opacity-90 group-hover:opacity-100 group-hover:bg-gray-100/50 transition-all">
-          {/* 1. زر إضافة سؤال جديد / تكرار */}
-          {/* <button
-            onClick={() => onAddNext?.(question.questionNumber)}
-            title="Add Next Question"
-            className="p-1.5 text-gray-500 hover:text-green-600 hover:bg-white rounded-lg shadow-2xs hover:shadow-sm transition-all"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="w-4 h-4">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-          </button> */}
+       
 
           {/* 2. زر تعديل السؤال */}
           <button

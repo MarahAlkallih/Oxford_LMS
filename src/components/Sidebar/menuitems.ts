@@ -82,6 +82,7 @@ export const menuItems: MenuItem[] = [
     adminRoles:["SUPER"],
 
     children:[
+      {icon: AssignmentIcon, label: "Exams", path: "/assignments/exams", adminRoles:["SUPER"],},
       {icon: QuizIcon, label: "Exam Constants", path: "/assignments/types", adminRoles:["SUPER"],},
        {icon: AssignmentIcon, label: "Forms", path: "/assignments/forms", adminRoles:["SUPER"],},
        {icon: FactCheckIcon, label: "Instances", path: "/assignments/instances", adminRoles:["SUPER"],}

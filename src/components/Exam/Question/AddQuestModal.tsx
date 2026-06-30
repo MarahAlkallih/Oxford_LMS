@@ -135,7 +135,7 @@ export const AddQuestModal = () => {
             onClick={handleAdd}
             disabled={isLoading}
             className={`px-8 py-3 font-bold text-white rounded-xl shadow-sm transition-all ${
-              isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-(--color-watermelon) hover:bg-(--color-watermelon-dark) hover:-translate-y-0.5 hover:shadow-md'
+              isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-(--color-watermelon) hover:-translate-y-0.5 hover:shadow-md'
             }`}
           >
             {isLoading ? 'Saving...' : 'Save Question'}

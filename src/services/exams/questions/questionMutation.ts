@@ -29,14 +29,11 @@ const AddQuestionApi= baseApi.injectEndpoints({
 export const EditQuestionApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
 
-    updateQuestion: builder.mutation<
-    any,
-      { id: number; formData: FormData }
-    >({
-      query: ({ id, formData }) => ({
+    updateQuestion: builder.mutation({
+      query: ({ id, body }) => ({
         url: `/questions/${id}`,
         method: "PATCH",
-        body: formData,
+        body: body,
       }),
       invalidatesTags: ["Questions"],
     }),

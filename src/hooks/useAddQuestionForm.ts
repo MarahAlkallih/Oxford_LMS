@@ -76,7 +76,7 @@ export const useAddQuestionForm = ({ examInstanceId }: UseAddQuestionFormProps) 
   };
 
   const handleAdd = async () => {
-    console.log(examInstanceId)
+
     if (!quest.questionTypeId) {
       toast.error("Please select a question type");
       return;

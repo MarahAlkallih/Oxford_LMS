@@ -27,6 +27,7 @@ import { FormsPage } from "../pages/Exams/Forms/Form";
 import { ExamInstances } from "../pages/Exams/Instances/Instances";
 import { InstanceDetails } from "../pages/Exams/Instances/InstanceDetails";
 import { AddQuestModal } from "../components/Exam/Question/AddQuestModal";
+import { ExamPage } from "../pages/Exams/exams/ExaamPage";
 
 function AppRoutes() {
   return (
@@ -64,6 +65,7 @@ function AppRoutes() {
         <Route path="assignments/forms" element={<FormsPage/>} />
         <Route path="assignments/instances" element={<ExamInstances/>} />
         <Route path="assignments/instances/:id/addQuestion" element={<AddQuestModal/>} />
+        <Route path="assignments/exams" element={<ExamPage/>} />
         <Route path="assignments/instances/:id" element={<InstanceDetails/>} />
          <Route path="courses/training-plan/add-files" element={<AddFiles/>} />
          <Route path="courses/training-plan/:id" element={<TrainingPlanDetails />} />

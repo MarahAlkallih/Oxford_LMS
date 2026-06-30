@@ -152,11 +152,13 @@ export const CatygoriesPage = () => {
         <h1 className="text-2xl font-semibold">
           Categories
         </h1>
-
-        <Button
+        <div>
+          <Button
           name="Add Category"
           onClick={() => setIsOpenAdd(true)}
         />
+        </div>
+        
       </div>
 
       <div className="space-y-10">

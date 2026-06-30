@@ -41,7 +41,7 @@ export const CourseForm = ({ initialData, onSubmit, isLoading, submitBtnText }: 
     isAdd: false, img: null
   };
 
-  // State موحد يدمج القيم الافتراضية مع البيانات القادمة (بحال التعديل)
+
   const [course, setCourse] = useState<CourseData>(initialData || defaultState);
 
   // تحديث الـ State إذا تغيرت initialData (مهمة جداً لعملية التعديل)
