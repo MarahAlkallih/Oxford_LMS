@@ -1,7 +1,5 @@
 import { baseApi } from "../../../api/baseApi";
 
-
-
 export const ExamInstancesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
 

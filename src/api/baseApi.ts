@@ -92,7 +92,8 @@ export const baseApi = createApi({
     "Questions",
     "Exam-instances",
     "Exam",
-    "Exam-Files"
+    "Exam-Files",
+    "Exam-events"
   ],
   endpoints: () => ({}),
 });

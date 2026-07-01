@@ -29,11 +29,10 @@ export const ExamInstances=()=>{
                 onClick={()=>{setIsOpen(true)}}
                 />
             </div>
-            </div>
-              {isLoading ? <p>Loading...</p> : null}
+               {isLoading ? <p>Loading...</p> : null}
             {data?.data.length === 0 ? <p>Instance is empty</p>:
-               <div className="grid grid-cols-3 p-2 gap-2">
- {data?.data.map((instance) => 
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            {data?.data.map((instance) => 
             <ExamInstanceCard key={instance.id} data={instance} onEdit={
                 ()=>{
                     
@@ -57,6 +56,8 @@ export const ExamInstances=()=>{
   totalPages={data?.meta.totalPages || 1} 
   onPageChange={(newPage) => setPage(newPage)} 
 />
+            </div>
+           
             <AddInstanceModal
             open={isOpenAdd}
             onClose={()=>setIsOpen(false)}
