@@ -31,9 +31,12 @@ export const EditQuestionApi = baseApi.injectEndpoints({
 
     updateQuestion: builder.mutation({
       query: ({ id, body }) => ({
-        url: `/questions/${id}`,
+        url: `/questions/${id}/withAnswerFieldsAndFile`,
         method: "PATCH",
         body: body,
+        params:{
+          id
+        }
       }),
       invalidatesTags: ["Questions"],
     }),

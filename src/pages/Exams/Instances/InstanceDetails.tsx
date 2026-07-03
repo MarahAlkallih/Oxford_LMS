@@ -4,6 +4,7 @@ import { useGetQuestionsQuery } from "../../../services/exams/questions/question
 import { QuestionCard } from "../../../components/Exam/Question/Cards/QuestionCard";
 import { useState } from "react";
 import { DeleteQuestModal } from "../../../components/Exam/Question/DeleteQuestModal";
+import type { Question } from "../../../types/Question";
 
 export const InstanceDetails=()=>{
     const {id}=useParams();
@@ -12,7 +13,8 @@ export const InstanceDetails=()=>{
     const navigate=useNavigate()
     const [isOpenDelete,setIsOpenDelete]=useState(false)
     const [selectedId,setSelectedId]=useState(0)
-  
+    const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(null);
+    const [isOpenEdit, setIsOpenEdit] = useState(false);
     const {data:questions}=useGetQuestionsQuery({
        examInstanceId: instId
     });
@@ -32,15 +34,25 @@ export const InstanceDetails=()=>{
             <div className="">
          {questions?.data.map((q)=> 
         { return (
-            <div className="p-2">
-                 <QuestionCard question={q} onEdit={()=>{}} onDelete={()=>{setIsOpenDelete(true),setSelectedId(q.id)}}/> 
-                </div>
+           <div className="p-2" key={q.id}>
+ <QuestionCard 
+    question={q} 
+    onEdit={() => {
+      // ننتقل لصفحة التعديل ونمرر آيدي السؤال بالرابط
+      navigate(`/exam-instance/${instId}/edit-question/${q.id}`);
+    }} 
+    onDelete={() => {
+      setIsOpenDelete(true);
+      setSelectedId(q.id);
+    }}
+  />
+</div>
            
          )}
         
         )}
             </div>
-            {/* {isModalOpen && (
+            {/* {isOpenEdit && (
         <AddQuestModal
           open={isModalOpen}
           onClose={handleCloseModal}

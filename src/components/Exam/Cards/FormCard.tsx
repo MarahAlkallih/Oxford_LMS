@@ -37,7 +37,7 @@ export const FormCard=({ data,onEdit,onDelete }: CustomCardProps)=>{
       <div className="relative flex h-48 w-full shrink-0 items-center justify-center bg-gray-50">
         {hasImage ? (
           <img
-            src={`/${data.image}`} 
+            src={data.image || ""} 
             alt={data.title}
             className="h-full w-full object-cover"
           />

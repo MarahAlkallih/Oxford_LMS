@@ -34,5 +34,14 @@ const GetOneExamApi=baseApi.injectEndpoints({
         })
     })
 })
+const GetExamByCode=baseApi.injectEndpoints({
+  endpoints:(builder)=>({
+    getByCode:builder.query<Exam,{code:string}>({
+        query:({code})=>`/exams/code/${code}`,
+            providesTags:["Exam"]
+    })
+  })
+})
 export const {useGetOneExamQuery}=GetOneExamApi
 export const { useGetExamsQuery } = GetExamsApi;
+export const {useGetByCodeQuery}=GetExamByCode

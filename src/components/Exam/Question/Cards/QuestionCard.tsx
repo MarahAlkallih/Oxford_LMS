@@ -1,17 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import type { Question, QuestionField } from "../../../../types/Question";
-
+import { FiEye } from "react-icons/fi";
 interface QuestionCardProps {
   question: Question;
   onEdit: (question: Question) => void;
   onDelete: (id: number) => void;
-  onAddNext?: (currentOrder: number) => void; // زر إضافة سؤال بعده أو تكراره
+
 }
 
 export const QuestionCard: React.FC<QuestionCardProps> = ({
   question,
   onEdit,
   onDelete,
-  onAddNext,
+ 
 }) => {
   // دالة ذكية لمعرفة نوع السؤال وعرض الـ Badge المناسب له بصرياً
   const getQuestionTypeDetails = (typeId: number, fields: QuestionField[]) => {
@@ -27,7 +28,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   };
 
   const typeDetails = getQuestionTypeDetails(question.questionTypeId, question.fields);
-
+  const navigate=useNavigate()
   return (
     <div 
       className="group relative bg-white border border-gray-100 rounded-2xl p-6 shadow-xs hover:shadow-xl hover:border-gray-200/80 transition-all duration-300 flex flex-col justify-between overflow-hidden"
@@ -88,6 +89,13 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
               <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.34 9m-4.72 0-.34-9m9.96-3.2h-3.48V4.17c0-.96-.72-1.75-1.68-1.75H11.04c-.96 0-1.68.79-1.68 1.75v1.63H5.82c-.96 0-1.68.79-1.68 1.75v1.17c0 .12.01.24.04.36L5.64 20.24c.12.96.94 1.76 1.92 1.76h8.88c.98 0 1.8-.8 1.92-1.76l1.4-12.13c.03-.12.04-.24.04-.36V7.57c0-.96-.72-1.75-1.68-1.75H5.82Z" />
             </svg>
           </button>
+            <button
+            onClick={()=>navigate(`question/${question.id}`)}
+            title="Delete Question"
+            className="p-1.5 text-gray-400 hover:text-(--main-color) hover:bg-white rounded-lg shadow-2xs hover:shadow-sm transition-all"
+          >
+          <FiEye/>
+          </button>
         </div>
       </div>
 
@@ -111,7 +119,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             question.files.map((file) => (
               <a
                 key={file.id}
-                href={`http://153.92.210.41:3000/${file.filePath}`}
+                href={`http://153.92.210.41:3000/${file.path}`}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100/80 px-2 py-0.5 rounded border border-blue-100 transition-colors"

@@ -1,4 +1,3 @@
-
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -6,7 +5,7 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import EditIcon from "@mui/icons-material/Edit";
 import { Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-
+import { FiEye } from "react-icons/fi";
 export interface ExamInstanceData {
   id: number;
   name: string;
@@ -37,7 +36,7 @@ export const ExamInstanceCard = ({ data, onEdit, onDelete }: ExamInstanceCardPro
   const navigate=useNavigate()
   return (
     <div 
-    onClick={()=>navigate(`${data.id}`)}
+  
     className="group relative flex w-full max-w-sm flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
 
       <div className="h-2 w-full bg-(--main-color)" ></div>
@@ -88,7 +87,13 @@ export const ExamInstanceCard = ({ data, onEdit, onDelete }: ExamInstanceCardPro
           <CalendarTodayIcon sx={{ fontSize: 14 }} className="text-gray-400" />
           {formatDate(data.createdAt)}
         </div>
-
+           <button
+            onClick={()=>navigate(`${data.id}`)}
+            className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-bold text-gray-500 transition-colors hover:bg-blue-50 hover:text-grey-600"
+          >
+            <FiEye />
+            Details
+          </button>
         {onEdit && (
           <button
             onClick={() => onEdit(data.id)}

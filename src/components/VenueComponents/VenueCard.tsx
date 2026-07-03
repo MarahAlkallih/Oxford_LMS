@@ -27,7 +27,7 @@ export const VenueCard = ({
     <div
       className={`rounded-xl shadow-md p-4 bg-white border transition-all duration-300 h-full ${
         venue.isActive
-          ? "border-[var(--main-color)]"
+          ? "border-(--main-color)"
           : "border-gray-300 opacity-75"
       }`}
     >
@@ -36,15 +36,15 @@ export const VenueCard = ({
         {/* IMAGE */}
         <div className="relative">
           <img
-            src={venue.imageUrl}
+            src={`http://153.92.210.41:3000/${venue.imagePath}`}
             alt={venue.venueTitle}
-            className={`w-24 h-24 rounded-full object-cover border-2 border-[var(--main-color)]
+            className={`w-24 h-24 rounded-full object-cover border-2 border-(--main-color)
             ${isUpdatingImage ? "opacity-50" : ""}`}
           />
 
           {isUpdatingImage && (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-7 h-7 border-4 border-gray-300 border-t-[var(--main-color)] rounded-full animate-spin" />
+              <div className="w-7 h-7 border-4 border-gray-300 border-t-(--main-color) rounded-full animate-spin" />
             </div>
           )}
 

@@ -13,11 +13,14 @@ export interface QuestionField {
 }
 
 export interface QuestionFile {
-  id: number;
-  createdAt: string;
-  updatedAt: string;
-  questionId: number;
-  filePath: string;
+
+    id:number;
+    createdAt:string;
+    updatedAt:string;
+    questionId:number;
+
+    path:string;
+
 }
 
 export interface Question {

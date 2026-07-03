@@ -10,6 +10,7 @@ import { useGetLanguagesQuery } from "../../../services/languages/languageServic
 import { useGetCategoryQuery } from "../../../services/courses/catygory/getCategories";
 import { useGetAllTypesQuery } from "../../../services/exams/exam-types/typeQuery";
 import CustomDropdown from "../../Fields/DropDown";
+import { ErrorHandler } from "../../../utils/ErrorHandler";
 interface AddExamModalProps {
     open: boolean;
     onClose: () => void;
@@ -75,8 +76,7 @@ const [createExam,{isLoading,isSuccess}]=useAddExamMutation()
 
     onClose();
   } catch (err) {
-    console.log(err);
-    toast.error("Add Failed");
+  ErrorHandler.show(err)
   }
 };
 
@@ -179,16 +179,21 @@ const [createExam,{isLoading,isSuccess}]=useAddExamMutation()
 
    <div className="p-4">
 
-  <InputField
-  label="Image URL"
-  value={exam.image}
-  onChange={(e) =>
-    setExam({
-      ...exam,
-      image: e.target.value,
-    })
-  }
-/>
+<div className="flex flex-col gap-2">
+  <label className="text-sm font-medium">Image URL</label>
+
+  <input
+    type="url"
+    value={exam.image ?? ""}
+    onChange={(e) =>
+      setExam(prev => ({
+        ...prev,
+        image: e.target.value,
+      }))
+    }
+    className="w-[280px] h-10 rounded border border-gray-300 px-2 focus:outline-none"
+  />
+</div>
      <InputField
       label="Exam Time"
       type="number"

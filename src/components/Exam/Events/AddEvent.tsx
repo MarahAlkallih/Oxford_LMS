@@ -3,6 +3,7 @@ import { Button } from "../../Buttons/SubmitBtn";
 import { Modal } from "../../global/Modals";
 import { CancelBtn } from "../../Buttons/CancelBtn";
 import { toast } from "react-toastify";
+import { useGetActiveUncompingCourseQuery } from "../../../services/courses/Admin-courses/coursesQuery";
 import { useCreateExamEventMutation } from "../../../services/exams/events/examEventMutation";
 import { useGetExamsQuery } from "../../../services/exams/exams/examQuery";
 import { useGetAllInstancesQuery } from "../../../services/exams/exam-instances/exam-instancesQuery";
@@ -26,8 +27,10 @@ export const AddEventModal = ({ open, onClose }: AddEventModalProps) => {
     page:startPage,
     limit:100
  })
+ const {data:courses}=useGetActiveUncompingCourseQuery()
  const [event,setEvent]=useState({
     examId: 0,
+    courseId: 0,
     examInstanceId: 0,
     startDate: "" ,
     endDate: ""
@@ -42,6 +45,7 @@ export const AddEventModal = ({ open, onClose }: AddEventModalProps) => {
 
    setEvent({
     examId: 0,
+    courseId:0,
     examInstanceId: 0,
     startDate: "",
     endDate: ""
@@ -77,6 +81,23 @@ export const AddEventModal = ({ open, onClose }: AddEventModalProps) => {
     setEvent({
       ...event,
       examId: selected?.id || 0,
+    });
+  }}
+/>
+<div className="p-4">
+
+</div>
+    <CustomDropdown
+  options={courses?.map((c) => c.title) || []}
+  placeholder="Select Course"
+  onSelect={(value) => {
+    const selected = courses?.find(
+      (c) => c.title === value
+    );
+
+    setEvent({
+      ...event,
+      courseId: selected?.id || 0,
     });
   }}
 />

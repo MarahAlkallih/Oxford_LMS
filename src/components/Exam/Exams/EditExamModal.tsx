@@ -12,6 +12,7 @@ import { useGetOneExamQuery } from "../../../services/exams/exams/examQuery";
 import { useEditExamMutation } from "../../../services/exams/exams/examMutation";
 import CustomDropdown from "../../Fields/DropDown";
 import type { Exam } from "../../../types/Exam";
+import { ErrorHandler } from "../../../utils/ErrorHandler";
 interface EditExamModalProps {
     open: boolean;
     onClose: () => void;
@@ -43,6 +44,7 @@ useEffect(() => {
 
 console.log(examOld)
  const handleEditForm = async () => {
+    console.log("exam",exam);
   try {
     await editExam({
      id:id,
@@ -53,8 +55,7 @@ console.log(examOld)
 
     onClose();
   } catch (err) {
-    console.log(err);
-    toast.error("Add Failed");
+    ErrorHandler.show(err);
   }
 };
 
@@ -80,26 +81,35 @@ console.log(examOld)
      <InputField
       label="Code"
       value={exam.code ?? examOld?.code ?? ""}
-      onChange={(prev) =>
-        setExam({ ...prev, code: prev.target.value })
-      }
+      onChange={(e) =>
+  setExam(prev => ({
+    ...prev,
+    code: e.target.value,
+  }))
+}
     />
 
   <InputField
       label="Sub Title"
       value={exam.subTitle ?? examOld?.subTitle ?? ""}
-      onChange={(prev) =>
-        setExam({ ...prev, subTitle: prev.target.value })
-      }
+       onChange={(e) =>
+  setExam(prev => ({
+    ...prev,
+    subTitle: e.target.value,
+  }))
+}
     />
 
      <InputField
       label="Grade Percentage"
       type="number"
-      value={String(exam.gradePercentage) ?? String(examOld?.gradePercentage)}
-      onChange={(prev) =>
-        setExam({ ...prev, gradePercentage: Number(prev.target.value) })
-      }
+      value={String(exam.gradePercentage ?? examOld?.gradePercentage ?? "")}
+     onChange={(e) =>
+  setExam(prev => ({
+    ...prev,
+    gradePercentage: Number(e.target.value),
+  }))
+}
     />
       <CheckBox
       checked={exam.showCorrection ?? examOld?.showCorrection ?? false}
@@ -160,23 +170,31 @@ console.log(examOld)
 
    <div className="p-4">
 
-  <InputField
-  label="Image URL"
-  value={exam.image ?? examOld?.image ?? ""}
-  onChange={(prev) =>
-    setExam({
-      ...prev,
-      image: prev.target.value,
-    })
-  }
-/>
+<div className="flex flex-col gap-2">
+  <label className="text-sm font-medium">Image URL</label>
+
+  <input
+    type="url"
+    value={exam.image ?? examOld?.image ?? ""}
+    onChange={(e) =>
+      setExam(prev => ({
+        ...prev,
+        image: e.target.value,
+      }))
+    }
+    className="w-[280px] h-10 rounded border border-gray-300 px-2 focus:outline-none"
+  />
+</div>
      <InputField
       label="Exam Time"
       type="number"
-      value={String(exam.examTime) || String(examOld?.examTime)}
-      onChange={(prev) =>
-        setExam({ ...prev, examTime: Number(prev.target.value) })
-      }
+      value={String(exam.examTime ?? examOld?.examTime ?? "")}
+      onChange={(e) =>
+  setExam(prev => ({
+    ...prev,
+    examTime: Number(e.target.value),
+  }))
+}
     />
 
     </div>

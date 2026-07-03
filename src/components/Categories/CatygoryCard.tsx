@@ -37,7 +37,7 @@ export const CategoryCard = ({
                 {/* IMAGE */}
                 <div className="relative">
                     <img
-                        src={category.imageUrl}
+                        src={`http://153.92.210.41:3000/${category.imagePath}`}
                         alt={category.title}
                         className={`w-24 h-24 rounded-full object-cover border-2 border-(--main-color)
             ${isUpdatingImage ? "opacity-50" : ""}`}

@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useParams } from "react-router-dom";
 import Login from "../pages/LoginPage/Login";
 import { MainLayout } from "../components/Layout/MainLayout";
 import { ProtectedRoute } from "../components/ProtectedRoute";
@@ -26,9 +26,18 @@ import { CourseDetails } from "../pages/Courses/Course/CourseDetails";
 import { FormsPage } from "../pages/Exams/Forms/Form";
 import { ExamInstances } from "../pages/Exams/Instances/Instances";
 import { InstanceDetails } from "../pages/Exams/Instances/InstanceDetails";
-import { AddQuestModal } from "../components/Exam/Question/AddQuestModal";
+import { QuestionForm } from "../components/Exam/Question/QuestionForm";
 import { ExamPage } from "../pages/Exams/exams/ExaamPage";
 import { EventsPage } from "../pages/Exams/Events/ExamEventPage";
+import { EditQuestionPage } from "../components/Exam/Question/EditQuestionPage";
+import { ExamDetails } from "../pages/Exams/exams/ExamDetails";
+import { QuestionDetails } from "../pages/Exams/Instances/QuestionDetails";
+
+function QuestionFormRoute() {
+  const { id } = useParams();
+
+  return <QuestionForm examInstanceId={Number(id)} />;
+}
 
 function AppRoutes() {
   return (
@@ -65,8 +74,11 @@ function AppRoutes() {
         <Route path="assignments/types" element={<ExamConstants/>} />
         <Route path="assignments/forms" element={<FormsPage/>} />
         <Route path="assignments/instances" element={<ExamInstances/>} />
-        <Route path="assignments/instances/:id/addQuestion" element={<AddQuestModal/>} />
+        <Route path="assignments/instances/:id/addQuestion" element={<QuestionFormRoute />} />
+        <Route path="/exam-instance/:examInstanceId/edit-question/:questionId" element={<EditQuestionPage/>} />
         <Route path="assignments/exams" element={<ExamPage/>} />
+         <Route path="assignments/exams/:id" element={<ExamDetails/>} />
+         <Route path="assignments/instances/:id/question/:questionId" element={<QuestionDetails/>} />
         <Route path="assignments/events" element={<EventsPage/>} />
         <Route path="assignments/instances/:id" element={<InstanceDetails/>} />
          <Route path="courses/training-plan/add-files" element={<AddFiles/>} />

@@ -8,11 +8,12 @@ interface ExamCardProps {
   onViewDetails?: (id: number) => void;
   onEdit?: (exam: Exam) => void;
   onUpload?:()=> void;
-  onDelete?:()=>void
+  onDelete?:()=>void;
+  onShow?:()=>void
 
 }
 
-export const ExamCard: React.FC<ExamCardProps> = ({ exam, onViewDetails, onEdit,onUpload,onDelete}) => {
+export const ExamCard: React.FC<ExamCardProps> = ({ exam, onViewDetails, onEdit,onUpload,onDelete,onShow}) => {
   const [isOpenDeleteFile,setOpenDeleteFile]=useState(false);
   const [selectedId,setSelectedId]=useState(0)
   const {data:files}=useGetFilesQuery({id:exam.id})
@@ -110,7 +111,7 @@ export const ExamCard: React.FC<ExamCardProps> = ({ exam, onViewDetails, onEdit,
         </div>
 
         {/* 3. قسم عرض الملفات المرفقة (يظهر بشكل قائمة لستة فقط في حال وجود ملفات) */}
-        {hasFiles && (
+        {/* {hasFiles && (
           <div className="  mt-4 pt-1">
           <div className="flex justify-between items-center align-middle ">
               <span className="text-[14px] font-bold text-gray-400 uppercase tracking-wider block mb-2">
@@ -143,17 +144,17 @@ export const ExamCard: React.FC<ExamCardProps> = ({ exam, onViewDetails, onEdit,
             }
             </div>
           </div>
-        )}
+        )} */}
 
         {/* 4. أزرار التحكم والتفاعل بأسفل الكارد */}
         <div className="flex items-center gap-2 mt-5 pt-3 border-t border-gray-50">
           <button
-            onClick={() => onViewDetails?.(exam.id)}
+            onClick={onShow}
             className="flex-1 bg-(--main-color,#4B5945) hover:bg-(--main-color,#4B5945)/90
              text-white font-bold py-2.5 px-4 rounded-xl 
              text-xs transition-all hover:shadow-xs "
           >
-            Manage Exam
+           Show
           </button>
            <button
             onClick={onUpload}

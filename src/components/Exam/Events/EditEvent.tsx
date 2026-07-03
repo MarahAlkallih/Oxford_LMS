@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useEditExamEventMutation } from "../../../services/exams/events/examEventMutation";
 import { useGetExamsQuery } from "../../../services/exams/exams/examQuery";
 import { useGetAllInstancesQuery } from "../../../services/exams/exam-instances/exam-instancesQuery";
+import { useGetActiveUncompingCourseQuery } from "../../../services/courses/Admin-courses/coursesQuery";
 import { useGetOneEventQuery } from "../../../services/exams/events/examEventQuery";
 import CustomDropdown from "../../Fields/DropDown";
 import { InputField } from "../../Fields/InputField";
@@ -20,6 +21,7 @@ export const EditEventModal = ({ open, onClose,id }: EditEventModalProps) => {
   const [startPage] = useState(1);
   const [endPage] = useState(1);
    const {data:currentEvent}=useGetOneEventQuery({id})
+   const {data:courses}=useGetActiveUncompingCourseQuery()
   const {data:exams}=useGetExamsQuery({
     page:startPage,
     limit:100
@@ -32,6 +34,7 @@ export const EditEventModal = ({ open, onClose,id }: EditEventModalProps) => {
  const [event,setEvent]=useState({
     examId: 0,
     examInstanceId: 0,
+    courseId:0,
     startDate: "" ,
     endDate: ""
  })
@@ -40,6 +43,7 @@ export const EditEventModal = ({ open, onClose,id }: EditEventModalProps) => {
         setEvent({
              examId:currentEvent.examId,
              examInstanceId: currentEvent.examInstanceId,
+             courseId:currentEvent.courseId,
              startDate: currentEvent.startDate,
              endDate: currentEvent.endDate
         })
@@ -88,6 +92,22 @@ export const EditEventModal = ({ open, onClose,id }: EditEventModalProps) => {
    setEvent(prev => ({
   ...prev,
   examId: selected?.id || 0,
+}));
+  }}
+/>
+ </div>
+ <div className="p-4 ">
+     <CustomDropdown
+  options={courses?.map((c) => c.title) || []}
+  placeholder="Select Course"
+  onSelect={(value) => {
+    const selected = courses?.find(
+      (c) => c.title === value
+    );
+
+   setEvent(prev => ({
+  ...prev,
+  courseId: selected?.id || 0,
 }));
   }}
 />
