@@ -10,8 +10,7 @@ import { ErrorHandler } from "../../utils/ErrorHandler";
 
 export const AddUserPage = () => {
   const navigate = useNavigate();
-
-const initialUser: CreateUser = {
+  const initialUser: CreateUser = {
   firstName: "",
   lastName: "",
   userName: "",

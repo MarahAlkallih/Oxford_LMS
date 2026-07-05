@@ -32,6 +32,7 @@ import { EventsPage } from "../pages/Exams/Events/ExamEventPage";
 import { EditQuestionPage } from "../components/Exam/Question/EditQuestionPage";
 import { ExamDetails } from "../pages/Exams/exams/ExamDetails";
 import { QuestionDetails } from "../pages/Exams/Instances/QuestionDetails";
+import { EditUserPage } from "../pages/Users/EditUser";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -58,6 +59,7 @@ function AppRoutes() {
         <Route path="/users/languages" element={<LanguagesPage />} />
         <Route path="users/display" element={<UsersPage/>}/>
         <Route path="users/display/:id" element={<DisplayUserInfo/>}/>
+          <Route path="users/display/:id/edit" element={<EditUserPage/>}/>
         <Route path="users/add" element={<AddUserPage/>}/>
         <Route  path="users/trainer" element={<Trainers/>}    />
         <Route  path="users/trainer/:id" element={<TrainerInfo/>}    />

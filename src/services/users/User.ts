@@ -25,10 +25,10 @@ const createUserApi = baseApi.injectEndpoints({
 const editUserApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     editUser: builder.mutation({
-      query: ({userData,id}) => ({
+      query: ({data,id}) => ({
         url: `/admin/${id}`,
         method: "PATCH",
-        body: userData
+        body: data
       }),
            invalidatesTags:["users"]
     })

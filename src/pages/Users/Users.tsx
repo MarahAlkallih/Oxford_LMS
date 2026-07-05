@@ -95,7 +95,7 @@ const columns: GridColDef<UserRow>[] = [
             <IconButton
               size="small"
               sx={{ color: "#f9a825" }}
-              onClick={() => console.log("edit", params.row)}
+              onClick={() => navigate(`${params.row.id}/edit`)}
             >
               <EditOutlinedIcon fontSize="small" />
             </IconButton>
