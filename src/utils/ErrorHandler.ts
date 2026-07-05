@@ -16,7 +16,7 @@ export class ErrorHandler {
       return error.message;
     }
 
-    return "Something went wrong";
+    return "Something went wrong or Network Error";
   }
 
   static show(error: any) {

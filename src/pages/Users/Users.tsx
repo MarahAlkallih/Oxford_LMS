@@ -5,73 +5,136 @@ import type { GridColDef } from "@mui/x-data-grid";
 import { IconButton, Stack, Tooltip } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import type { User } from "../../types/user"
+import type { User, Account } from "../../types/user"
 import CustomDataGrid from "../../components/DataGrid/DataGrid";
+import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import { useState } from "react";
+import { ActiveUserModal } from "../../components/User/ActiveUserModal";
+import { DeActiveUserModal } from "../../components/User/DeActiveUserModal";
 const UsersPage = () => {
+  const [isOpneActive,setIsOpenActive]=useState(false)
+   const [isOpneDeActive,setIsOpenDeActive]=useState(false)
+  const [selecetedId,setSelectedId]=useState(0)
+  const [userName,setUserName]=useState("")
 const navigate = useNavigate();
 const {data,isLoading}=useGetUsersQuery();
 console.log(data)
-type UserRow = User & {
-    id?: string | number;
+type UserRow = Pick<User, "id"> & {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  phoneNumber: string;
+  roles: string;
+  account: Account;
 };
 
-const rows = (data ?? []) as UserRow[];
+const rows: UserRow[] =
+  data?.map((user) => ({
+    id: user.id,
+    firstName: user.account.firstName,
+    lastName: user.account.lastName,
+    userName: user.account.userName,
+    email: user.account.email,
+    phoneNumber: user.account.phoneNumber,
+    roles: user.roles.join(", "),
+    account: user.account,
+    isActive:user.account.isActive
+  })) ?? [];
 
 const columns: GridColDef<UserRow>[] = [
-    { field: "firstName", headerName: "First Name", flex: 1, minWidth: 140 },
-    { field: "lastName", headerName: "Last Name", flex: 1, minWidth: 140 },
-    { field: "userName", headerName: "User Name", flex: 1, minWidth: 150 },
-    { field: "email", headerName: "Email", flex: 1.2, minWidth: 200 },
-    { field: "phoneNumber", headerName: "Phone", flex: 1, minWidth: 140 },
-    { field: "roles", headerName: "Role", flex: 0.8, minWidth: 120 },
-    {
-        field: "actions",
-        headerName: "Actions",
-        sortable: false,
-        filterable: false,
-        width: 160,
-        align: "center",
-        headerAlign: "center",
-      renderCell: (params) => (
-  <Stack direction="row" spacing={0.5}>
-    
-    <Tooltip title="View">
-      <IconButton
-        size="small"
-        sx={{ color: "#1976d2" }}
-        onClick={() => navigate(`${params.row.id}`)}
+  { field: "firstName", headerName: "First Name", flex: 1, minWidth: 140 },
+  { field: "lastName", headerName: "Last Name", flex: 1, minWidth: 140 },
+  { field: "userName", headerName: "User Name", flex: 1, minWidth: 150 },
+  { field: "email", headerName: "Email", flex: 1.2, minWidth: 200 },
+  { field: "phoneNumber", headerName: "Phone", flex: 1, minWidth: 140 },
+  { field: "roles", headerName: "Role", flex: 0.8, minWidth: 120 },
+  {
+    field: "isActive",
+    headerName: "Status",
+    flex: 0.8,
+    minWidth: 90,
+    renderCell: (params) => (
+      <div
+        className={`p-2 mt-2 rounded-full text-xs font-semibold text-white align-middle items-center text-center ${
+          params.value ? "bg-green-500" : "bg-red-500"
+        }`}
       >
-        <VisibilityOutlinedIcon fontSize="small" />
-      </IconButton>
-    </Tooltip>
+        {params.value ? "Active" : "Inactive"}
+      </div>
+    ),
+  },
+  {
+    field: "actions",
+    headerName: "Actions",
+    sortable: false,
+    filterable: false,
+    width: 160,
+    align: "center",
+    headerAlign: "center",
+    renderCell: (params) => {
+      // قراءة حالة المستخدم الحالية من السطر
+      const isActive = params.row.account.isActive;
 
-    <Tooltip title="Edit">
-      <IconButton
-        size="small"
-        sx={{ color: "#f9a825" }}
-        onClick={() => console.log("edit", params.row)}
-      >
-        <EditOutlinedIcon fontSize="small" />
-      </IconButton>
-    </Tooltip>
+      return (
+        <Stack direction="row" spacing={0.5}>
+          {/* زر العرض */}
+          <Tooltip title="View">
+            <IconButton
+              size="small"
+              sx={{ color: "#1976d2" }}
+              onClick={() => navigate(`${params.row.id}`)}
+            >
+              <VisibilityOutlinedIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
 
-    <Tooltip title="Delete">
-      <IconButton
-        size="small"
-        sx={{ color: "#d32f2f" }}
-        onClick={() => console.log("delete", params.row)}
-      >
-        <DeleteOutlineOutlinedIcon fontSize="small" />
-      </IconButton>
-    </Tooltip>
+          {/* زر التعديل */}
+          <Tooltip title="Edit">
+            <IconButton
+              size="small"
+              sx={{ color: "#f9a825" }}
+              onClick={() => console.log("edit", params.row)}
+            >
+              <EditOutlinedIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
 
-  </Stack>
-        ),
+          {/* 🔄 زر التفعيل / إلغاء التفعيل الديناميكي بديل الحذف */}
+          <Tooltip title={isActive ? "Deactivate" : "Activate"}>
+            <IconButton
+              size="small"
+           
+              sx={{ color: isActive ? "#d32f2f" : "#2e7d32" }}
+              onClick={() => {
+                if (isActive) {
+                setIsOpenDeActive(true)
+                   setSelectedId(params.row.id)
+                   setUserName(params.row.userName)
+                
+                } else {
+                   setIsOpenActive(true)
+                   setSelectedId(params.row.id)
+                   setUserName(params.row.userName)
+                }
+              }}
+            >
+              {isActive ? (
+        
+                <BlockOutlinedIcon fontSize="small" />
+              ) : (
+     
+                <CheckCircleOutlinedIcon fontSize="small" />
+              )}
+            </IconButton>
+          </Tooltip>
+        </Stack>
+      );
     },
+  },
 ];
-
-const getRowId = (row: UserRow) => row.id ?? row.userName ?? row.email;
+const getRowId = (row: UserRow) => row.id;
 
     return (
                 <div className="p-8">
@@ -98,6 +161,18 @@ const getRowId = (row: UserRow) => row.id ?? row.userName ?? row.email;
                                     )}
                                 </div>
             </div>
+            <ActiveUserModal 
+            open={isOpneActive} 
+            onClose={()=>setIsOpenActive(false) } 
+            id={selecetedId} 
+            userName={userName}            
+            />
+             <DeActiveUserModal 
+            open={isOpneDeActive} 
+            onClose={()=>setIsOpenDeActive(false) } 
+            id={selecetedId} 
+            userName={userName}            
+            />
         </div>
     );
 };

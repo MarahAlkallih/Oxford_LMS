@@ -2,32 +2,33 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react";
 import { Button } from "../../components/Buttons/SubmitBtn";
 import { rules } from "../../utils/validationRules";
-import type { User } from "../../types/user";
+import type { User ,CreateUser} from "../../types/user";
 import { useCreateUserMutation } from "../../services/users/User";
 import { toast } from "react-toastify";
 import { UserForm } from "../../components/User/UserForm";
+import { ErrorHandler } from "../../utils/ErrorHandler";
 
 export const AddUserPage = () => {
   const navigate = useNavigate();
 
-  const initialUser = {
-    firstName: "",
-    lastName: "",
-    userName: "",
-    email: "",
-    password: "",
-    gender: "",
-    languageId: 0,
-    phoneNumber: "",
-    role: "",
-  };
-  const [user, setUser] = useState(initialUser);
+const initialUser: CreateUser = {
+  firstName: "",
+  lastName: "",
+  userName: "",
+  email: "",
+  password: "",
+  gender: "",
+  languageId: 0,
+  phoneNumber: "",
+  role: "",
+};
+ const [user, setUser] = useState<CreateUser>(initialUser);
   const [createUser, { isLoading, error }] = useCreateUserMutation();
   const [errors, setErrors] = useState<
-    Partial<Record<keyof User, string>>
-  >({});
+  Partial<Record<keyof CreateUser, string>>
+>({});
   const validate = () => {
-    const newErrors: Partial<Record<keyof User, string>> = {};
+    const newErrors: Partial<Record<keyof CreateUser, string>> = {};
 
     newErrors.firstName = rules.required(user.firstName);
     newErrors.lastName = rules.required(user.lastName);
@@ -58,32 +59,27 @@ export const AddUserPage = () => {
 
     return Object.keys(filteredErrors).length === 0;
   };
-  const handleChange = (key: keyof User, value: string | number) => {
-    setUser((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
+const handleChange = (
+  key: keyof CreateUser,
+  value: string | number
+) => {
+  setUser(prev => ({
+    ...prev,
+    [key]: value,
+  }));
+};
   const handleAdd = async () => {
     console.log(user)
     if (!validate()) return;
 
     try {
-      const res = await createUser(user).unwrap();
+      const res = await createUser(user as unknown as User).unwrap();
       console.log("success:", res);
       toast.success("User Added successfully!")
       setUser(initialUser)
     } catch (err: any) {
-
-      const errorMessage = Array.isArray(err?.data?.message)
-        ? err.data.message.join(" , ")
-        : err?.data?.message || "Something went wrong";
-
-      toast.error(errorMessage);
-      if (error) {
-        toast.error("Retry Add user")
-      }
-      // toast.error(error?.message || "Retry Add user")
+   
+    ErrorHandler.show(err)
     }
   };
   return (
@@ -101,13 +97,12 @@ export const AddUserPage = () => {
 
       {/* Form Container */}
       {/* Main Layout */}
-      <UserForm<User>
-        user={user}
-        errors={errors}
-        onChange={handleChange}
-        showRole
-      />
-
+<UserForm<CreateUser>
+    user={user}
+    errors={errors}
+    onChange={handleChange}
+    showRole
+/>
       {/* Submit Button */}
       <div className="flex justify-center mt-12">
         <div className="w-48">

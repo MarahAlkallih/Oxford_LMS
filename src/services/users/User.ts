@@ -7,8 +7,8 @@ const createUserApi = baseApi.injectEndpoints({
         url: "/admin/createAdmin",
         method: "POST",
         body: userData
-      })
-     
+      }),
+     invalidatesTags:["users"]
     }),
      getUsers:builder.query<User[],void>({
         query:()=>"/admin",
@@ -22,5 +22,43 @@ const createUserApi = baseApi.injectEndpoints({
     
   })
 });
-
+const editUserApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    editUser: builder.mutation({
+      query: ({userData,id}) => ({
+        url: `/admin/${id}`,
+        method: "PATCH",
+        body: userData
+      }),
+           invalidatesTags:["users"]
+    })
+  })
+});
+const activeUserApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    activeUser: builder.mutation({
+      query: ({id}) => ({
+        url: `/admin/${id}/activate`,
+        method: "PATCH",
+        
+      }),
+           invalidatesTags:["users"]
+    })
+  })
+});
+const deActiveUserApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    deActiveUser: builder.mutation({
+      query: ({id}) => ({
+        url: `/admin/${id}/deactivate`,
+        method: "PATCH",
+        
+      }),
+           invalidatesTags:["users"]
+    })
+  })
+});
+export const {useEditUserMutation}=editUserApi
+export const {useActiveUserMutation}=activeUserApi
+export const {useDeActiveUserMutation}=deActiveUserApi
 export const { useCreateUserMutation,useGetUsersQuery,useGetUserByIdQuery } = createUserApi;
