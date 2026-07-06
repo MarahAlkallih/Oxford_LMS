@@ -8,15 +8,15 @@ import { LanguagesPage } from "../pages/languages/LanguagesPage";
 import UsersPage from "../pages/Users/Users"
 import { AddUserPage } from "../pages/Users/AddUser"
 import { DisplayUserInfo } from "../pages/Users/UserById";
-import { TrainerPage } from "../pages/Users/AddTrainer";
+import { TrainerPage } from "../pages/Users/Trainers/AddTrainer";
 import { TrainingPlanPage } from "../pages/Courses/TrainingPlan/TrainingPlan";
 import { AddFiles } from "../pages/Courses/TrainingPlan/AddFiles";
 import { TrainingPlanDetails } from "../pages/Courses/TrainingPlan/TrainingPlanDetails ";
 import { VenuesPage } from "../pages/Courses/Venues/Venues";
 import { LocationPage } from "../pages/Courses/Location/Location";
 import { CatygoriesPage } from "../pages/Courses/category/CatygoriesPage";
-import { Trainers } from "../pages/Users/Trainers";
-import { TrainerInfo } from "../pages/Users/TrainerInfo";
+import { Trainers } from "../pages/Users/Trainers/Trainers";
+import { TrainerInfo } from "../pages/Users/Trainers/TrainerInfo";
 import { TraineesPage } from "../pages/Users/Trainees";
 import { TraineeInfo } from "../pages/Users/Trainee";
 import { ExamConstants } from "../pages/Exams/ExamConstatnts/ExamConstatnt";
@@ -33,6 +33,7 @@ import { EditQuestionPage } from "../components/Exam/Question/EditQuestionPage";
 import { ExamDetails } from "../pages/Exams/exams/ExamDetails";
 import { QuestionDetails } from "../pages/Exams/Instances/QuestionDetails";
 import { EditUserPage } from "../pages/Users/EditUser";
+import { EditTrainerPage } from "../pages/Users/Trainers/EditTrainer";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -62,7 +63,8 @@ function AppRoutes() {
           <Route path="users/display/:id/edit" element={<EditUserPage/>}/>
         <Route path="users/add" element={<AddUserPage/>}/>
         <Route  path="users/trainer" element={<Trainers/>}    />
-        <Route  path="users/trainer/:id" element={<TrainerInfo/>}    />
+        <Route  path="users/trainer/:id" element={<TrainerInfo/>}/>
+        <Route path="users/trainer/:id/edit" element={<EditTrainerPage/>} />
         <Route path="users/trainees" element={<TraineesPage/>} />
         <Route path="users/trainees/:id" element={<TraineeInfo/>} />
         <Route path="users/trainer/addtrainer" element={<TrainerPage/>} />

@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from "react";
-import { Button } from "../../components/Buttons/SubmitBtn";
-import { rules } from "../../utils/validationRules";
-import type { Trainer } from "../../types/user";
-import { useCreateTrainerMutation } from "../../services/trainer/createTrainer";
+import { Button } from "../../../components/Buttons/SubmitBtn";
+import { rules } from "../../../utils/validationRules";
+import type { CreateTrainer } from "../../../types/user";
+import { useCreateTrainerMutation } from "../../../services/trainer/createTrainer";
 import { toast } from "react-toastify";
-import { UserForm } from "../../components/User/UserForm";
+import { UserForm } from "../../../components/User/UserForm";
 
 export const TrainerPage = () => {
   const navigate = useNavigate();
@@ -24,10 +24,10 @@ export const TrainerPage = () => {
   const [user, setUser] = useState(initialUser);
   const [createUser, { isLoading, error }] = useCreateTrainerMutation();
   const [errors, setErrors] = useState<
-    Partial<Record<keyof Trainer, string>>
+    Partial<Record<keyof CreateTrainer, string>>
   >({});
   const validate = () => {
-    const newErrors: Partial<Record<keyof Trainer, string>> = {};
+    const newErrors: Partial<Record<keyof CreateTrainer, string>> = {};
 
     newErrors.firstName = rules.required(user.firstName);
     newErrors.lastName = rules.required(user.lastName);
@@ -58,7 +58,7 @@ export const TrainerPage = () => {
 
     return Object.keys(filteredErrors).length === 0;
   };
-  const handleChange = (key: keyof Trainer, value: string | number) => {
+  const handleChange = (key: keyof CreateTrainer, value: string | number) => {
     setUser((prev) => ({
       ...prev,
       [key]: value,
@@ -71,7 +71,7 @@ export const TrainerPage = () => {
     try {
       const res = await createUser(user).unwrap();
       console.log("success:", res);
-      toast.success("User Added successfully!")
+      toast.success("Trainer Added successfully!")
       setUser(initialUser)
     } catch (err: any) {
 
@@ -94,14 +94,14 @@ export const TrainerPage = () => {
         <div className="w-32">
           <Button
             name="Back"
-            onClick={() => navigate("/users/display")}
+            onClick={() => navigate("/users/trainer")}
           />
         </div>
       </div>
 
       {/* Form Container */}
       {/* Main Layout */}
-      <UserForm<Trainer>
+      <UserForm<CreateTrainer>
         user={user}
         errors={errors}
         onChange={handleChange}

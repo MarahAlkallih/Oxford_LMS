@@ -18,6 +18,20 @@ const getTrainersApi = baseApi.injectEndpoints({
     }),
   }),
 });
+const getInActiveTrainersApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getInActiveTrainers: builder.query<
+      TrainerResponse,
+     any
+    >({
+      query: () => ({
+        url: "/trainer/inactive",
+      
+      }),
+      providesTags:["Trainers"]
+    }),
+  }),
+});
 const getTrainerApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({getTrainer: builder.query<Trainer, { id: number }>({
       query: ({ id }) => ({
@@ -28,4 +42,5 @@ const getTrainerApi = baseApi.injectEndpoints({
   }),
 });
 export const { useGetTrainersQuery } = getTrainersApi;
+export const { useGetInActiveTrainersQuery } = getInActiveTrainersApi;
 export const { useGetTrainerQuery } = getTrainerApi;

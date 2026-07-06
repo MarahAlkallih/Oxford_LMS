@@ -4,6 +4,7 @@ import { InputField } from "../Fields/InputField";
 import { Modal } from "../global/Modals";
 import { CancelBtn } from "../Buttons/CancelBtn";
 import { useCreateLanguageMutation } from "../../services/languages/languageService";
+import { toast } from "react-toastify";
 interface AddLangModalProps {
     open: boolean;
     onClose: () => void;
@@ -28,12 +29,12 @@ export const AddLangModal = ({ open, onClose }: AddLangModalProps) => {
 
       console.log(res);
       console.log(lang)
-      if(isSuccess){
-       onClose();
+      toast.success("Added")
+           
 
     setLang({ name: "", description: "" });
-      }
-     
+      
+       onClose();
       
 
     } catch (err) {

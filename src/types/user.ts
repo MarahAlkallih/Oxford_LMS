@@ -22,16 +22,50 @@ export interface Account {
     isActive:     boolean;
 }
 
+export interface TrainersResponse {
+  data: Trainer[];
+  meta: PaginationMeta;
+}
+
+export interface PaginationMeta {
+  totalRecords: number;
+  currentPage: number;
+  limit: number;
+  totalPages: number;
+}
+export interface CreateTrainer {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  password: string;
+  gender: string;
+  languageId: number;
+  phoneNumber: string;
+}
+
 export interface Trainer {
-    firstName:   string;
-    lastName:    string;
-    userName:    string;
-    email:       string;
-    password:    string;
-    gender:      string;
-    languageId:  number;
-    phoneNumber: string;
-   
+  id: number;
+  accountId: number;
+  createdAt: string;
+  updatedAt: string;
+  account: TrainerAccount;
+}
+
+export interface TrainerAccount {
+  id: number;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  languageId: number;
+  languageName: string;
+  isActive: boolean;
+
+  // خليهم اختياريين لأنهم مو موجودين بالريسبونس الحالي
+  phoneNumber?: string;
+  gender?: string;
+  password?: string;
 }
 export interface LoginUser {
  

@@ -139,7 +139,8 @@ const getRowId = (row: UserRow) => row.id;
     return (
                 <div className="p-8">
                         <div className="mx-auto flex max-w-7xl flex-col gap-6">
-                                <div className="flex justify-end">
+                                <div className="flex justify-between align-middle items-center">
+                                  <h1 className="text-2xl font-bold">Users</h1>
                                     <div className="w-32">
                                         <Button name="Add User" onClick={() => navigate("/users/add")} />
                                     </div>

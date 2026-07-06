@@ -1,6 +1,7 @@
 import type { Language } from "./Trainees";
 
 export interface TrainerAccount {
+  languageName: any;
   id: number;
   firstName: string;
   lastName: string;
@@ -10,6 +11,8 @@ export interface TrainerAccount {
   birthDate?:Date | null;
   aboutMe?:string | null;
   language?:Language
+  isActive:boolean
+  userName:string
 }
 
 export interface Trainer {
@@ -35,5 +38,6 @@ export interface TrainerInfo{
    accountId: number,
     createdAt: Date,
     updatedAt: Date,
+    
 
 }
