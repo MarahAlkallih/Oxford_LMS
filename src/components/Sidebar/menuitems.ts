@@ -39,7 +39,7 @@ export const menuItems: MenuItem[] = [
          icon: SchoolIcon,
          label: "Courses",
          path: "/courses",
-       
+       role:"trainer",
   adminRoles: ["SUPER"]
        },
        {
@@ -47,7 +47,7 @@ export const menuItems: MenuItem[] = [
          label: "Training Plan",
          path: "/courses/training-plan",
         role:"trainer",
-  adminRoles: ["SUPER"]
+        adminRoles: ["SUPER"]
        },
        {
          icon: PublicIcon,
@@ -92,5 +92,5 @@ export const menuItems: MenuItem[] = [
     ]
    },
  
-  { icon: SettingsIcon, label: "Settings", path: "/settings" },
+  { icon: SettingsIcon, label: "Settings", path: "/settings",role:"trainer" },
 ]

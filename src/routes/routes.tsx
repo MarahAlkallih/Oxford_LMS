@@ -17,8 +17,8 @@ import { LocationPage } from "../pages/Courses/Location/Location";
 import { CatygoriesPage } from "../pages/Courses/category/CatygoriesPage";
 import { Trainers } from "../pages/Users/Trainers/Trainers";
 import { TrainerInfo } from "../pages/Users/Trainers/TrainerInfo";
-import { TraineesPage } from "../pages/Users/Trainees";
-import { TraineeInfo } from "../pages/Users/Trainee";
+import { TraineesPage } from "../pages/Users/Trainees/Trainees";
+import { TraineeInfo } from "../pages/Users/Trainees/Trainee";
 import { ExamConstants } from "../pages/Exams/ExamConstatnts/ExamConstatnt";
 import { AddCoursePage } from "../pages/Courses/Course/AddCourse";
 import { CoursesPage } from "../pages/Courses/Course/CoursesPage";
@@ -34,6 +34,9 @@ import { ExamDetails } from "../pages/Exams/exams/ExamDetails";
 import { QuestionDetails } from "../pages/Exams/Instances/QuestionDetails";
 import { EditUserPage } from "../pages/Users/EditUser";
 import { EditTrainerPage } from "../pages/Users/Trainers/EditTrainer";
+import { EditTrainee } from "../pages/Users/Trainees/EditTrainee";
+import { TrainerProfile } from "../pages/Users/Trainers/Profile";
+import { EditTrainer } from "../pages/Users/Trainers/EditMe";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -57,6 +60,8 @@ function AppRoutes() {
         }
       >
         <Route path="/dashboard" element={<StaticsPage />} />
+          <Route path="/trainer/profile" element={<TrainerProfile />} />
+           <Route path="/trainer/profile/edit/:id" element={<EditTrainer />} />
         <Route path="/users/languages" element={<LanguagesPage />} />
         <Route path="users/display" element={<UsersPage/>}/>
         <Route path="users/display/:id" element={<DisplayUserInfo/>}/>
@@ -67,6 +72,7 @@ function AppRoutes() {
         <Route path="users/trainer/:id/edit" element={<EditTrainerPage/>} />
         <Route path="users/trainees" element={<TraineesPage/>} />
         <Route path="users/trainees/:id" element={<TraineeInfo/>} />
+        <Route path="users/trainees/:id/edit" element={<EditTrainee/>} />
         <Route path="users/trainer/addtrainer" element={<TrainerPage/>} />
         <Route path="courses/training-plan" element={<TrainingPlanPage/>} />
         <Route path="courses/venues" element={<VenuesPage/>} />
@@ -75,6 +81,7 @@ function AppRoutes() {
            <Route path="/courses/add-course" element={<AddCoursePage/>} />
             <Route path="/courses" element={<CoursesPage/>} />
             <Route path="/courses/:id" element={<CourseDetails/>} />
+            <Route path="/courses/:id/edit" element={<AddCoursePage/>} />
         <Route path="assignments/types" element={<ExamConstants/>} />
         <Route path="assignments/forms" element={<FormsPage/>} />
         <Route path="assignments/instances" element={<ExamInstances/>} />

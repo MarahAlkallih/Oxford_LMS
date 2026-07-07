@@ -5,6 +5,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
 import { clearAuthSession } from "../../features/admin/auth/authStorage";
 import { useLogoutUserMutation } from "../../services/auth/authService";
+import { toast } from "react-toastify";
+import { ErrorHandler } from "../../utils/ErrorHandler";
 interface HeaderProps {
   onMenuToggle: () => void;
 }
@@ -13,7 +15,7 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [logoutUser] = useLogoutUserMutation();
   const role=localStorage.getItem("role");
-  
+  role?.toUpperCase()
   const navigate=useNavigate();
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -22,16 +24,18 @@ const handleLogout = async () => {
   try {
 
     await logoutUser(undefined).unwrap();
-
+     toast.success("Logged out successfully")
   } catch (err) {
-    console.log(err);
+   ErrorHandler.show(err)
   } finally {
     clearAuthSession();
     navigate("/login", { replace: true });
   }
 };
   const handleMenuClose = () => {
-    setAnchorEl(null);
+    if(role?.toLowerCase()=== "trainer"){
+      navigate("/trainer/profile")
+    }
   };
   
   return (
@@ -118,7 +122,7 @@ const handleLogout = async () => {
 
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
           <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+        
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </Box>

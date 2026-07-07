@@ -41,6 +41,16 @@ const getTrainerApi = baseApi.injectEndpoints({
     }),
   }),
 });
+const getMeApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({getMe: builder.query({
+      query: () => ({
+        url: `/trainer/me`,
+      }),
+      providesTags:["Trainers"]
+    }),
+  }),
+});
 export const { useGetTrainersQuery } = getTrainersApi;
 export const { useGetInActiveTrainersQuery } = getInActiveTrainersApi;
 export const { useGetTrainerQuery } = getTrainerApi;
+export const { useGetMeQuery } = getMeApi;

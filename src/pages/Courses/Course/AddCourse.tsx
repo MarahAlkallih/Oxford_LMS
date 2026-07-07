@@ -5,12 +5,13 @@ import { useGetCategoryQuery } from "../../../services/courses/catygory/getCateg
 import { useGetLanguagesQuery } from "../../../services/languages/languageService";
 import { useGetVenuesQuery } from "../../../services/courses/veneus/getVenues";
 import {useGetOneCourseQuery} from "../../../services/courses/Admin-courses/coursesQuery"
-import { useAddCourseMutation } from "../../../services/courses/Admin-courses/coursesMutation";
+import { useAddCourseMutation, useEditCourseMutation } from "../../../services/courses/Admin-courses/coursesMutation";
 import { InputField } from "../../../components/Fields/InputField";
 import CustomDropdown from "../../../components/Fields/DropDown";
 import { Button } from "../../../components/Buttons/SubmitBtn";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ErrorHandler } from "../../../utils/ErrorHandler";
 export const AddCoursePage = () => {
     const {id}=useParams()
     const courseId=Number(id)
@@ -21,25 +22,49 @@ export const AddCoursePage = () => {
     const { data: venues } = useGetVenuesQuery()
     const {data:courseData}=useGetOneCourseQuery({id:courseId})
     const [addCourse,{isLoading,isSuccess}] = useAddCourseMutation();
+    const [editCourse, { isLoading: isEditing }] = useEditCourseMutation();
     const [img, setImage] = useState<File | null>(null);
-    const [course, setCourse] = useState({
-        status: "",
-        locationId: 0,
-        categoryId: 0,
-        languageId: 0,
-        venueId: 0,
-        code: "",
-        title: "",
-        fee: 0,
-        hours: 0,
-        startDate: null as Date | null,
-        endDate: null as Date | null,
-        subTitle: "",
-        registrationDeadline: null as Date | null,
-        paymentDeadline:null as Date | null,
-        description: "",
-        isAdd: false
-    })
+    const navigate=useNavigate()
+type CourseType = {
+  status: string;
+  locationId: number;
+  categoryId: number;
+  languageId: number;
+  venueId: number;
+  code: string;
+  title: string;
+  fee: number;
+  hours: number;
+  startDate: Date | null;
+  endDate: Date | null;
+  subTitle: string;
+  registrationDeadline: Date | null;
+  paymentDeadline: Date | null;
+  description: string;
+  isAdd: boolean;
+};
+
+const initialCourse: CourseType = {
+  status: "",
+  locationId: 0,
+  categoryId: 0,
+  languageId: 0,
+  venueId: 0,
+  code: "",
+  title: "",
+  fee: 0,
+  hours: 0,
+  startDate: null,
+  endDate: null,
+  subTitle: "",
+  registrationDeadline: null,
+  paymentDeadline: null,
+  description: "",
+  isAdd: false,
+};
+
+const [course, setCourse] = useState<CourseType>(initialCourse);
+   
     useEffect(() => {
   if (courseData) {
     setCourse({
@@ -78,90 +103,64 @@ export const AddCoursePage = () => {
     });
   }
 }, [courseData]);
-   const handelAdd=async()=>{
-    const formData = new FormData();
+const handleSubmit = async () => {
+  const formData = new FormData();
 
-formData.append("status", course.status);
-formData.append("locationId", course.locationId.toString());
-formData.append("categoryId", course.categoryId.toString());
-formData.append("languageId", course.languageId.toString());
-formData.append("venueId", course.venueId.toString());
+  formData.append("status", course.status);
+  formData.append("locationId", course.locationId.toString());
+  formData.append("categoryId", course.categoryId.toString());
+  formData.append("languageId", course.languageId.toString());
+  formData.append("venueId", course.venueId.toString());
 
-formData.append("code", course.code);
-formData.append("title", course.title);
-formData.append("subTitle", course.subTitle);
-formData.append("description", course.description);
+  formData.append("code", course.code);
+  formData.append("title", course.title);
+  formData.append("subTitle", course.subTitle);
+  formData.append("description", course.description);
 
-formData.append("fee", course.fee.toString());
-formData.append("hours", course.hours.toString());
+  formData.append("fee", course.fee.toString());
+  formData.append("hours", course.hours.toString());
 
-formData.append(
-  "startDate",
-  course.startDate?.toISOString() || ""
-);
+  formData.append("startDate", course.startDate?.toISOString() || "");
+  formData.append("endDate", course.endDate?.toISOString() || "");
+  formData.append(
+    "registrationDeadline",
+    course.registrationDeadline?.toISOString() || ""
+  );
+  formData.append(
+    "paymentDeadline",
+    course.paymentDeadline?.toISOString() || ""
+  );
 
-formData.append(
-  "endDate",
-  course.endDate?.toISOString() || ""
-);
+  formData.append("isAdd", course.isAdd.toString());
 
-formData.append(
-  "registrationDeadline",
-  course.registrationDeadline?.toISOString() || ""
-);
+  if (img) {
+    formData.append("img", img);
+  }
 
-formData.append(
-  "paymentDeadline",
-  course.paymentDeadline?.toISOString() || ""
-);
+  try {
+    if (id) {
+      await editCourse({
+        id: courseId,
+        data: formData,
+      }).unwrap();
 
-formData.append(
-  "isAdd",
-  course.isAdd.toString()
-);
+      toast.success("Course Updated Successfully");
+      navigate(-1)
+    } else {
+      await addCourse(formData).unwrap();
 
-if (img) {
-  formData.append("img", img);
-}
-try{
-   const res =await addCourse(formData).unwrap();
-         toast.success("Course Added Succeddfully")
-         console.log(res) 
-         setCourse({
-        status: "",
-        locationId: 0,
-        categoryId: 0,
-        languageId: 0,
-        venueId: 0,
-        code: "",
-        title: "",
-        fee: 0,
-        hours: 0,
-        startDate: null as Date | null,
-        endDate: null as Date | null,
-        subTitle: "",
-        registrationDeadline: null as Date | null,
-        paymentDeadline:null as Date | null,
-        description: "",
-        isAdd: false
-    })
-}
-catch (err: any) {
-  const message = Array.isArray(err?.data?.message)
-    ? err.data.message.join("\n")
-    : err?.data?.message;
+      toast.success("Course Added Successfully");
 
-  toast.error(message || "Something went wrong");
-}
-
-
-   }
-
+      setCourse(initialCourse);
+      setImage(null);
+    }
+  } catch (err) {
+    ErrorHandler.show(err);
+  }
+};
   return (
   <div className="max-w-7xl mx-auto p-6">
-    <h1 className="text-3xl font-bold mb-8">
-      Create Course
-    </h1>
+   <h1>{id ? "Edit Course" : "Create Course"}</h1>
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
@@ -448,8 +447,15 @@ catch (err: any) {
       </div>
     </div>
 
-    <div className="flex justify-end mt-8">
-     <Button name={isLoading ? "Load...":"Create Course"} onClick={handelAdd}/>
+    <div className="flex w-fit  mt-8">
+<Button
+  name={
+    id
+      ? (isEditing ? "Saving..." : "Save Changes")
+      : (isLoading ? "Creating..." : "Create Course")
+  }
+  onClick={handleSubmit}
+/>
     </div>
   </div>
 );

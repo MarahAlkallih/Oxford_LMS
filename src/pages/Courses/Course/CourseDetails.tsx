@@ -85,7 +85,7 @@ const handleDelete = async () => {
         <div className="flex items-center gap-6">
           {course.img ? (
             <img
-              src={`https://oxford-lms.onrender.com/${course.img}`} // تأكدي من مسار الصورة حسب الـ Backend تبعك
+              src={`http://153.92.210.41:3000/${course.img}`} // تأكدي من مسار الصورة حسب الـ Backend تبعك
               alt={course.title}
               className="w-24 h-24 rounded-2xl object-cover shadow-sm border"
             />
@@ -115,7 +115,7 @@ const handleDelete = async () => {
         {/* Action Buttons */}
         <div className="flex gap-3">
           <button
-            onClick={() => navigate(`/courses/edit/${course.id}`)}
+            onClick={() => navigate(`edit`)}
             className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-(--main-color) rounded-xl hover:bg-blue-100 transition-colors font-semibold"
           >
             <EditIcon fontSize="small" />

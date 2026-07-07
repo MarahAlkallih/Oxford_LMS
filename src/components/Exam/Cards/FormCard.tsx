@@ -67,7 +67,7 @@ export const FormCard=({ data,onEdit,onDelete }: CustomCardProps)=>{
       </div>
 
       {/* 2. قسم المحتوى (Content Section) */}
-      <div className="flex flex-grow flex-col p-5">
+      <div className="flex grow flex-col p-5">
         <h3 className="line-clamp-1 mb-1 text-xl font-bold text-gray-900">
           {data.title}
         </h3>

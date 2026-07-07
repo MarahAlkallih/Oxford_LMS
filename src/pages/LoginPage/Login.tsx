@@ -18,35 +18,65 @@ const Login = (): JSX.Element => {
   const [login, { isLoading }] = useLoginMutation()
   const [loginTrainer,{isLoading:isLoadingTrainer}]=useLoginTrainerMutation();
   const navigate = useNavigate();
-  const handleLogin = async () => {
-    const newErrors: { email?: string; password?: string } = {};
+const handleLogin = async () => {
+  const newErrors: { email?: string; password?: string } = {};
 
-    if (!email.trim()) {
-      newErrors.email = "Email is required";
-    }
+  if (!email.trim()) {
+    newErrors.email = "Email is required";
+  }
 
-    if (!password.trim()) {
-      newErrors.password = "Password is required";
-    }
+  if (!password.trim()) {
+    newErrors.password = "Password is required";
+  }
 
-    setErrors(newErrors);
+  setErrors(newErrors);
 
-    if (Object.keys(newErrors).length > 0) {
+  if (Object.keys(newErrors).length > 0) {
+    return;
+  }
+
+  try {
+    if (isTrainer) {
+      const res = await loginTrainer({ email, password }).unwrap();
+
+      console.log(res);
+      toast.success("Login successful!");
+
+      navigate("/courses");
       return;
     }
 
-    try {
-      const res =isTrainer ? await loginTrainer({email, password}).unwrap() 
-      : await login({ email, password }).unwrap()
-      console.log(res)
-      toast.success("Login successful!")
-      navigate("/home")
+    const res = await login({ email, password }).unwrap();
 
-    } catch (err: any) {
-      const errorMsg = err?.data?.message || err?.message || "Login failed. Please try again."
-      toast.error(errorMsg)
+    console.log(res);
+
+    toast.success("Login successful!");
+
+    const role = res.roles?.[0]; // أو حسب شكل الريسبونس
+
+    switch (role) {
+      case "SUPER_ADMIN":
+      case "HR":
+        navigate("/home");
+        break;
+
+      case "ATTENDANCE":
+        navigate("/attendance");
+        break;
+
+      default:
+        navigate("/");
+        break;
     }
+  } catch (err: any) {
+    const errorMsg =
+      err?.data?.message ||
+      err?.message ||
+      "Login failed. Please try again.";
+
+    toast.error(errorMsg);
   }
+};
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} />
