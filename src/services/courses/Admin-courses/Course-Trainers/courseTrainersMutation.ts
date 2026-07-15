@@ -14,3 +14,18 @@ const AssignCourseTrainerApi=baseApi.injectEndpoints({
     })
 })
 export const {useAssignCourseTrainerMutation}=AssignCourseTrainerApi
+///////////////////////////////////////////////
+const RemoveCourseTrainerApi=baseApi.injectEndpoints({
+    endpoints:(builder)=>({
+        removeCourseTrainer:builder.mutation({
+            query:({courseId,trainerId})=>({
+                url:`/course-trainer/course/${courseId}/trainer/${trainerId}`,
+                method:"DELETE",
+                
+            }),
+            invalidatesTags:["Courses-trainers"]
+        })
+
+    })
+})
+export const {useRemoveCourseTrainerMutation}=RemoveCourseTrainerApi

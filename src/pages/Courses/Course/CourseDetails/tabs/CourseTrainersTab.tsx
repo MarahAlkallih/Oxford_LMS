@@ -5,6 +5,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Delete from "@mui/icons-material/Delete";
 import PersonIcon from "@mui/icons-material/Person";
 import { AssignCourseTrainerModal } from "../../../../../components/Course/CourseTrainer";
+import { RemoveTrainerModal } from "../../../../../components/Course/RemoveTrainer";
 interface CourseTrainersTabProps {
   courseId: number;
 }
@@ -18,7 +19,7 @@ const formatAssignmentDate = (dateString: string) => {
   });
 };
 
-// دالة لجلب الحرف الأول من اسم المدرب للأفاتار
+
 const getInitials = (name: string) => {
   if (!name) return "TR";
   return name.trim().split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
@@ -27,7 +28,8 @@ const getInitials = (name: string) => {
 export const CourseTrainersTab: React.FC<CourseTrainersTabProps> = ({ courseId }) => {
   const { data, isLoading, isError } = useGetCourseTrainersQuery({ id: courseId });
   const [isOpenAssign,setIsOpenAssign]=useState(false)
-  
+   const [isOpenRemoved,setIsOpenRemoved]=useState(false)
+   const [selectedTrainerId,setSelectedTrainerId]=useState(0)
   const trainersList = data || [];
   if (isLoading) {
     return (
@@ -60,7 +62,7 @@ export const CourseTrainersTab: React.FC<CourseTrainersTabProps> = ({ courseId }
   return (
     <div className="animate-[fadeIn_0.3s_ease-out] space-y-6">
       
-      {/* الـ Header الخاص بالتاب */}
+  
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 pb-4">
         <div>
           <h3 className="text-lg font-bold text-gray-950 flex items-center gap-2">
@@ -123,6 +125,7 @@ export const CourseTrainersTab: React.FC<CourseTrainersTabProps> = ({ courseId }
 
               {/* زر حذف أو فك ارتباط المدرب - يظهر بشكل ناعم عند تمرير الماوس */}
               <button 
+                onClick={()=>{setIsOpenRemoved(true),setSelectedTrainerId(trainer.trainerId)}}
                 title="Remove Trainer"
                 className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
               >
@@ -138,6 +141,12 @@ export const CourseTrainersTab: React.FC<CourseTrainersTabProps> = ({ courseId }
       onClose={()=>setIsOpenAssign(false)}
 
       courseId={courseId}
+      />
+      <RemoveTrainerModal
+      open={isOpenRemoved}
+      onClose={()=>setIsOpenRemoved(false)}
+      courseId={courseId}
+      trainerId={selectedTrainerId}
       />
     </div>
   );
