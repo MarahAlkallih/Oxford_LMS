@@ -22,7 +22,7 @@ import { TraineeInfo } from "../pages/Users/Trainees/Trainee";
 import { ExamConstants } from "../pages/Exams/ExamConstatnts/ExamConstatnt";
 import { AddCoursePage } from "../pages/Courses/Course/AddCourse";
 import { CoursesPage } from "../pages/Courses/Course/CoursesPage";
-import { CourseDetails } from "../pages/Courses/Course/CourseDetails";
+import { CourseDetails } from "../pages/Courses/Course/CourseDetails/CourseDetails";
 import { FormsPage } from "../pages/Exams/Forms/Form";
 import { ExamInstances } from "../pages/Exams/Instances/Instances";
 import { InstanceDetails } from "../pages/Exams/Instances/InstanceDetails";

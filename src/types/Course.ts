@@ -26,3 +26,14 @@ export interface Course {
 export interface CourseesResponse{
     
 }
+
+export interface CourseTrainers{
+     
+        id: number,
+        courseId: number,
+        trainerId: number,
+        assignedAt: Date,
+        assignedById: number,
+        trainerName: string
+    
+}

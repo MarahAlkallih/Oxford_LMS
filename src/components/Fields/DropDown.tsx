@@ -54,11 +54,11 @@ const CustomDropdown = ({
           className={`text-[var(--main-color)] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
         />
       </div>
-      <div
-       className={`absolute top-full left-0 w-full mt-2 bg-white border rounded-xl overflow-hidden shadow-2xl z-50 transition-all duration-300 ${
-  isOpen ? "block translate-y-0" : "hidden -translate-y-2"
-}`}
-      >
+   <div
+  className={`absolute top-full left-0 w-full mt-2 bg-white border rounded-xl shadow-2xl z-50 transition-all duration-300 max-h-60 overflow-y-auto ${
+    isOpen ? "block translate-y-0" : "hidden -translate-y-2"
+  }`}
+>
         {options.map((option, index) => (
           <div
             key={index}

@@ -87,6 +87,7 @@ export const baseApi = createApi({
     "Questions-types",
     "Courses",
     "Courses-statuses",
+    "Courses-trainers",
     "StartForms",
     "EndForms",
     "Questions",
