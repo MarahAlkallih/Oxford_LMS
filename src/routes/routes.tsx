@@ -37,6 +37,7 @@ import { EditTrainerPage } from "../pages/Users/Trainers/EditTrainer";
 import { EditTrainee } from "../pages/Users/Trainees/EditTrainee";
 import { TrainerProfile } from "../pages/Users/Trainers/Profile";
 import { EditTrainer } from "../pages/Users/Trainers/EditMe";
+import { CurrencyPage } from "../pages/Currency/Currency";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -62,7 +63,7 @@ function AppRoutes() {
         <Route path="/dashboard" element={<StaticsPage />} />
           <Route path="/trainer/profile" element={<TrainerProfile />} />
            <Route path="/trainer/profile/edit/:id" element={<EditTrainer />} />
-        <Route path="/users/languages" element={<LanguagesPage />} />
+        <Route path="/masterData/languages" element={<LanguagesPage />} />
         <Route path="users/display" element={<UsersPage/>}/>
         <Route path="users/display/:id" element={<DisplayUserInfo/>}/>
           <Route path="users/display/:id/edit" element={<EditUserPage/>}/>
@@ -75,9 +76,10 @@ function AppRoutes() {
         <Route path="users/trainees/:id/edit" element={<EditTrainee/>} />
         <Route path="users/trainer/addtrainer" element={<TrainerPage/>} />
         <Route path="courses/training-plan" element={<TrainingPlanPage/>} />
-        <Route path="courses/venues" element={<VenuesPage/>} />
-        <Route path="courses/location" element={<LocationPage/>} />
-        <Route path="courses/category" element={<CatygoriesPage/>} />
+        <Route path="masterData/venues" element={<VenuesPage/>} />
+        <Route path="masterData/location" element={<LocationPage/>} />
+        <Route path="masterData/category" element={<CatygoriesPage/>} />
+        <Route path="masterData/currency" element={<CurrencyPage/>} />
            <Route path="/courses/add-course" element={<AddCoursePage/>} />
             <Route path="/courses" element={<CoursesPage/>} />
             <Route path="/courses/:id" element={<CourseDetails/>} />

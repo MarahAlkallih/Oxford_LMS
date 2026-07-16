@@ -95,7 +95,8 @@ export const baseApi = createApi({
     "Exam",
     "Exam-Files",
     "Exam-events",
-    "Trainees"
+    "Trainees",
+    "Currencies"
   ],
   endpoints: () => ({}),
 });

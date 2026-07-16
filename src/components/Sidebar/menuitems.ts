@@ -18,12 +18,46 @@ import CoPresentIcon from "@mui/icons-material/CoPresent";
 import FactCheckIcon from '@mui/icons-material/FactCheck'
 import QuizIcon from "@mui/icons-material/Quiz";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import DatasetIcon from "@mui/icons-material/Dataset";
+import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/", adminRoles:["SUPER"] },
+   { icon: DatasetIcon, label: "Master Data", path: "/masterData", adminRoles:["SUPER"],
+
+    children:[
+      {icon:LanguageIcon,label:"Language",path:"/masterData/languages",  adminRoles: ["SUPER"]},
+       {
+         icon: PublicIcon,
+         label: "Venues",
+         path: "/masterData/venues",
+           adminRoles: ["SUPER"]
+       },
+       
+       {
+         icon: LocationOnIcon,
+         label: "Location",
+         path: "/masterData/location",
+          adminRoles: ["SUPER"]
+       },
+         {
+         icon: CurrencyExchangeIcon,
+         label: "Currency",
+         path: "/masterData/currency",
+          adminRoles: ["SUPER"]
+       },
+       
+       {
+         icon: MenuBookIcon,
+         label: "Category",
+         path: "/masterData/category",
+           adminRoles: ["SUPER"]
+       },
+    ]
+    },
    { icon: PeopleIcon, label: "Users", path: "/users",
      
     children:[
-       {icon:LanguageIcon,label:"Language",path:"/users/languages",  adminRoles: ["SUPER"]},
+       
       {icon:AdminPanelSettingsIcon,label:"Users",path:"/users/display", adminRoles: ["SUPER", "HR"]},
        {icon:CoPresentIcon,label:"Trainer",path:"users/trainer",  adminRoles: ["SUPER"]},
      
@@ -49,26 +83,7 @@ export const menuItems: MenuItem[] = [
         role:"trainer",
         adminRoles: ["SUPER"]
        },
-       {
-         icon: PublicIcon,
-         label: "Venues",
-         path: "/courses/venues",
-           adminRoles: ["SUPER"]
-       },
-       
-       {
-         icon: LocationOnIcon,
-         label: "Location",
-         path: "/courses/location",
-          adminRoles: ["SUPER"]
-       },
-       
-       {
-         icon: MenuBookIcon,
-         label: "Category",
-         path: "/courses/category",
-           adminRoles: ["SUPER"]
-       },
+      
        {
          icon: CircleIcon,
          label: "Add Courses",
