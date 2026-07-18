@@ -38,6 +38,9 @@ import { EditTrainee } from "../pages/Users/Trainees/EditTrainee";
 import { TrainerProfile } from "../pages/Users/Trainers/Profile";
 import { EditTrainer } from "../pages/Users/Trainers/EditMe";
 import { CurrencyPage } from "../pages/Currency/Currency";
+import { RequestPage } from "@mui/icons-material";
+import { RequestedCoursePage } from "../pages/Courses/Requested/RequestePage";
+import { OneRequestedCourse } from "../pages/Courses/Requested/OneRequest";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -81,6 +84,8 @@ function AppRoutes() {
         <Route path="masterData/category" element={<CatygoriesPage/>} />
         <Route path="masterData/currency" element={<CurrencyPage/>} />
            <Route path="/courses/add-course" element={<AddCoursePage/>} />
+            <Route path="/courses/requested" element={<RequestedCoursePage/>} />
+             <Route path="/courses/requested/:id" element={<OneRequestedCourse/>} />
             <Route path="/courses" element={<CoursesPage/>} />
             <Route path="/courses/:id" element={<CourseDetails/>} />
             <Route path="/courses/:id/edit" element={<AddCoursePage/>} />

@@ -20,6 +20,7 @@ import QuizIcon from "@mui/icons-material/Quiz";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import DatasetIcon from "@mui/icons-material/Dataset";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
+import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
 export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/", adminRoles:["SUPER"] },
    { icon: DatasetIcon, label: "Master Data", path: "/masterData", adminRoles:["SUPER"],
@@ -73,6 +74,13 @@ export const menuItems: MenuItem[] = [
          icon: SchoolIcon,
          label: "Courses",
          path: "/courses",
+       role:"trainer",
+  adminRoles: ["SUPER"]
+       },
+       {
+         icon: PendingActionsOutlinedIcon,
+         label: "Requested",
+         path: "/courses/requested",
        role:"trainer",
   adminRoles: ["SUPER"]
        },
