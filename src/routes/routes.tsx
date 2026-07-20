@@ -41,6 +41,7 @@ import { CurrencyPage } from "../pages/Currency/Currency";
 import { RequestPage } from "@mui/icons-material";
 import { RequestedCoursePage } from "../pages/Courses/Requested/RequestePage";
 import { OneRequestedCourse } from "../pages/Courses/Requested/OneRequest";
+import { OneRegistrationDetails } from "../pages/Courses/Course/CourseDetails/Registration/OneRegistrationDetails";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -88,6 +89,7 @@ function AppRoutes() {
              <Route path="/courses/requested/:id" element={<OneRequestedCourse/>} />
             <Route path="/courses" element={<CoursesPage/>} />
             <Route path="/courses/:id" element={<CourseDetails/>} />
+             <Route path="/courses/:id/registration/:id" element={<OneRegistrationDetails/>} />
             <Route path="/courses/:id/edit" element={<AddCoursePage/>} />
         <Route path="assignments/types" element={<ExamConstants/>} />
         <Route path="assignments/forms" element={<FormsPage/>} />
