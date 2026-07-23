@@ -45,6 +45,7 @@ import { OneRegistrationDetails } from "../pages/Courses/Course/CourseDetails/Re
 import { MyCoursesPage } from "../pages/Courses/Requested/MyCourse";
 import { StudentPage } from "../pages/Courses/Requested/Student";
 import { SessionTypes } from "../pages/Sessions/Types";
+import { PrioritiesPage } from "../pages/Sessions/Priorities";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -97,6 +98,7 @@ function AppRoutes() {
              <Route path="/courses/:id/registration/:id" element={<OneRegistrationDetails/>} />
             <Route path="/courses/:id/edit" element={<AddCoursePage/>} />
             <Route path="/session/types" element={<SessionTypes/>} />
+            <Route path="/session/priorities" element={<PrioritiesPage/>} />
         <Route path="assignments/types" element={<ExamConstants/>} />
         <Route path="assignments/forms" element={<FormsPage/>} />
         <Route path="assignments/instances" element={<ExamInstances/>} />
