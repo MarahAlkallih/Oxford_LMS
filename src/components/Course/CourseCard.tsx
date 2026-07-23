@@ -2,7 +2,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SchoolIcon from "@mui/icons-material/School";
-import type { Course } from "../../types/Course";
+import type { Course } from "../../types/Course/Course";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useActiveCourseMutation } from "../../services/courses/Admin-courses/coursesMutation";

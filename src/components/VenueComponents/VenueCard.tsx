@@ -2,7 +2,6 @@ import type { Venue } from "../../types/Venues";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
-import ToggleOffIcon from "@mui/icons-material/ToggleOff";
 
 interface Props {
   venue: Venue;
@@ -102,28 +101,18 @@ export const VenueCard = ({
             <DeleteIcon fontSize="small" />
           </button>
 
-          {/* TOGGLE ACTIVE */}
-          <button
-            onClick={() => onToggleActive(venue.id)}
-            className="bg-green-500 text-white px-3 py-2 rounded-md cursor-pointer hover:opacity-90 transition flex items-center gap-1"
-            title={
-              venue.isActive
-                ? "Make Inactive"
-                : "Make Active"
-            }
-          >
-            {venue.isActive ? (
-              <>
-                <ToggleOffIcon fontSize="small" />
-                <span className="text-xs">Inactive</span>
-              </>
-            ) : (
-              <>
-                <ToggleOnIcon fontSize="small" />
-                <span className="text-xs">Active</span>
-              </>
-            )}
-          </button>
+          {/* 💡 التعديل هنا: يظهر الزر فقط إذا كان العنصر غير نشط (Inactive) */}
+          {!venue.isActive && (
+            <button
+              onClick={() => onToggleActive(venue.id)}
+              className="bg-green-500 text-white px-3 py-2 rounded-md cursor-pointer 
+              hover:opacity-90 transition flex items-center gap-1"
+              title="Activate Venue"
+            >
+              <ToggleOnIcon fontSize="small" />
+              <span className="text-xs">Activate</span>
+            </button>
+          )}
 
         </div>
       </div>

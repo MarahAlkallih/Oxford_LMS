@@ -98,7 +98,8 @@ export const baseApi = createApi({
     "Trainees",
     "Currencies",
     "Requests",
-    "Registrations"
+    "Registrations",
+    "Session-types"
   ],
   endpoints: () => ({}),
 });

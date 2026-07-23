@@ -21,6 +21,11 @@ import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import DatasetIcon from "@mui/icons-material/Dataset";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
+import CastForEducationOutlinedIcon from "@mui/icons-material/CastForEducationOutlined";
+import ClassIcon from "@mui/icons-material/Class";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
+import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/", adminRoles:["SUPER"] },
    { icon: DatasetIcon, label: "Master Data", path: "/masterData", adminRoles:["SUPER"],
@@ -60,7 +65,7 @@ export const menuItems: MenuItem[] = [
     children:[
        
       {icon:AdminPanelSettingsIcon,label:"Users",path:"/users/display", adminRoles: ["SUPER", "HR"]},
-       {icon:CoPresentIcon,label:"Trainer",path:"users/trainer",  adminRoles: ["SUPER"]},
+      {icon:CoPresentIcon,label:"Trainer",path:"users/trainer",  adminRoles: ["SUPER"]},
      
       {icon:PeopleIcon,label:"Trainees",path:"users/trainees", adminRoles: ["SUPER"]},
     ],
@@ -77,12 +82,20 @@ export const menuItems: MenuItem[] = [
        role:"trainer",
   adminRoles: ["SUPER"]
        },
+         {
+         icon: CastForEducationOutlinedIcon,
+         label: "My Courses",
+         path: "/courses/mycourses",
+       role:"trainer",
+
+       },
+       
        {
          icon: PendingActionsOutlinedIcon,
          label: "Requested",
          path: "/courses/requested",
-       role:"trainer",
-  adminRoles: ["SUPER"]
+         role:"trainer",
+         adminRoles: ["SUPER"]
        },
        {
          icon: EventNoteIcon,
@@ -116,4 +129,10 @@ export const menuItems: MenuItem[] = [
    },
  
   { icon: SettingsIcon, label: "Settings", path: "/settings",role:"trainer" },
+   { icon: ClassIcon, label: "Session", path: "/session", adminRoles:["SUPER"],children:[
+    { icon: CategoryOutlinedIcon, label: "Types", path: "/session/types", adminRoles:["SUPER"], },
+  
+    { icon: TuneOutlinedIcon, label: "Priorities", path: "/session/priorities", adminRoles:["SUPER"], },
+     { icon: SupervisorAccountOutlinedIcon, label: "Supervisor", path: "/session/suoervisors", adminRoles:["SUPER"], },
+   ] },
 ]

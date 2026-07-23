@@ -1,5 +1,5 @@
 import { baseApi } from "../../../../api/baseApi";
-import type { CourseTrainers } from "../../../../types/Course";
+import type { CourseTrainers } from "../../../../types/Course/Course";
 // {statuses}
 const GetCourseTrainerApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({

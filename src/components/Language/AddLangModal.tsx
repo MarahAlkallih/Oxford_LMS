@@ -45,7 +45,7 @@ export const AddLangModal = ({ open, onClose }: AddLangModalProps) => {
 
     return (
         <Modal open={open} onClose={onClose}>
-  <div className="flex flex-col gap-4 p-4 min-w-[350px]">
+  <div className="flex flex-col gap-4 p-4 min-w-87.5">
 
     <h2 className="text-xl font-semibold text-center">
       Add New Language

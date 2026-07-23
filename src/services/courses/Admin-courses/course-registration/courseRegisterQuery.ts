@@ -1,5 +1,5 @@
 import { baseApi } from "../../../../api/baseApi";
-import type { Accepted, AllRegistration, OneRegisteration, Pendining } from "../../../../types/Registration/Rigistrations";
+import type { Accepted, AllRegistration, OneRegisteration, Pendining } from "../../../../types/Course/Registration/Rigistrations";
 
 // {statuses}
 const GetRegistrationStatusesApi = baseApi.injectEndpoints({

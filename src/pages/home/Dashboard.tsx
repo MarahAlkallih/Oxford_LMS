@@ -7,16 +7,11 @@ export const Dashboard = () => {
   const [open, setOpen] = useState(false);
   return (
   <Box>
-      <Button name="Dashboard" onClick={() => setOpen(true)} />
+     <div>
+      statictis
+      </div>
 
-      <ConfirmModal
-        open={open}
-        onClose={() => setOpen(false)}
-        onConfirm={() => {
-          console.log("deleted");
-          setOpen(false);
-        }}
-      />
+    
     </Box>
   );
 };

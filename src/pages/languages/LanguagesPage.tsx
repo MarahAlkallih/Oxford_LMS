@@ -39,10 +39,10 @@ export const LanguagesPage = () => {
       ) : (
         <div className="flex flex-col gap-2">
           {data?.map((lang) => (
-          <div className="border-l-4 border-(--main-color) ml-3 mb-2 shadow-sm
+          <div className="border-l-4 border-(--main-color) ml-3 mb-2 shadow-sm w-1/2
            hover:shadow-md bg-white rounded-xl p-2.5 flex flex-col gap-0.5 text-sm transition-all">
   
-  {/* السطر العلوي: الاسم وأزرار الأكشنس */}
+
   <div className="flex justify-between items-center gap-2">
     <h3 className="font-bold text-gray-800 text-sm truncate">
       {lang.name}

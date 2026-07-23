@@ -42,6 +42,9 @@ import { RequestPage } from "@mui/icons-material";
 import { RequestedCoursePage } from "../pages/Courses/Requested/RequestePage";
 import { OneRequestedCourse } from "../pages/Courses/Requested/OneRequest";
 import { OneRegistrationDetails } from "../pages/Courses/Course/CourseDetails/Registration/OneRegistrationDetails";
+import { MyCoursesPage } from "../pages/Courses/Requested/MyCourse";
+import { StudentPage } from "../pages/Courses/Requested/Student";
+import { SessionTypes } from "../pages/Sessions/Types";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -85,12 +88,15 @@ function AppRoutes() {
         <Route path="masterData/category" element={<CatygoriesPage/>} />
         <Route path="masterData/currency" element={<CurrencyPage/>} />
            <Route path="/courses/add-course" element={<AddCoursePage/>} />
+            <Route path="/courses/mycourses" element={<MyCoursesPage/>} />
+             <Route path="/courses/mycourses/student/:id" element={<StudentPage/>} />
             <Route path="/courses/requested" element={<RequestedCoursePage/>} />
              <Route path="/courses/requested/:id" element={<OneRequestedCourse/>} />
             <Route path="/courses" element={<CoursesPage/>} />
             <Route path="/courses/:id" element={<CourseDetails/>} />
              <Route path="/courses/:id/registration/:id" element={<OneRegistrationDetails/>} />
             <Route path="/courses/:id/edit" element={<AddCoursePage/>} />
+            <Route path="/session/types" element={<SessionTypes/>} />
         <Route path="assignments/types" element={<ExamConstants/>} />
         <Route path="assignments/forms" element={<FormsPage/>} />
         <Route path="assignments/instances" element={<ExamInstances/>} />
