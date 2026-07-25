@@ -7,6 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SchoolIcon from "@mui/icons-material/School";
 import GroupIcon from "@mui/icons-material/Group";
 import InfoIcon from "@mui/icons-material/Info";
+import ClassIcon from "@mui/icons-material/Class";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
@@ -14,7 +15,7 @@ import { useState } from "react";
 import { CourseInfoTab } from "./tabs/CourseInfoTab";
 import { CourseTrainersTab } from "./tabs/CourseTrainersTab";
 import { CourseTraineesTab } from "./tabs/CourseTraineesTab";
-
+import { SessionsPage } from "./tabs/CourseSessions";
 export const CourseDetails = () => {
   const { id } = useParams();
   const courseId = Number(id);
@@ -58,6 +59,7 @@ export const CourseDetails = () => {
     { id: "details", label: "Course Details", icon: <InfoIcon fontSize="small" /> },
     { id: "trainers", label: "Trainers Team", icon: <SchoolIcon fontSize="small" /> },
     { id: "trainees", label: "Registered Trainees", icon: <GroupIcon fontSize="small" /> },
+    { id: "sessions", label: "Sessions", icon: <ClassIcon fontSize="small" /> },
   ];
 
   return (
@@ -145,6 +147,7 @@ export const CourseDetails = () => {
         {activeTab === "trainers" && <CourseTrainersTab courseId={courseId} />}
         
         {activeTab === "trainees" && <CourseTraineesTab courseId={courseId} />}
+        {activeTab === "sessions" && <SessionsPage courseId={courseId}/>}
       </div>
 
       <ConfirmModal

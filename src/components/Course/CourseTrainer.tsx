@@ -2,7 +2,7 @@ import {  useState } from "react";
 import { Button } from "../Buttons/SubmitBtn";
 import { Modal } from "../global/Modals";
 import { CancelBtn } from "../Buttons/CancelBtn";
-import { useGetTrainerQuery, useGetTrainersQuery } from "../../services/trainer/getTrainers";
+import {  useGetTrainersQuery } from "../../services/trainer/getTrainers";
 import { useGetActiveUncompingCourseQuery } from "../../services/courses/Admin-courses/coursesQuery";
 import { toast } from "react-toastify";
 import { useAssignCourseTrainerMutation } from "../../services/courses/Admin-courses/Course-Trainers/courseTrainersMutation";

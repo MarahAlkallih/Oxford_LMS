@@ -100,7 +100,9 @@ export const baseApi = createApi({
     "Requests",
     "Registrations",
     "Session-types",
-    "Session-priorities"
+    "Session-priorities",
+    "Session",
+    "Supervisor"
   ],
   endpoints: () => ({}),
 });
