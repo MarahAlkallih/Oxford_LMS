@@ -12,18 +12,14 @@ import Delete from "@mui/icons-material/Delete";
 import EmailIcon from "@mui/icons-material/Email";
 import ClassIcon from "@mui/icons-material/Class";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import { DeleteSupervisorModal } from "../../components/Sessions/Supervisors/DeleteAdmin";
 
 export const Supervisorspage = () => {
   // 2. جلب البيانات من الـ Hook
   const { data, isLoading, isError } = useGetSupervisorsQuery({});
   const [searchTerm, setSearchTerm] = useState("");
-
-  // دالة الحذف
-  const handleDelete = (assignmentId: number) => {
-    if (confirm("Are you sure you want to delete this supervisor assignment?")) {
-      console.log("Delete assignment ID:", assignmentId);
-    }
-  };
+  const [deleteOpen,setDeleteOpen]=useState(false)
+  const [selectedId,setSelectedId]=useState(0)
 
   // دالة التعديل
   const handleEdit = (item: Supervisors) => {
@@ -39,7 +35,6 @@ export const Supervisorspage = () => {
     });
   };
 
-  // تصفية البيانات بأمان من دون أخطاء TypeScript أو Crashes
   const filteredData = data?.filter((item: Supervisors) => {
     const search = searchTerm.toLowerCase();
     const fullName = `${item.admin?.firstName || ""} ${item.admin?.lastName || ""}`.toLowerCase();
@@ -169,7 +164,10 @@ export const Supervisorspage = () => {
                           <EditOutlinedIcon sx={{ fontSize: 18 }} />
                         </button>
                         <button
-                          onClick={() => handleDelete(item.assignmentId)}
+                          onClick={() => {
+                            setSelectedId(item.assignmentId);
+                            setDeleteOpen(true);
+                          }}
                           className="p-1.5 rounded-lg border border-gray-200 hover:border-red-500 hover:bg-red-50 text-gray-500 hover:text-red-600 transition-all cursor-pointer"
                           title="Delete"
                         >
@@ -184,6 +182,11 @@ export const Supervisorspage = () => {
           </div>
         )}
       </div>
+        <DeleteSupervisorModal
+      open={deleteOpen}
+      onClose={()=>setDeleteOpen(false)}
+      id={selectedId}
+      />
     </div>
   );
 };

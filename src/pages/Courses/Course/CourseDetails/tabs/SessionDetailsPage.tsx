@@ -10,7 +10,8 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import LaunchIcon from "@mui/icons-material/Launch";
 import CheckCircleIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-
+import { DeleteSupervisorModal } from "../../../../../components/Sessions/Supervisors/DeleteAdmin";
+import { Edit } from "@mui/icons-material";
 export const SessionDetailsPage = () => {
   const { sId } = useParams();
   const navigate = useNavigate();
@@ -183,38 +184,53 @@ const {data:supers,isLoading:isLoadSuper}=useGetSupervisorsForSessionQuery({id:i
          <h1 className="text-2xl pl-6">Supervisors</h1>
         <div className=" p-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
            
-          {supers.map((s, index) => (
-            <div
-              key={s.adminId || index}
-              className="  h-fit p-3.5 bg-gray-50 hover:bg-white border border-gray-100
-               hover:border-gray-200 hover:shadow-xs rounded-xl transition-all flex items-start gap-3"
-            >
-              <div className="w-9 h-9 rounded-full bg-blue-50 text-(--main-color) font-bold text-xs flex items-center justify-center shrink-0 border border-blue-100">
-                {s.firstName?.[0]?.toUpperCase()}
-                {s.lastName?.[0]?.toUpperCase()}
-              </div>
-              <div className="min-w-0 flex-1 space-y-1">
-                <h4 className="text-xs font-bold text-gray-800 truncate">
-                  {s.firstName} {s.lastName}
-                </h4>
-                <div className="text-[11px] text-gray-500 space-y-0.5">
-                  <p className="flex items-center gap-1.5 truncate">
-                    <EmailIcon sx={{ fontSize: 13 }} className="text-gray-400" />
-                    <span className="truncate">{s.email}</span>
-                  </p>
-                  {s.phoneNumber && (
-                    <p className="flex items-center gap-1.5">
-                      <PhoneIcon sx={{ fontSize: 13 }} className="text-gray-400" />
-                      <span>{s.phoneNumber}</span>
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+         {supers.map((s, index) => (
+  <div
+    key={s.adminId || index}
+    className="h-fit p-3.5 bg-gray-50 hover:bg-white border border-gray-100
+      hover:border-gray-200 hover:shadow-xs rounded-xl transition-all flex items-start justify-between gap-3 group"
+  >
+    {/* قسم البيانات (الصورة + الاسم + الايميل والرمز) */}
+    <div className="flex items-start gap-3 min-w-0 flex-1">
+      <div className="w-9 h-9 rounded-full bg-blue-50 text-(--main-color) font-bold text-xs flex items-center justify-center shrink-0 border border-blue-100">
+        {s.firstName?.[0]?.toUpperCase()}
+        {s.lastName?.[0]?.toUpperCase()}
+      </div>
+
+      <div className="min-w-0 flex-1 space-y-1">
+        <h4 className="text-xs font-bold text-gray-800 truncate">
+          {s.firstName} {s.lastName}
+        </h4>
+        <div className="text-[11px] text-gray-500 space-y-0.5">
+          <p className="flex items-center gap-1.5 truncate">
+            <EmailIcon sx={{ fontSize: 13 }} className="text-gray-400" />
+            <span className="truncate">{s.email}</span>
+          </p>
+          {s.phoneNumber && (
+            <p className="flex items-center gap-1.5">
+              <PhoneIcon sx={{ fontSize: 13 }} className="text-gray-400" />
+              <span>{s.phoneNumber}</span>
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* أيقونة التعديل */}
+    <button
+      type="button"
+      onClick={() =>{}} // غيري handleEdit للدالة الخاصة بكِ
+      className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 border border-transparent hover:border-blue-100 rounded-lg transition-all cursor-pointer shrink-0"
+      title="Edit Supervisor"
+    >
+      <Edit sx={{ fontSize: 16 }} />
+    </button>
+  </div>
+))}
         </div>
         </div>
       )}
+    
     </div>
   );
 };

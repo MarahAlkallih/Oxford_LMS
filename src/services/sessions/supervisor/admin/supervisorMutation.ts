@@ -37,7 +37,7 @@ const deleteSupervisorApi=baseApi.injectEndpoints({
         deleteSupervisor:builder.mutation({
         query:({id})=>({
             url:`/session-supervisors/${id}`,
-           
+          
             method:"DELETE"
         }),
           invalidatesTags: ["Supervisor"],
