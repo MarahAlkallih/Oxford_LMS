@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { clearAuthSession, getAccessToken, getRefreshToken, persistAuthSession } from "../features/admin/auth/authStorage";
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: "/api",
+  baseUrl:import.meta.env.VITE_API_URL,
   credentials: "include",
 
 prepareHeaders: (headers) => {

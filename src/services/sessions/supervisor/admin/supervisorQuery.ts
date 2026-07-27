@@ -11,15 +11,34 @@ export interface Supervisor{
         gender: string
     
 }
+export interface Supervisors {
+    assignmentId: number;
+    sessionId:    number;
+    adminId:      number;
+    admin:        Admin;
+    session:      Session;
+}
+
+export interface Admin {
+    firstName: string;
+    lastName:  string;
+    email:     string;
+}
+
+export interface Session {
+    title:  string;
+    status: string;
+    date:   Date;
+}
 
 const GetSupervisorsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getSupervisors: builder.query<
-      Supervisor[],
+      Supervisors[],
       any
     >({
       query: () => ({
-        url: "/session-priorities",
+        url: "/session-supervisors",
       
       }),
       providesTags: ["Supervisor"],
@@ -29,7 +48,15 @@ const GetSupervisorsApi = baseApi.injectEndpoints({
 const GetOneSupervisorApi=baseApi.injectEndpoints({
     endpoints:(builder)=>({
         getOneSupervisor:builder.query<Supervisor,{id:number}>({
-            query:({id})=>`/session-priorities/${id}`,
+            query:({id})=>`/session-supervisors/${id}`,
+            providesTags:["Supervisor"]
+        })
+    })
+})
+const GetSupervisorsForSessionApi=baseApi.injectEndpoints({
+    endpoints:(builder)=>({
+        getSupervisorsForSession:builder.query<Supervisor[],{id:number}>({
+            query:({id})=>`/session-supervisors/session/${id}`,
             providesTags:["Supervisor"]
         })
     })
@@ -37,3 +64,4 @@ const GetOneSupervisorApi=baseApi.injectEndpoints({
 export const {useGetOneSupervisorQuery}=GetOneSupervisorApi
 
 export const {useGetSupervisorsQuery}=GetSupervisorsApi
+export const {useGetSupervisorsForSessionQuery}=GetSupervisorsForSessionApi

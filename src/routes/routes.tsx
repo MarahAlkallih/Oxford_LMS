@@ -47,6 +47,7 @@ import { StudentPage } from "../pages/Courses/Requested/Student";
 import { SessionTypes } from "../pages/Sessions/Types";
 import { PrioritiesPage } from "../pages/Sessions/Priorities";
 import { SessionDetailsPage } from "../pages/Courses/Course/CourseDetails/tabs/SessionDetailsPage";
+import { Supervisorspage } from "../pages/Sessions/Supervisors";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -101,6 +102,7 @@ function AppRoutes() {
             <Route path="/courses/:id/edit" element={<AddCoursePage/>} />
             <Route path="/session/types" element={<SessionTypes/>} />
             <Route path="/session/priorities" element={<PrioritiesPage/>} />
+            <Route path="/session/suoervisors" element={<Supervisorspage/>} />
         <Route path="assignments/types" element={<ExamConstants/>} />
         <Route path="assignments/forms" element={<FormsPage/>} />
         <Route path="assignments/instances" element={<ExamInstances/>} />
