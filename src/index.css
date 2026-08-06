@@ -2,8 +2,11 @@
 :root{
   --main-color:#4B5945;
    --sec-color:#65775e;
+   --third-color:#7f9676;
   --light-color:#f4f3ec;
+  --light2-color:#f8f5df;
   --color-watermelon: #E07A5F;
+  --orange-color:#ff4d1c;
   --color-watermelon-dark:rgb(253, 65, 106);
 
 }

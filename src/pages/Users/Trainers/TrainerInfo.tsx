@@ -13,7 +13,6 @@ export const TrainerInfo = () => {
 
   const account = data?.account;
 
-  // دالة لتوليد الحرف الأول من الاسم للافتار الافتراضي
   const getInitials = () => {
     if (!account?.firstName) return "T";
     return `${account.firstName[0]}${account.lastName?.[0] || ""}`.toUpperCase();
@@ -39,7 +38,7 @@ export const TrainerInfo = () => {
       {isLoading ? (
         <div className="max-w-3xl mx-auto bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex flex-col items-center justify-center min-h-[300px] gap-3">
           <div className="w-10 h-10 border-4
-           border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+           border-(--sec-color) border-t-transparent rounded-full animate-spin"></div>
           <span className="text-gray-400 font-medium animate-pulse">Loading Trainer Data...</span>
         </div>
       ) : !data ? (
@@ -47,17 +46,17 @@ export const TrainerInfo = () => {
           Trainer not found or error loading data.
         </div>
       ) : (
-        /* الكارد الرئيسي للمدرب */
-        <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl shadow-gray-100/40 border border-gray-100 overflow-hidden">
+     
+        <div className="max-w-3xl mx-auto bg-(--third-color) rounded-2xl shadow-xl shadow-gray-100/40 border border-gray-100 overflow-hidden">
           
           {/* بنر الهيدر العلوي */}
-          <div className="relative h-24 bg-linear-to-r from-(--main-color) to-(--sec-color)"></div>
+          <div className="relative h-24 bg-(--third-color)"></div>
 
           {/* معلومات الهوية الرئيسية (الافتار والاسم والحالة) */}
           <div className="px-6 pb-6 relative flex flex-col sm:flex-row items-start sm:items-end gap-4 -mt-10 mb-6 border-b border-gray-100">
            (
               <div className={`w-20 h-20 rounded-2xl border-4 border-white shadow-md flex items-center justify-center text-xl font-bold text-white relative z-10 ${
-                account?.gender === "FEMALE" ? "bg-(--color-watermelon-dark)" : "bg-blue-300"
+                account?.gender === "FEMALE" ? "bg-(--color-watermelon)" : "bg-blue-300"
               }`}>
                 {getInitials()}
               </div>
@@ -65,7 +64,7 @@ export const TrainerInfo = () => {
 
             <div className="flex-1 pt-2 sm:pt-0">
               <div className="flex items-center gap-3 flex-wrap">
-                <h2 className="text-xl font-bold text-gray-800">
+                <h2 className="text-xl font-bold text-white">
                   {account?.firstName} {account?.lastName}
                 </h2>
                 <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold tracking-wide ${
@@ -74,7 +73,7 @@ export const TrainerInfo = () => {
                   {account?.isActive ? "Active" : "Inactive"}
                 </span>
               </div>
-              <p className="text-sm text-gray-400 font-medium mt-0.5">@{account?.firstName}</p>
+              <p className="text-sm text-gray-800 font-medium mt-0.5">@{account?.firstName}</p>
             </div>
           </div>
 

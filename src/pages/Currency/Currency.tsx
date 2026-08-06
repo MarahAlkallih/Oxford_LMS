@@ -5,6 +5,7 @@ import { useGetCurrenciesQuery } from "../../services/currency/currencyQuery";
 import { Edit,Delete } from "@mui/icons-material";
 import { EditCurrencyModal } from "../../components/Currency/EditCurrModal";
 import { DeleteCurrModal } from "../../components/Currency/DeleteCurrencyModal";
+import { DeleteIcon, EditIcon } from "../../components/Icons";
 export const CurrencyPage=()=>{
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalEdit, setIsModalEdit] = useState(false);
@@ -35,15 +36,15 @@ export const CurrencyPage=()=>{
                          onClick={()=>{setIsModalEdit(true)
                             setCurrencyId(c.id)
                          }}
-                         className="text-(--main-color) cursor-pointer">
-                        <Edit/>
+                         className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200 transition">
+                         <EditIcon size={24}  color="#ff4d1c" />
                      </button>
                      <button 
                        onClick={()=>{setIsModalDelete(true)
                             setCurrencyId(c.id)
                          }}
-                     className="text-red-500 cursor-pointer">
-<Delete/>
+                     className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200 transition">
+                         <DeleteIcon size={24}  color="#ff4d1c" />
                      </button>
                     </div>
                      

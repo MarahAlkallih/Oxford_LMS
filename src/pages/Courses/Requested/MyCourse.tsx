@@ -6,7 +6,7 @@ import { CourseCard } from "../../../components/Course/Request/MyCourseCard"; //
 export const MyCoursesPage = () => {
   const { data, isLoading } = useGetMyCourseQuery(undefined);
 
-  // حالة التحميل (Skeleton)
+ 
   if (isLoading) {
     return (
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -21,7 +21,7 @@ export const MyCoursesPage = () => {
     );
   }
 
-  // الحالة الفارغة
+
   if (!data || data.length === 0) {
     return (
       <div className="mx-6 my-12 text-center text-gray-400 border-2 border-dashed border-gray-200 rounded-3xl bg-gray-50/50 py-16">
@@ -39,10 +39,10 @@ export const MyCoursesPage = () => {
         My Assigned Courses ({data.length})
       </h1>
 
-      {/* شبكة عرض الكروت المحدثة */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {data.map((course: any) => (
-          // 2. رندرة الكارد المصل واستدعاؤه لكل كورس ديناميكياً
+        
           <CourseCard key={course.id} course={course} />
         ))}
       </div>

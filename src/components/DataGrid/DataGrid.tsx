@@ -60,8 +60,7 @@ export function CustomDataGrid<T extends GridValidRowModel>({
       sx={{
         overflow: "hidden",
         borderRadius: 3,
-        background: "var(--bg-color)",
-        color: "var(--text-color)",
+      
       }}
     >
      <DataGrid
@@ -80,12 +79,12 @@ export function CustomDataGrid<T extends GridValidRowModel>({
     border: "none",
 
     "& .MuiDataGrid-main": {
-      backgroundColor: "var(--bg-color)",
+      backgroundColor: "var(--light-color)",
       color: "var(--text-color)",
     },
 
     "& .MuiDataGrid-columnHeaders": {
-      backgroundColor: "var(--grey-color)",
+      backgroundColor: "var(--sec-color)",
       borderBottom: "none",
     },
 

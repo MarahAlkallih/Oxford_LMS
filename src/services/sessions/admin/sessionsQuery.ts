@@ -23,6 +23,7 @@ export interface SessionDetails {
     trainerPhone:    string;
     actualStartTime: null;
     actualEndTime:   null;
+    locationId: null;
 }
 
 

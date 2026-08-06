@@ -1,4 +1,4 @@
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import {VisibilityIcon} from "../../../components/Icons/index"
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import GTranslateIcon from "@mui/icons-material/GTranslate"; // أيقونة تعبر عن جوجل أو الحساب المرتبط
@@ -10,19 +10,19 @@ import { useGetTraineesQuery } from "../../../services/users/GetTrainees";
 export const TraineesPage = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(6); // تم تعديلها إلى 6 لتبدو متناسقة في شاشات الـ 3 كاردات في الصف
+  const [pageSize] = useState(6); 
 
   const { data, isLoading } = useGetTraineesQuery({
     page,
     limit: pageSize,
   });
 
-  // 1️⃣ دالة ذكية لتوليد الحروف الأولى من الاسم (Initials)
+
   const getInitials = (firstName: string, lastName: string) => {
     return `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`.toUpperCase();
   };
 
-  // 2️⃣ تصميم الهيكل الوهمي (Skeleton Loader) أثناء التحميل
+ 
   if (isLoading) {
     return (
       <div className="space-y-6 animate-pulse">
@@ -41,7 +41,7 @@ export const TraineesPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* الهيدر السفلي */}
+   
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Trainees</h1>
@@ -52,7 +52,7 @@ export const TraineesPage = () => {
         </span>
       </div>
 
-      {/* شبكة الكاردات المطورة */}
+     
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {data?.data.map((trainee) => {
           const account = trainee.account;
@@ -61,15 +61,15 @@ export const TraineesPage = () => {
           return (
             <div
               key={trainee.id}
-              className="group bg-white rounded-2xl p-5 border border-gray-100
+              className="group bg-linear-to-r from-(--sec-color) to-(--third-color) rounded-2xl p-5 border border-gray-100
                hover:border-(--main-color) shadow-sm hover:shadow-md hover:-translate-y-1 
                transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                {/* الجزء العلوي: الأفاتار والاسم والإجراءات */}
+              
                 <div className="flex justify-between items-start gap-2">
                   <div className="flex gap-3.5 items-center">
-                    {/* الأفاتار الديناميكي مع مؤشر الحالة النشطة */}
+                
                     <div className="relative w-12 h-12 rounded-full bg-linear-to-br from-blue-50 to-indigo-50 text-(--main-color) font-bold text-sm flex items-center justify-center border border-blue-100/50 shrink-0">
                       {initials}
                       {account.isActive && (
@@ -78,38 +78,36 @@ export const TraineesPage = () => {
                     </div>
 
                     <div>
-                      <h3 className="font-bold text-gray-800 text-base group-hover:text-(--mai-color) transition-colors capitalize line-clamp-1">
+                      <h3 className="font-bold text-gray-100 text-base  transition-colors capitalize line-clamp-1">
                         {account.firstName} {account.lastName}
                       </h3>
-                      <p className="text-xs text-gray-400 font-medium mt-0.5">
+                      <p className="text-xs text-gray-200 font-bold mt-0.5">
                         @{account.userName}
                       </p>
                     </div>
                   </div>
 
-                  {/* زر عرض التفاصيل */}
                   <Tooltip title="View Full Profile" arrow>
                     <IconButton
                       size="small"
-                      className="text-gray-400 hover:text-(--main-color) hover:bg-blue-50"
-                      onClick={() => navigate(`${trainee.id}`)} // توحيد منطق التنقل بالاعتماد على معرف الـ trainee الرئيسي
+                      className="text-gray-100 hover:text-(--main-color) hover:bg-blue-50"
+                      onClick={() => navigate(`${trainee.id}`)} 
                     >
-                      <VisibilityOutlinedIcon fontSize="small" />
+                      <VisibilityIcon color="white" size={24} />
                     </IconButton>
                   </Tooltip>
                 </div>
 
-                {/* تفاصيل البيانات ووسائل التواصل */}
                 <div className="mt-5 space-y-2.5 border-t border-gray-50 pt-4">
-                  <div className="flex items-center gap-2.5 text-gray-600 text-sm">
-                    <EmailOutlinedIcon fontSize="small" className="text-gray-400" />
+                  <div className="flex items-center gap-2.5 text-gray-200 text-sm">
+                    <EmailOutlinedIcon sx={{fontSize:"24px"}} className="text-(--light-color)" />
                     <span className="truncate" title={account.email}>
                       {account.email}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-2.5 text-gray-600 text-sm">
-                    <LanguageOutlinedIcon fontSize="small" className="text-gray-400" />
+                    <LanguageOutlinedIcon sx={{fontSize:"24px"}} className="text-(--orange-color)" />
                     <span className="font-medium text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-md">
                       {account.languageName}
                     </span>
@@ -118,7 +116,7 @@ export const TraineesPage = () => {
               </div>
 
               {/* الجزء السفلي: ميزات إضافية مأخوذة من المودل (مثل الربط بجوجل) */}
-              <div className="mt-4 pt-3 border-t border-dashed border-gray-100 flex justify-between items-center text-[11px] text-gray-400">
+              <div className="mt-4 pt-3 border-t border-dashed border-gray-100 flex justify-between items-center text-[11px] text-gray-200">
                 <span>ID: #{trainee.id}</span>
                 {trainee.googleId && (
                   <span className="flex items-center gap-1 text-amber-600 font-medium bg-amber-50 px-2 py-0.5 rounded">
@@ -138,11 +136,11 @@ export const TraineesPage = () => {
           count={data?.meta.totalPages || 1}
           variant="outlined"
           shape="rounded"
-          color="primary"
+        
           onChange={(_, value) => setPage(value)}
           sx={{
             '& .MuiPaginationItem-root': {
-              borderColor: '#f3f4f6',
+              borderColor: '#4B5945',
             }
           }}
         />

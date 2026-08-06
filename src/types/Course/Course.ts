@@ -22,6 +22,10 @@ export interface Course {
     categoryName:         string;
     venueName:            null | string;
     locationName:         string;
+    expectedSessions :number | null;
+    hasTasks:boolean,
+    tasksPercentage:number | null,
+    isTasksGraded:boolean
 }
 export interface CourseesResponse{
     

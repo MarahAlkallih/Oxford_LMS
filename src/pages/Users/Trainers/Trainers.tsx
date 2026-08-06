@@ -3,11 +3,8 @@ import { Button } from "../../../components/Buttons/SubmitBtn";
 import { useGetTrainersQuery, useGetInActiveTrainersQuery } from "../../../services/trainer/getTrainers";
 import { type GridColDef } from "@mui/x-data-grid";
 import { IconButton, Stack, Tooltip } from "@mui/material";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import ToggleOnIcon from "@mui/icons-material/ToggleOn";
-import ToggleOffIcon from "@mui/icons-material/ToggleOff";
+import {VisibilityIcon,EditIcon,DeleteIcon} from "../../../components/Icons/index"
+import {ToggleOn,ToggleOff} from "../../../components/Icons/index"
 import CustomDataGrid from "../../../components/DataGrid/DataGrid";
 import type { Trainer } from "../../../types/user";
 import { useState } from "react";
@@ -76,12 +73,13 @@ export const Trainers = () => {
             width: 200, 
             align: "center",
             headerAlign: "center",
+             
         
             renderCell: (params) => {
                 const active = params.row.isActive;
 
                 return (
-                    <Stack direction="row" spacing={0.5}>
+                    <Stack direction="row" sx={{padding:"6px"}}  spacing={0.5}>
                         
                         <Tooltip title={active ? "Deactivate" : "Activate"}>
                             <IconButton
@@ -98,7 +96,7 @@ export const Trainers = () => {
                                     }
                                 }}
                             >
-                                {active ? <ToggleOnIcon fontSize="medium" /> : <ToggleOffIcon fontSize="medium" />}
+                                {active ? <ToggleOn size={24}  /> : <ToggleOff size={24}  />}
                             </IconButton>
                         </Tooltip>
 
@@ -108,7 +106,7 @@ export const Trainers = () => {
                                 sx={{ color: "#1976d2" }}
                                 onClick={() => navigate(`${params.row.trainer.id}`)}
                             >
-                                <VisibilityOutlinedIcon fontSize="small" />
+                                <VisibilityIcon size={24}   color="(--main-color)" />
                             </IconButton>
                         </Tooltip>
 
@@ -118,7 +116,7 @@ export const Trainers = () => {
                                 sx={{ color: "#f9a825" }}
                                 onClick={() => navigate(`${params.row.trainer.id}/edit`)}
                             >
-                                <EditOutlinedIcon fontSize="small" />
+                               <EditIcon size={24}  color="#ff4d1c"    />
                             </IconButton>
                         </Tooltip>
 
@@ -128,7 +126,7 @@ export const Trainers = () => {
                                 sx={{ color: "#d32f2f" }}
                                 onClick={() => console.log("delete", params.row)}
                             >
-                                <DeleteOutlineOutlinedIcon fontSize="small" />
+                               <DeleteIcon size={24} />
                             </IconButton>
                         </Tooltip>
 

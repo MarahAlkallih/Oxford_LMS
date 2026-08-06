@@ -63,7 +63,7 @@ useEffect(() => {
             <div className="flex  flex-col gap-4 p-4 ">
 
                 <h2 className="text-xl font-semibold text-center">
-                    Add New Venue
+                    Add New Location
                 </h2>
                <div className="flex flex-col items-center gap-4">
   <div className="w-full max-w-[300px]">
@@ -90,7 +90,7 @@ useEffect(() => {
 
                     <div className="flex-1">
                         <Button
-                            name={isLoading ? "Adding..." : "Add Location"}
+                            name={isLoading ? "Adding..." : "Add"}
                             onClick={handleAddVenue}
                         />
                     </div>

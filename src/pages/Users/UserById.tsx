@@ -9,7 +9,7 @@ export const DisplayUserInfo = () => {
     skip: !id || isNaN(userId),
   });
 
-  // 🌟 استخراج البيانات بناءً على هيكلية الباك إند الجديدة
+ 
   const userInfo = data; 
   const accountInfo = userInfo?.account;
 
@@ -26,8 +26,8 @@ export const DisplayUserInfo = () => {
           No User Data Found!
         </div>
       ) : (
-        // كارد منظم وأنيق لعرض البيانات
-        <div className="bg-white border border-gray-100 shadow-xl rounded-2xl p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+  
+        <div className="bg-(--third-color) border border-gray-100 shadow-xl rounded-2xl p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           
           <div className="flex flex-col p-3 bg-gray-50 rounded-xl">
             <span className="text-xs text-gray-400 font-semibold uppercase">First Name</span>

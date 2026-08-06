@@ -1,8 +1,7 @@
 
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 import type { Category } from "../../types/Category";
+import { DeleteIcon, EditIcon } from "../Icons";
 
 interface Props {
     category: Category;
@@ -27,7 +26,7 @@ export const CategoryCard = ({
 }: Props) => {
     return (
         <div
-            className={`rounded-xl shadow-md p-4 bg-white border transition-all duration-300 w-full h-full ${category.isActive
+            className={`rounded-xl shadow-md p-4 bg-(--light2-color) transition-all duration-300 w-full h-full ${category.isActive
                     ? "border-(--main-color)"
                     : "border-gray-300 opacity-75"
                 }`}
@@ -51,7 +50,7 @@ export const CategoryCard = ({
 
                     {/* EDIT IMAGE */}
                     {!inactiveMode ?  <label className="absolute bottom-0 right-0 bg-white p-1 rounded-full shadow cursor-pointer hover:bg-gray-100 transition">
-                        <EditIcon fontSize="small" />
+                        <EditIcon  />
 
                         <input
                             hidden
@@ -91,19 +90,16 @@ export const CategoryCard = ({
                   
                     <button
                         onClick={() => onEditTitle(category)}
-                        className="bg-blue-900 text-white px-3 py-2 cursor-pointer rounded-md hover:opacity-90 transition"
                         title="Edit Title"
-                    >
-                        <EditIcon fontSize="small" />
-                    </button>
+                      className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200 transition">
+                         <EditIcon size={24}  color="#ff4d1c" />
+                         </button>
 
                     {/* DELETE */}
                     <button
-                        onClick={() => onDelete(category.id)}
-                        className="bg-red-500 text-white px-3 py-2 rounded-md cursor-pointer hover:opacity-90 transition"
-                        title="Delete Category"
-                    >
-                        <DeleteIcon fontSize="small" />
+                        onClick={() => onDelete(category.id)} title="Delete Category"
+                       className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200 transition">
+                         <DeleteIcon size={24}  color="#ff4d1c" />
                     </button> 
                     </div>:
                     null

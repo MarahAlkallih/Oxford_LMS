@@ -27,10 +27,10 @@ export const AddCoursePage = () => {
     const navigate=useNavigate()
 type CourseType = {
   status: string;
-  locationId: number;
+  locationId: number | null;
   categoryId: number;
   languageId: number;
-  venueId: number;
+  venueId: number | null;
   code: string;
   title: string;
   fee: number;
@@ -42,14 +42,18 @@ type CourseType = {
   paymentDeadline: Date | null;
   description: string;
   isAdd: boolean;
+  expectedSessions:number | null;
+  hasTasks:boolean;
+  isTasksGraded:boolean;
+  tasksPercentage:number | null;
 };
 
 const initialCourse: CourseType = {
   status: "",
-  locationId: 0,
+  locationId: null,
   categoryId: 0,
   languageId: 0,
-  venueId: 0,
+  venueId: null,
   code: "",
   title: "",
   fee: 0,
@@ -61,6 +65,10 @@ const initialCourse: CourseType = {
   paymentDeadline: null,
   description: "",
   isAdd: false,
+  expectedSessions:null,
+  isTasksGraded:false,
+  hasTasks:false,
+  tasksPercentage:null
 };
 
 const [course, setCourse] = useState<CourseType>(initialCourse);
@@ -69,10 +77,10 @@ const [course, setCourse] = useState<CourseType>(initialCourse);
   if (courseData) {
     setCourse({
       status: courseData.status,
-      locationId: courseData.locationId ?? 0,
+      locationId: courseData.locationId ?? null,
       categoryId: courseData.categoryId,
       languageId: courseData.languageId,
-      venueId: courseData.venueId ?? 0,
+      venueId: courseData.venueId ?? null,
 
       code: courseData.code,
       title: courseData.title,
@@ -100,17 +108,21 @@ const [course, setCourse] = useState<CourseType>(initialCourse);
         : null,
 
       isAdd: courseData.isAdd,
-    });
+      expectedSessions :courseData.expectedSessions ?? null,
+      isTasksGraded:courseData.isTasksGraded ?? false,
+      hasTasks:courseData.hasTasks,
+      tasksPercentage:courseData.tasksPercentage
+ });
   }
 }, [courseData]);
 const handleSubmit = async () => {
   const formData = new FormData();
 
   formData.append("status", course.status);
-  formData.append("locationId", course.locationId.toString());
+  formData.append("locationId", course.locationId?.toString() || "" );
   formData.append("categoryId", course.categoryId.toString());
   formData.append("languageId", course.languageId.toString());
-  formData.append("venueId", course.venueId.toString());
+  formData.append("venueId", course.venueId?.toString() || "");
 
   formData.append("code", course.code);
   formData.append("title", course.title);
@@ -136,24 +148,27 @@ const handleSubmit = async () => {
   if (img) {
     formData.append("img", img);
   }
-
+   if(!course.venueId){
+    // formData.append("loactaionId",course.locationId.toString() === "" )
+   }
   try {
-    if (id) {
-      await editCourse({
-        id: courseId,
-        data: formData,
-      }).unwrap();
+    console.log(Array.from(formData))
+    // if (id) {
+    //   await editCourse({
+    //     id: courseId,
+    //     data: formData,
+    //   }).unwrap();
 
-      toast.success("Course Updated Successfully");
-      navigate(-1)
-    } else {
-      await addCourse(formData).unwrap();
+    //   toast.success("Course Updated Successfully");
+    //   navigate(-1)
+    // } else {
+    //   await addCourse(formData).unwrap();
 
-      toast.success("Course Added Successfully");
+    //   toast.success("Course Added Successfully");
 
-      setCourse(initialCourse);
-      setImage(null);
-    }
+    //   setCourse(initialCourse);
+    //   setImage(null);
+    // }
   } catch (err) {
     ErrorHandler.show(err);
   }
@@ -164,8 +179,8 @@ const handleSubmit = async () => {
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-      {/* Basic Information */}
-      <div className="bg-white rounded-xl shadow-md border p-6">
+   
+      <div className="bg-(--light2-color) rounded-xl shadow-md border p-6">
         <h2 className="text-xl font-semibold mb-5 border-b pb-2">
           Basic Information
         </h2>
@@ -219,6 +234,28 @@ const handleSubmit = async () => {
               })
             }
           />
+              <InputField
+            label="Expected Sessions"
+            value={String(course.expectedSessions)}
+            type="number"
+            onChange={(e) =>
+              setCourse({
+                ...course,
+                expectedSessions: Number(e.target.value),
+              })
+            }
+          />
+                <InputField
+            label="Tasks Percentage"
+            value={String(course.tasksPercentage)}
+            type="number"
+            onChange={(e) =>
+              setCourse({
+                ...course,
+                tasksPercentage: Number(e.target.value),
+              })
+            }
+          />
 
           <div>
             <label className="block text-sm font-medium mb-2">
@@ -240,7 +277,7 @@ const handleSubmit = async () => {
       </div>
 
       {/* Course Details */}
-      <div className="bg-white rounded-xl shadow-md border p-6">
+      <div className="bg-(--light2-color) rounded-xl shadow-md border p-6">
         <h2 className="text-xl font-semibold mb-5 border-b pb-2">
           Course Details
         </h2>
@@ -268,7 +305,7 @@ const handleSubmit = async () => {
 
               setCourse({
                 ...course,
-                locationId: selected?.id || 0,
+                locationId: selected?.id || null,
               });
             }}
           />
@@ -313,7 +350,7 @@ const handleSubmit = async () => {
 
               setCourse({
                 ...course,
-                venueId: selected?.id || 0,
+                venueId: selected?.id || null,
               });
             }}
           />
@@ -345,7 +382,7 @@ const handleSubmit = async () => {
       </div>
 
       {/* Dates & Registration */}
-      <div className="bg-white rounded-xl shadow-md border p-6 lg:col-span-2">
+      <div className="bg-(--light2-color) rounded-xl shadow-md border p-6 lg:col-span-2">
         <h2 className="text-xl font-semibold mb-5 border-b pb-2">
           Dates & Registration
         </h2>
@@ -444,8 +481,47 @@ const handleSubmit = async () => {
             </span>
           </label>
         </div>
+         <div className="mt-6">
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={course.hasTasks}
+              onChange={(e) =>
+                setCourse({
+                  ...course,
+                  hasTasks: e.target.checked,
+                })
+              }
+              className="w-5 h-5"
+            />
+
+            <span className="font-medium">
+              Has Tasks
+            </span>
+          </label>
+        </div>
       </div>
+       <div className="mt-6">
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={course.isTasksGraded}
+              onChange={(e) =>
+                setCourse({
+                  ...course,
+                  isTasksGraded: e.target.checked,
+                })
+              }
+              className="w-5 h-5"
+            />
+
+            <span className="font-medium">
+              Featured Course (Is Add)
+            </span>
+          </label>
+        </div>
     </div>
+    
 
     <div className="flex w-fit  mt-8">
 <Button

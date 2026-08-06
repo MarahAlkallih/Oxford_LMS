@@ -48,6 +48,7 @@ import { SessionTypes } from "../pages/Sessions/Types";
 import { PrioritiesPage } from "../pages/Sessions/Priorities";
 import { SessionDetailsPage } from "../pages/Courses/Course/CourseDetails/tabs/SessionDetailsPage";
 import { Supervisorspage } from "../pages/Sessions/Supervisors";
+import { MySessionsPage } from "../components/Course/Request/MySessions";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -92,6 +93,7 @@ function AppRoutes() {
         <Route path="masterData/currency" element={<CurrencyPage/>} />
            <Route path="/courses/add-course" element={<AddCoursePage/>} />
             <Route path="/courses/mycourses" element={<MyCoursesPage/>} />
+              <Route path="/courses/mycourses/mysessions/:id" element={<MySessionsPage/>} />
              <Route path="/courses/mycourses/student/:id" element={<StudentPage/>} />
             <Route path="/courses/requested" element={<RequestedCoursePage/>} />
              <Route path="/courses/requested/:id" element={<OneRequestedCourse/>} />

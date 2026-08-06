@@ -3,8 +3,7 @@ import {Button} from "../../components/Buttons/SubmitBtn"
 import { useGetUsersQuery } from "../../services/users/User";
 import type { GridColDef } from "@mui/x-data-grid";
 import { IconButton, Stack, Tooltip } from "@mui/material";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+
 import type { User, Account } from "../../types/user"
 import CustomDataGrid from "../../components/DataGrid/DataGrid";
 import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
@@ -12,6 +11,7 @@ import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import { useState } from "react";
 import { ActiveUserModal } from "../../components/User/ActiveUserModal";
 import { DeActiveUserModal } from "../../components/User/DeActiveUserModal";
+import { EditIcon,ToggleOff,ToggleOn, VisibilityIcon } from "../../components/Icons";
 const UsersPage = () => {
   const [isOpneActive,setIsOpenActive]=useState(false)
    const [isOpneDeActive,setIsOpenDeActive]=useState(false)
@@ -78,15 +78,15 @@ const columns: GridColDef<UserRow>[] = [
       const isActive = params.row.account.isActive;
 
       return (
-        <Stack direction="row" spacing={0.5}>
+        <Stack direction="row" sx={{padding:"6px"}} spacing={0.5}>
           {/* زر العرض */}
           <Tooltip title="View">
             <IconButton
               size="small"
-              sx={{ color: "#1976d2" }}
+              sx={{ color: "#4B5945" }}
               onClick={() => navigate(`${params.row.id}`)}
             >
-              <VisibilityOutlinedIcon fontSize="small" />
+              <VisibilityIcon  size={24}/>
             </IconButton>
           </Tooltip>
 
@@ -94,14 +94,14 @@ const columns: GridColDef<UserRow>[] = [
           <Tooltip title="Edit">
             <IconButton
               size="small"
-              sx={{ color: "#f9a825" }}
+             
               onClick={() => navigate(`${params.row.id}/edit`)}
             >
-              <EditOutlinedIcon fontSize="small" />
+             <EditIcon size={24}   color="#ff4d1c" />
             </IconButton>
           </Tooltip>
 
-          {/* 🔄 زر التفعيل / إلغاء التفعيل الديناميكي بديل الحذف */}
+       
           <Tooltip title={isActive ? "Deactivate" : "Activate"}>
             <IconButton
               size="small"
@@ -122,10 +122,10 @@ const columns: GridColDef<UserRow>[] = [
             >
               {isActive ? (
         
-                <BlockOutlinedIcon fontSize="small" />
+                <ToggleOn size={24} />
               ) : (
      
-                <CheckCircleOutlinedIcon fontSize="small" />
+                <ToggleOff size={24} />
               )}
             </IconButton>
           </Tooltip>

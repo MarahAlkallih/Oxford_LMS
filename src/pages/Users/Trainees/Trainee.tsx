@@ -36,7 +36,7 @@ export const TraineeInfo = () => {
 
   const { data, isLoading } = useGetTraineeQuery({ accountId });
 
-  // دالة لتوليد الحروف الأولى للاسم
+
   const getInitials = (first?: string, last?: string) => {
     return `${first?.charAt(0) || ""}${last?.charAt(0) || ""}`.toUpperCase();
   };
@@ -93,7 +93,7 @@ export const TraineeInfo = () => {
         
         {/* الكارد الجانبي: الصورة الشخصية والحالة العامة */}
         <Grid size={{ xs: 12, md: 4 }}>
-          <Card sx={{ borderRadius: 4, border: "1px solid", borderColor: "divider", boxShadow: "none", textAlign: "center", p: 3 }}>
+          <Card sx={{ borderRadius: 4, bgcolor: "#7f9676", border: "2px solid", borderColor: "divider", boxShadow: "none", textAlign: "center", p: 3 }}>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
               <Avatar
                 sx={{
@@ -116,7 +116,7 @@ export const TraineeInfo = () => {
                 <Typography variant="h6" sx={{ fontWeight: "bold", textTransform: "capitalize" }}>
                   {fullName}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{fontWeight: "bold",color:"#f4f3ec"}}>
                   @{account?.userName || "username"}
                 </Typography>
               </Box>
@@ -149,7 +149,7 @@ export const TraineeInfo = () => {
 
         {/* الكارد الرئيسي: تفاصيل البيانات مقسمة بشكل مريح للعين */}
         <Grid size={{ xs: 12, md: 8 }}>
-          <Card sx={{ borderRadius: 4, border: "1px solid", borderColor: "divider", boxShadow: "none" }}>
+          <Card sx={{ borderRadius: 4,bgcolor:"#f8f5df" ,border: "1px solid", borderColor: "divider", boxShadow: "none" }}>
             <CardContent sx={{ p: 4 }}>
               
               {/* القسم الأول: البيانات الشخصية */}

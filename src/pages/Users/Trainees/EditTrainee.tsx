@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
-// استيراد هوك الجلب وهوك التعديل
+
 import { useGetTraineeQuery, useUpdateTraineeMutation } from "../../../services/users/GetTrainees";
 import { toast } from "react-toastify";
 import { ErrorHandler } from "../../../utils/ErrorHandler";
@@ -67,7 +67,7 @@ export const EditTrainee = () => {
     }
   }, [traineeData]);
 
-  // دالة موحدة لتحديث أي حقل داخل الستيت عند الكتابة
+ 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -79,7 +79,7 @@ export const EditTrainee = () => {
  const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
-  // 🌟 دمج النص مباشرة لتجنب مشاكل الـ Timezone في الـ JavaScript
+
   const formattedBirthDate = formData.birthDate 
     ? `${formData.birthDate}T00:00:00.000Z` 
     : null;
@@ -87,7 +87,7 @@ export const EditTrainee = () => {
   const payload = {
     ...formData,
     languageId: Number(formData.languageId),
-    birthDate: formattedBirthDate, // 👈 سينتج تماماً الصيغة المطلوبة "2004-02-04T00:00:00.000Z" كـ String نقي
+    birthDate: formattedBirthDate, 
     googleId: formData.googleId || null,
     url: formData.url || null,
   };
@@ -111,7 +111,7 @@ export const EditTrainee = () => {
   return (
     <Box sx={{ p: 3, maxWidth: 900, margin: "auto" }}>
       
-      {/* هيدر الصفحة والعودة لخلف */}
+ 
       <Stack direction="row" sx={{ display: "flex", alignItems: "center", mb: 3 }}>
         <Button
           startIcon={<ArrowBackIosNewOutlinedIcon sx={{ fontSize: 14 }} />}
@@ -123,7 +123,7 @@ export const EditTrainee = () => {
         </Button>
       </Stack>
 
-      <Card sx={{ borderRadius: 4, border: "1px solid", borderColor: "divider", boxShadow: "none" }}>
+      <Card sx={{ borderRadius: 4,bgcolor:"#f8f5df", border: "1px solid", borderColor: "divider", boxShadow: "none" }}>
         <CardContent sx={{ p: 4 }}>
           <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
             Edit Trainee Profile

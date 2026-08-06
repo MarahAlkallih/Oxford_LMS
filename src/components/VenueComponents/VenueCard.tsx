@@ -1,8 +1,7 @@
 import type { Venue } from "../../types/Venues";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import {DeleteIcon} from "../Icons/index"
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
-
+import { EditIcon } from "../Icons";
 interface Props {
   venue: Venue;
   onDelete: (id: number) => void;
@@ -24,7 +23,7 @@ export const VenueCard = ({
 }: Props) => {
   return (
     <div
-      className={`rounded-xl shadow-md p-4 bg-white border transition-all duration-300 h-full ${
+      className={`   rounded-xl shadow-md p-4 bg-white border transition-all duration-300 h-full ${
         venue.isActive
           ? "border-(--main-color)"
           : "border-gray-300 opacity-75"
@@ -49,7 +48,7 @@ export const VenueCard = ({
 
           {/* EDIT IMAGE */}
           <label className="absolute bottom-0 right-0 bg-white p-1 rounded-full shadow cursor-pointer hover:bg-gray-100 transition">
-            <EditIcon fontSize="small" />
+            <EditIcon size={16} />
 
             <input
               hidden
@@ -86,19 +85,19 @@ export const VenueCard = ({
           {/* EDIT TITLE */}
           <button
             onClick={() => onEditTitle(venue)}
-            className="bg-yellow-500 text-white px-3 py-2 cursor-pointer rounded-md hover:opacity-90 transition"
+             className="p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400 transition"
             title="Edit Title"
           >
-            <EditIcon fontSize="small" />
+           <EditIcon size={24}  color="#ff4d1c" />
           </button>
 
           {/* DELETE */}
           <button
             onClick={() => onDelete(venue.id)}
-            className="bg-red-500 text-white px-3 py-2 rounded-md cursor-pointer hover:opacity-90 transition"
+            className="p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400 transition"
             title="Delete Venue"
           >
-            <DeleteIcon fontSize="small" />
+            <DeleteIcon  size={24}  color="#ff4d1c"  />
           </button>
 
           {/* 💡 التعديل هنا: يظهر الزر فقط إذا كان العنصر غير نشط (Inactive) */}

@@ -10,7 +10,7 @@ import { useGetCourseTrainersQuery } from "../../../services/courses/Admin-cours
 import CustomDropdown from "../../Fields/DropDown";
 import { useGetSessionTypesQuery } from "../../../services/sessions/type/typeQuery";
 import { useGetSessionPrioQuery } from "../../../services/sessions/priorities/prioritiesQuery";
-
+import { useGetLocationsQuery } from "../../../services/courses/location/locationQuery";
 interface CreateSessionModalProps {
   open: boolean;
   onClose: () => void;
@@ -24,10 +24,22 @@ export const CreateSessionModal = ({
 }: CreateSessionModalProps) => {
   const { data } = useGetCourseTrainersQuery({ id: id });
   const { data: prio } = useGetSessionPrioQuery({});
-  const { data: types } = useGetSessionTypesQuery({});
+   const { data:allTypes} = useGetSessionTypesQuery({});
+  const {data:locations}=useGetLocationsQuery()
   const [createSession, { isLoading }] = useCreateSessionMutation();
-
-  const [session, setSession] = useState({
+console.log("typess",allTypes)
+  const [session, setSession] = useState<{
+    courseId: number;
+    trainerId: number;
+    title: string;
+    date: string;
+    startTime: string;
+    endTime: string;
+    sessionNumber: number;
+    sessionTypeId: number;
+    sessionPriorityId: number;
+    locationId: number | null;
+  }>({
     courseId: id,
     trainerId: 0,
     title: "",
@@ -37,10 +49,12 @@ export const CreateSessionModal = ({
     sessionNumber: 0,
     sessionTypeId: 0,
     sessionPriorityId: 0,
+    locationId: null,
   });
 
   const handelCreateSession = async () => {
     try {
+      console.log(session.sessionTypeId)
       await createSession(session).unwrap();
       toast.success("Session Created Successfully");
       setSession({
@@ -53,6 +67,7 @@ export const CreateSessionModal = ({
         sessionNumber: 0,
         sessionTypeId: 0,
         sessionPriorityId: 0,
+        locationId:null
       });
       onClose();
     } catch (err) {
@@ -167,15 +182,26 @@ export const CreateSessionModal = ({
           />
 
           {/* Select Session Type - يأخذ العرض الكامل */}
-          <div className="md:col-span-2">
+          <div className="flex gap-2 md:col-span-2">
             <CustomDropdown
-              options={types?.map((t) => t.name) || []}
+              options={allTypes?.map((t) => t.name) || []}
               placeholder="Select Session Type"
               onSelect={(value) => {
-                const selected = types?.find((t) => t.name === value);
+                const selected = allTypes?.find((t) => t.name === value);
                 setSession({
                   ...session,
                   sessionTypeId: selected?.id || 0,
+                });
+              }}
+            />
+                <CustomDropdown
+              options={locations?.map((l) =>l.cityName) || []}
+              placeholder="Select Location (for onsite)"
+              onSelect={(value) => {
+                const selected = locations?.find((l) => l.cityName === value);
+                setSession({
+                  ...session,
+                  locationId: selected?.id ?? 0,
                 });
               }}
             />
@@ -200,6 +226,7 @@ export const CreateSessionModal = ({
         sessionNumber: 0,
         sessionTypeId: 0,
         sessionPriorityId: 0,
+        locationId:null
       });
             }} />
           

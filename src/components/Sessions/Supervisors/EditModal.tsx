@@ -26,7 +26,7 @@ const filter=users?.filter((user)=>user.roles.some((role)=>role === "ATTENDANCE"
  })
  const handelEdit=async()=>{
 try{
- await editSuper({seper,id:adminId}).unwrap()
+ await editSuper({data:seper,id:adminId}).unwrap()
  toast.success("Supervisor Updated successfully!")
  onClose()
 }catch(err){

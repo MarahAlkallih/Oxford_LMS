@@ -5,6 +5,7 @@ import { Modal } from "../global/Modals";
 import { CancelBtn } from "../Buttons/CancelBtn";
 import { useAddVenuesMutation } from "../../services/courses/veneus/mutationVenues";
 import { toast } from "react-toastify";
+import { ErrorHandler } from "../../utils/ErrorHandler";
 interface AddVenueModalProps {
     open: boolean;
     onClose: () => void;
@@ -44,9 +45,9 @@ const handleAddVenue = async () => {
     const res = await addVenue(formData).unwrap();
 
     console.log(res);
-    if(isSuccess){
+  
     toast.success("Venue Added Successfully")
-}
+
     onClose();
 
     setVenue({
@@ -56,7 +57,7 @@ const handleAddVenue = async () => {
 
     setImagePreview("");
   } catch (err) {
-    console.log(err);
+    ErrorHandler.show(err)
   }
 };
 
@@ -142,7 +143,7 @@ const handleAddVenue = async () => {
 
                 <div className="flex">
 
-                    <div className="flex-1">
+                    <div className="">
                         <Button
                             name={isLoading ? "Adding Venue..." : "Add Venue"}
                             onClick={handleAddVenue}

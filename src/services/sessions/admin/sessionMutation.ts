@@ -15,5 +15,21 @@ export const CreateSessionApi = baseApi.injectEndpoints({
   })
 })
 export const {useCreateSessionMutation}=CreateSessionApi;
+/////////////////////////////////////////////////////////////////
+export const CancelSessionApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+
+    cancelSession: builder.mutation({
+      query: ({id}) => ({
+        url: `/sessions/${id}/cancel`,
+        method: "PATCH",
+       
+      }),
+
+      invalidatesTags: ["Session"],
+    }),
+  })
+})
+export const {useCancelSessionMutation}=CancelSessionApi;
 
 

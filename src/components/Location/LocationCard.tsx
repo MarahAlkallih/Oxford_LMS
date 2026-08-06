@@ -1,6 +1,6 @@
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+
 import type { Location } from "../../types/Location";
+import { DeleteIcon, EditIcon } from "../Icons";
 
 interface LocationCardProps {
   location: Location;
@@ -33,17 +33,17 @@ export const LocationCard = ({
           {/* Edit */}
           <button
             onClick={() => onEdit(location)}
-            className="bg-yellow-500 text-white p-2 rounded-md hover:opacity-90"
+            className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200 transition"
           >
-            <EditIcon fontSize="small" />
+           <EditIcon size={24}  color="#ff4d1c" />
           </button>
 
           {/* Delete */}
           <button
             onClick={() => onDelete(location.id)}
-            className="bg-red-500 text-white p-2 rounded-md hover:opacity-90"
+            className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200 transition"
           >
-            <DeleteIcon fontSize="small" />
+            <DeleteIcon size={24}  color="#ff4d1c" />
           </button>
 
         </div>
