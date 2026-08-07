@@ -13,6 +13,26 @@ export interface SuperSessions {
     courseTitle:  string;
     courseCode:   string;
 }
+export interface SuperSession {
+    assignmentId: number;
+    sessionId:    number;
+    adminId:      number;
+    admin:        Admin;
+    session:      Session;
+}
+
+export interface Admin {
+    firstName: string;
+    lastName:  string;
+    email:     string;
+}
+
+export interface Session {
+    title:  string;
+    status: string;
+    date:   Date;
+}
+
 const GetSuperSessionApi = baseApi.injectEndpoints({
     
   endpoints: (builder) => ({
@@ -26,3 +46,17 @@ const GetSuperSessionApi = baseApi.injectEndpoints({
   }),
 });
 export const {useGetSuperSessionQuery}=GetSuperSessionApi;
+////////////////////////////////////////////////////////////////
+const GetSuperOneSessionApi = baseApi.injectEndpoints({
+    
+  endpoints: (builder) => ({
+    getSuperOneSession: builder.query<SuperSession,{id:number}>({
+      query: ({id}) => ({
+        url:`/session-supervisors/${id}`,
+      
+      }),
+      providesTags: ["Session"],
+    }),
+  }),
+});
+export const {useGetSuperOneSessionQuery}=GetSuperOneSessionApi;
