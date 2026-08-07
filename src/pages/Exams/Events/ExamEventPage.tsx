@@ -39,7 +39,7 @@ export const EventsPage = () => {
 
   // 3. استدعاء الراوت الموحد المذكور في image_3aa025.png وتمرير الفلاتر له
   const { data: events, isLoading } = useGetExamEventsQuery(filters);
-
+   console.log("events",events)
   return (
     <div>
       {/* الهيدر العلوي */}
@@ -123,33 +123,37 @@ export const EventsPage = () => {
       </div>
 
       {/* 📦 قسم عرض كروت الـ Events وحالات التحميل */}
-      {isLoading ? (
-        <p className="text-center p-10 font-bold text-gray-400 animate-pulse">Loading Events...</p>
-      ) : events?.data?.length === 0 ? (
-        <p className="text-center p-10 font-bold text-red-400">No Events found!</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-          {events?.data?.map((event: any) => (
-            <EventCard
-              key={event.id}
-              event={event}
-              onEdit={() => {
-                setIsOpenEdit(true);
-                setSelectedId(event.id);
-              }}
-              onDelete={() => {
-                setIsOpenDelete(true);
-                setSelectedId(event.id);
-              }}
-            />
-          ))}
-        </div>
-      )}
+     {isLoading ? (
+  <p className="text-center p-10 font-bold text-gray-400 animate-pulse">
+    Loading Events...
+  </p>
+) : events?.data?.length === 0 ? (
+  <p className="text-center p-10 font-bold text-red-400">
+    No Events found!
+  </p>
+) : (
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+    {events?.data?.map((event: any) => (
+      <EventCard
+        key={event.id}
+        event={event}
+        onEdit={() => {
+          setIsOpenEdit(true);
+          setSelectedId(event.id);
+        }}
+        onDelete={() => {
+          setIsOpenDelete(true);
+          setSelectedId(event.id);
+        }}
+      />
+    ))}
+  </div>
+)}
 
       {/* الـ Pagination أسفل الصفحة */}
       <CustomPagination
         currentPage={filters.page}
-        totalPages={events?.meta?.totalPages ?? 1}
+        totalPages={ 1}
         onPageChange={(page) => {
           setDraftFilters((prev) => ({ ...prev, page }));
           setFilters((prev) => ({ ...prev, page }));

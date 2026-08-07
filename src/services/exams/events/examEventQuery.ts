@@ -4,17 +4,32 @@ import type { Event, EventResponse } from "../../../types/Event"
 
 const GetEventsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-      // بملف الـ examEventsApi.ts مثلاً
-getExamEvents: builder.query({
+    
+getExamEvents: builder.query<EventResponse, any>({
   query: (filters) => ({
     url: "/exam-events",
     method: "GET",
-    params: filters, 
+    params: filters,
   }),
   providesTags: ["Exam-events"],
 })
     })
 })
+/////////////////////////////////////
+const GetEventsWithoutFilterApi = baseApi.injectEndpoints({
+    endpoints: (builder) => ({
+    
+getExamEventsWithoutFilter: builder.query<EventResponse, any>({
+  query: () => ({
+    url: "/exam-events",
+    method: "GET",
+   
+  }),
+  providesTags: ["Exam-events"],
+})
+    })
+})
+/////////////////////////
 const GetOneEventApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getOneEvent: builder.query<Event, { id: number }>({
@@ -24,5 +39,5 @@ const GetOneEventApi = baseApi.injectEndpoints({
     })
 })
 export const { useGetOneEventQuery } = GetOneEventApi
-
+export const {useGetExamEventsWithoutFilterQuery}=GetEventsWithoutFilterApi
 export const { useGetExamEventsQuery } = GetEventsApi

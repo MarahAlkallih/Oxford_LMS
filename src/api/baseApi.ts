@@ -104,7 +104,8 @@ export const baseApi = createApi({
     "Session",
     "Supervisor",
     "CourseFiles",
-    "SessionFiles"
+    "SessionFiles",
+    "SessionExams"
   ],
   endpoints: () => ({}),
 });
