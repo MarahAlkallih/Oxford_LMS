@@ -10,6 +10,7 @@ import { SessionGeneralInfo } from "./../tabs/session/SessionGeneralInfo";
 import { SessionSupervisors } from "./../tabs/session/SessionSupervisors";
 import { SessionFiles } from "../tabs/session/SessionFiles";
 import { SessionExams } from "./../tabs/session/SessionExams";
+import { SessionJoinRequests } from "./../tabs/session/SessionJoinRequests"; // المكون الجديد
 
 export const SessionDetailsPage = () => {
   const { sId } = useParams();
@@ -50,7 +51,9 @@ export const SessionDetailsPage = () => {
       </div>
     );
   }
-const role=localStorage.getItem("role")
+
+  const role = localStorage.getItem("role");
+
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6 animate-[fadeIn_0.3s_ease-out]">
       {/* Top Header */}
@@ -58,37 +61,41 @@ const role=localStorage.getItem("role")
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
-            className="p-2.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 transition-all cursor-pointer shadow-sm"
+            className="p-2.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 transition-all cursor-pointer shadow-xs"
             title="Go Back"
           >
             <ArrowBackIcon fontSize="small" />
           </button>
           <div>
             <h1 className="text-2xl font-bold text-gray-800">{session.title}</h1>
-            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-(--sec-color) mb-1">
-              <span className="w-2 h-2 rounded-full bg-(--sec-color) animate-pulse"></span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 mb-1">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               {session.status}
             </span>
           </div>
         </div>
 
-{  role=== "SUPER" ?    <button
-        onClick={handleCancel}
-        disabled={isCancelling}
-        className="p-2.5 px-4 rounded-xl border border-gray-200 bg-(--main-color) text-white font-medium text-xs transition-all cursor-pointer shadow-sm disabled:opacity-50"
-        title="Cancel"
-      >
-          {isCancelling ? "Cancelling..." : "Cancel Session"}
-        </button>:null}
+        {role === "SUPER" ? (
+          <button
+            onClick={handleCancel}
+            disabled={isCancelling}
+            className="p-2.5 px-4 rounded-xl border border-gray-200 bg-(--main-color) hover:opacity-90 text-white font-medium text-xs transition-all cursor-pointer shadow-xs disabled:opacity-50"
+            title="Cancel"
+          >
+            {isCancelling ? "Cancelling..." : "Cancel Session"}
+          </button>
+        ) : null}
       </div>
 
       {/* Dashboard Grid Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-        
         {/* Left / Main Content Area (Spans 2 columns on Large screens) */}
         <div className="lg:col-span-2 space-y-6">
           {/* General Session Info Card */}
           <SessionGeneralInfo session={session} />
+
+          {/* Join Requests Card */}
+          <SessionJoinRequests sessionId={id} />
 
           {/* Files & Exams Grid (Side-by-side inside main area) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -101,7 +108,6 @@ const role=localStorage.getItem("role")
         <div className="lg:col-span-1 space-y-6">
           <SessionSupervisors sessionId={id} />
         </div>
-
       </div>
     </div>
   );
