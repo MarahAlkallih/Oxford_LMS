@@ -10,14 +10,14 @@ import InfoIcon from "@mui/icons-material/Info";
 import ClassIcon from "@mui/icons-material/Class";
 import { toast } from "react-toastify";
 import { useState } from "react";
-
+import QuizIcon from "@mui/icons-material/Quiz";
 // 🌟 استيراد مكونات التابات
 import { CourseInfoTab } from "./tabs/CourseInfoTab";
 import { CourseTrainersTab } from "./tabs/CourseTrainersTab";
 import { CourseTraineesTab } from "./tabs/CourseTraineesTab";
 import { SessionsPage } from "./tabs/CourseSessions";
 import { CourseMediaTab } from "./tabs/MediaTab";
-
+import { ExamCourse } from "./tabs/exams/ExamCourse";
 export const CourseDetails = () => {
   const { id } = useParams();
   const courseId = Number(id);
@@ -62,6 +62,7 @@ export const CourseDetails = () => {
     { id: "trainers", label: "Trainers Team", icon: <SchoolIcon fontSize="small" /> },
     { id: "trainees", label: "Registered Trainees", icon: <GroupIcon fontSize="small" /> },
     { id: "sessions", label: "Sessions", icon: <ClassIcon fontSize="small" /> },
+    { id: "exams", label: "Exams", icon: <QuizIcon fontSize="small" /> },
     ...(role !== "ATTENDANCE"
       ? [{ id: "media", label: "Course Media", icon: <PermMediaIcon fontSize="small" /> }]
       : []),
@@ -154,6 +155,7 @@ export const CourseDetails = () => {
         {activeTab === "trainers" && <CourseTrainersTab courseId={courseId} />}
         {activeTab === "trainees" && <CourseTraineesTab courseId={courseId} />}
         {activeTab === "sessions" && <SessionsPage courseId={courseId} />}
+         {activeTab === "exams" && <ExamCourse courseId={courseId} />}
         {activeTab === "media" && role !== "ATTENDANCE" && (
           <CourseMediaTab courseId={courseId} />
         )}

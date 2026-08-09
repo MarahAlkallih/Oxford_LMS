@@ -33,11 +33,10 @@ export const SessionExams = ({ sessionId, courseId }: SessionExamsProps) => {
           <QuizIcon className="text-(--main-color)" /> Session Exams
         </h2>
         <button   onClick={() => {
-            setIsOpenAdd(true);
-          }}>
-
+            setIsOpenAdd(true);}}>
+   <Add/>
         </button>
-       <Add/>
+    
       </div>
 
       {/* Loading State */}
