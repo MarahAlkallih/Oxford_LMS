@@ -54,6 +54,7 @@ import { MySessionDetails } from "../pages/Sessions/supervisor/MySessionDetails"
 import { SessionExamDetails } from "../components/Exam/SessionExam/SessionExamDetails";
 import { ExamAssignment } from "../pages/Courses/Course/CourseDetails/tabs/exams/ExamAssignments";
 import { OneAssignment } from "../pages/Courses/Course/CourseDetails/tabs/exams/TraineesInfo";
+import { TaskDetails } from "../pages/Courses/Course/CourseDetails/tabs/tasks/TaskDetails";
 
 function QuestionFormRoute() {
   const { id } = useParams();
@@ -108,6 +109,7 @@ function AppRoutes() {
             <Route path="/courses/:id/sessions/:sId" element={<SessionDetailsPage/>} />
             <Route path="/courses/:id/sessions/:sId/session-exam/:eventId" element={<SessionExamDetails/>} />
             <Route path="/courses/:id" element={<CourseDetails/>} />
+             <Route path="/courses/:id/tasks/:taskId" element={<TaskDetails/>} />
             <Route path="/courses/:id/examAssignment/:eventId" element={<ExamAssignment/>} />
              <Route path="/courses/:id/examAssignment/:eventId/:traineeId" element={<OneAssignment/>} />
              <Route path="/courses/:id/registration/:id" element={<OneRegistrationDetails/>} />

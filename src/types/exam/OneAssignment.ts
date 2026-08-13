@@ -112,6 +112,9 @@ export interface Question {
 }
 
 export interface User {
+    email: any;
+    name: any;
+    fullName: any;
     id:        number;
     createdAt: Date;
     updatedAt: Date;

@@ -50,6 +50,8 @@ export const LoginForm = ({
           value={password}
           onChange={(e) => onPasswordChange(e.target.value)}
           error={errors.password}
+           type="password"
+           showPasswordToggle
         />
         <div className="flex items-center gap-2 mb-4">
           <input

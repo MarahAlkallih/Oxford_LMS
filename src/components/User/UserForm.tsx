@@ -60,7 +60,7 @@ export const UserForm = <T extends {
 
       {/* Second Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <InputField
+        {/* <InputField
           label="Email"
           value={user.email}
           containerWidth="w-full"
@@ -76,7 +76,7 @@ export const UserForm = <T extends {
           width="w-full"
           error={errors.password}
           onChange={(e) => onChange("password", e.target.value)}
-        />
+        /> */}
 
         <InputField
           label="Phone Number"

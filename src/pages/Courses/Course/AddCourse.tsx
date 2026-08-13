@@ -144,6 +144,19 @@ const handleSubmit = async () => {
   );
 
   formData.append("isAdd", course.isAdd.toString());
+  formData.append("hasTasks", course.hasTasks.toString());
+    // tasksPercentage can be null, send empty string when null
+    formData.append(
+      "tasksPercentage",
+      course.tasksPercentage != null ? course.tasksPercentage.toString() : ""
+    );
+     formData.append(
+      "isTasksGraded",
+      course.tasksPercentage != null ? course.isTasksGraded.toString() : ""
+    );
+      formData.append(
+      "expectedSessions", course.expectedSessions != null ? course.expectedSessions.toString() : "" );
+    
 
   if (img) {
     formData.append("img", img);
@@ -153,22 +166,22 @@ const handleSubmit = async () => {
    }
   try {
     console.log(Array.from(formData))
-    // if (id) {
-    //   await editCourse({
-    //     id: courseId,
-    //     data: formData,
-    //   }).unwrap();
+    if (id) {
+      await editCourse({
+        id: courseId,
+        data: formData,
+      }).unwrap();
 
-    //   toast.success("Course Updated Successfully");
-    //   navigate(-1)
-    // } else {
-    //   await addCourse(formData).unwrap();
+      toast.success("Course Updated Successfully");
+      navigate(-1)
+    } else {
+      await addCourse(formData).unwrap();
 
-    //   toast.success("Course Added Successfully");
+      toast.success("Course Added Successfully");
 
-    //   setCourse(initialCourse);
-    //   setImage(null);
-    // }
+      setCourse(initialCourse);
+      setImage(null);
+    }
   } catch (err) {
     ErrorHandler.show(err);
   }

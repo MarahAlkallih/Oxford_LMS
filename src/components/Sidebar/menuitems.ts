@@ -12,7 +12,8 @@ import {
   EventNote as EventNoteIcon,
   Public as PublicIcon,
   LocationOn as  LocationOnIcon ,
- MenuBook as MenuBookIcon 
+ MenuBook as MenuBookIcon, 
+ Add
 } from "@mui/icons-material"
 import CoPresentIcon from "@mui/icons-material/CoPresent";
 import FactCheckIcon from '@mui/icons-material/FactCheck'
@@ -26,7 +27,7 @@ import ClassIcon from "@mui/icons-material/Class";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
-
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/", adminRoles:["SUPER"] },
    { icon: DatasetIcon, label: "Master Data", path: "/masterData", adminRoles:["SUPER"],
@@ -137,4 +138,9 @@ export const menuItems: MenuItem[] = [
      { icon: SupervisorAccountOutlinedIcon, label: "Supervisor", path: "/session/supervisors", adminRoles:["SUPER"], },
       { icon: EventAvailableIcon, label: "My Sessions", path: "/session/my-sessions", adminRoles:["ATTENDANCE"], },
    ] },
+   { icon: EmojiEventsOutlinedIcon, label: "Certificates", path: "/certificates", adminRoles:["SUPER"],
+
+     children:[
+      {icon: Add, label: "Create Certificate", path: "/certificates/create", adminRoles:["SUPER"],},]
+    },
 ]

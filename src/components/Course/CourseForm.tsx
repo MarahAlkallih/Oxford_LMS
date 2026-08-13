@@ -14,6 +14,10 @@ export interface CourseData {
   code: string; title: string; fee: number; hours: number; subTitle: string; description: string;
   startDate: Date | null; endDate: Date | null; registrationDeadline: Date | null; paymentDeadline: Date | null;
   isAdd: boolean;
+  hasTasks: boolean;
+  expectedSessions:number;
+  isTasksGraded:boolean;
+  tasksPercentage:number;
   img: File | null; // أضفنا الصورة هون لسهولة النقل
 }
 
@@ -38,7 +42,10 @@ export const CourseForm = ({ initialData, onSubmit, isLoading, submitBtnText }: 
     status: "", locationId: 0, categoryId: 0, languageId: 0, venueId: 0,
     code: "", title: "", fee: 0, hours: 0, startDate: null, endDate: null,
     subTitle: "", registrationDeadline: null, paymentDeadline: null, description: "",
-    isAdd: false, img: null
+    isAdd: false, img: null, hasTasks: false,
+    expectedSessions: 0,
+    isTasksGraded: false,
+    tasksPercentage: 0
   };
 
 
