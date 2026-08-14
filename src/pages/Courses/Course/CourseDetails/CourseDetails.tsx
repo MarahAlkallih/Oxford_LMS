@@ -49,7 +49,7 @@ export const CourseDetails = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-(--color-watermelon)"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-(--main-color)"></div>
       </div>
     );
   }
@@ -100,7 +100,7 @@ export const CourseDetails = () => {
               >
                 {course.isActive ? "Active" : "Inactive"}
               </span>
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-purple-50 text-(--color-watermelon-dark) border border-purple-100">
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-purple-50 text-(--main-color) border border-purple-100">
                 {course.status}
               </span>
             </div>
@@ -134,10 +134,11 @@ export const CourseDetails = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-5 py-3 font-bold text-sm rounded-t-2xl transition-all duration-300 relative outline-none whitespace-nowrap
+              className={`flex items-center gap-2 px-5 py-3 font-bold text-sm rounded-t-2xl transition-all duration-300
+                 relative outline-none whitespace-nowrap
                 ${
                   isActive
-                    ? "text-(--color-watermelon) bg-white border-t border-x border-gray-200 shadow-[0_-4px_12px_rgba(239,68,68,0.06)]"
+                    ? "text-(--main-color) bg-white border-t border-x border-gray-200 shadow-[0_-4px_12px_rgba(101,119,94,0.06)] "
                     : "text-gray-400 hover:text-gray-600 hover:bg-gray-50/50"
                 }`}
             >
@@ -145,7 +146,8 @@ export const CourseDetails = () => {
               {tab.label}
 
               {isActive && (
-                <span className="absolute -bottom-px left-0 right-0 h-0.75 bg-(--color-watermelon) rounded-full shadow-[0_0_10px_2px_rgba(239,68,68,0.5)] animate-pulse" />
+                <span className="absolute -bottom-px left-0 right-0 h-0.75 bg-(--sec-color) rounded-full 
+                shadow-[0_0_10px_2px_rgba(101,119,94,0.5)] animate-pulse" />
               )}
             </button>
           );

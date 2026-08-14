@@ -18,16 +18,19 @@ export const CourseMediaTab = ({ courseId }: CourseMediaTabProps) => {
   return (
     <div className="flex flex-col gap-6 p-2">
       {/* Top Header */}
-      <div className="flex justify-between items-center bg-white p-4 rounded-2xl border border-gray-100 shadow-xs">
+      <div className="flex justify-between items-center   border-gray-100 s">
         <div>
           <h2 className="text-xl font-bold text-gray-800">Course Media</h2>
           <p className="text-xs text-gray-400 mt-0.5">
             Manage files, documents, and media for this course.
           </p>
         </div>
-        <div>
-          <Button name="+ Add File" onClick={() => setIsOpenAddFileModal(true)} />
-        </div>
+          <button 
+        onClick={()=> setIsOpenAddFileModal(true)}
+        className="bg-(--main-color) cursor-pointer hover:opacity-95 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm shrink-0">
+          + Add New File
+        </button>
+       
       </div>
 
       {/* Loading Skeleton */}
@@ -55,7 +58,7 @@ export const CourseMediaTab = ({ courseId }: CourseMediaTabProps) => {
           <p className="text-xs text-gray-400 max-w-sm mt-1 mb-4">
             Start uploading files, PDFs, or images for this course.
           </p>
-          <Button name="+ Upload First File" onClick={() => setIsOpenAddFileModal(true)} />
+          {/* <Button name="+ Upload First File" onClick={() => setIsOpenAddFileModal(true)} /> */}
         </div>
       ) : (
         /* Media Cards Grid */

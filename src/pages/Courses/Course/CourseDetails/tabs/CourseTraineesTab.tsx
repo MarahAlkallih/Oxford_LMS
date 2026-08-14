@@ -35,16 +35,7 @@ export const CourseTraineesTab: React.FC<CourseTraineesTabProps> = ({ courseId }
     (activeSubTab === "accepted" && loadingAccepted) ||
     (activeSubTab === "all" && loadingAll);
 
-  // دوال الإجراءات السريعة (تُربط مع الـ Mutations الخاصة بكِ لاحقاً)
-  const handleAcceptStudent = (regId: number) => {
-    console.log(`Accept student registration #${regId} for course #${courseId}`);
-  };
 
-  const handleRejectStudent = (regId: number) => {
-    console.log(`Reject student registration #${regId} for course #${courseId}`);
-  };
-
-  // مصفوفة إعدادات التابات الفرعية (صممت بشكل كبسولات Pills لتمييزها عن التابات العلوية للأب)
   const subTabsConfig = [
     { id: "pending", label: "Pending Queue", icon: <HourglassEmptyIcon sx={{ fontSize: 16 }} /> },
     { id: "accepted", label: "Accepted Class", icon: <HowToRegIcon sx={{ fontSize: 16 }} /> },
@@ -73,7 +64,7 @@ export const CourseTraineesTab: React.FC<CourseTraineesTabProps> = ({ courseId }
                 onClick={() => setActiveSubTab(subTab.id as any)}
                 className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-xs transition-all outline-none whitespace-nowrap
                   ${isSubActive 
-                    ? "bg-white text-(--color-watermelon) shadow-sm border border-gray-100" 
+                    ? "bg-white text-(--main-color) shadow-sm border border-gray-100" 
                     : "text-gray-400 hover:text-gray-600"
                   }`}
               >
@@ -89,7 +80,7 @@ export const CourseTraineesTab: React.FC<CourseTraineesTabProps> = ({ courseId }
       <div className="min-h-[200px]">
         {isSubLoading ? (
           <div className="flex justify-center items-center py-16">
-            <div className="animate-spin rounded-full h-9 w-9 border-b-2 border-(--color-watermelon)"></div>
+            <div className="animate-spin rounded-full h-9 w-9 border-b-2 border-(--main-color)"></div>
           </div>
         ) : (
           <div className="animate-[fadeIn_0.25s_ease-out]">

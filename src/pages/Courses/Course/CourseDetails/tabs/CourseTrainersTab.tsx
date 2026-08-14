@@ -66,7 +66,7 @@ export const CourseTrainersTab: React.FC<CourseTrainersTabProps> = ({ courseId }
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 pb-4">
         <div>
           <h3 className="text-lg font-bold text-gray-950 flex items-center gap-2">
-            <SchoolIcon className="text-(--color-watermelon)" fontSize="small" />
+            <SchoolIcon className="text-(--main-color)" fontSize="small" />
             Course Trainers ({trainersList.length})
           </h3>
           <p className="text-xs text-gray-400 mt-0.5">Instructors legally authorized to manage and teach this course.</p>
@@ -74,7 +74,7 @@ export const CourseTrainersTab: React.FC<CourseTrainersTabProps> = ({ courseId }
         
         <button 
         onClick={()=>setIsOpenAssign(true)}
-        className="bg-(--color-watermelon) cursor-pointer hover:opacity-95 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm shrink-0">
+        className="bg-(--main-color) cursor-pointer hover:opacity-95 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm shrink-0">
           + Assign New Trainer
         </button>
       </div>
@@ -87,9 +87,9 @@ export const CourseTrainersTab: React.FC<CourseTrainersTabProps> = ({ courseId }
           </div>
           <h4 className="text-base font-bold text-gray-800 mb-1">No Trainers Assigned Yet</h4>
           <p className="text-sm text-gray-400 max-w-xs mb-5">This course doesn't have any assigned trainers. Start adding team members to get started.</p>
-          <button className="text-xs font-bold text-(--color-watermelon) bg-red-50 hover:bg-red-100 px-4 py-2 rounded-xl transition-colors">
+          {/* <button className="text-xs font-bold text-(--color-watermelon) bg-red-50 hover:bg-red-100 px-4 py-2 rounded-xl transition-colors">
             Assign First Trainer
-          </button>
+          </button> */}
         </div>
       ) : (
         

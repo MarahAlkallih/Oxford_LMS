@@ -28,18 +28,21 @@ const [Id,setId]=useState(0)
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-6 max-w-7xl mx-auto">
+    <div className="">
       {/* Top Bar Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 rounded-3xl border border-gray-150 shadow-2xs">
+      <div className=" mb-2  flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4   border-gray-150 shadow-2xs">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Course Tasks</h1>
+          <h1 className="text-lg font-bold text-gray-900">Course Tasks</h1>
           <p className="text-xs text-gray-500 mt-1">
             Manage and publish tasks for students
           </p>
         </div>
-        <div>
-             <Button name="Add Task" onClick={() => setIsOpenAdd(true)} />
-        </div>
+          <button 
+        onClick={() => setIsOpenAdd(true)}
+        className="bg-(--main-color) cursor-pointer hover:opacity-95 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-sm shrink-0">
+          + Assign New Task
+        </button>
+       
        
       </div>
 
@@ -51,7 +54,7 @@ const [Id,setId]=useState(0)
           ))}
         </div>
       ) : tasksList.length === 0 ? (
-        <div className="p-12 text-center bg-white border border-gray-150 rounded-3xl space-y-2">
+        <div className="p-12 text-center bg-white  space-y-2">
           <p className="text-sm font-bold text-gray-700">No Records Found</p>
           <p className="text-xs text-gray-400">
             There are currently no tasks recorded for this course.

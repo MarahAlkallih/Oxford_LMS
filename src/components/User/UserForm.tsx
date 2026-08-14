@@ -2,9 +2,12 @@ import { InputField } from "../Fields/InputField";
 import CustomDropDown from "../Fields/DropDown";
 import { RoleDropDown } from "../DropDown/Roles";
 import { useGetLanguagesQuery } from "../../services/languages/languageService";
-import type {  UserFormProps, } from "../../types/user";
+import type { UserFormProps } from "../../types/user";
 
-
+// إضافة isEdit إلى الـ Props (يمكنك أيضاً إضافتها داخل ملف types/user)
+interface ExtendedUserFormProps<T> extends UserFormProps<T> {
+  isEdit?: boolean;
+}
 
 export const UserForm = <T extends {
   firstName: string;
@@ -21,7 +24,8 @@ export const UserForm = <T extends {
   errors,
   onChange,
   showRole = false,
-}: UserFormProps<T>) => {
+  isEdit = false, // افتراضياً تعتبر حالة إضافة
+}: ExtendedUserFormProps<T>) => {
   const { data: languages } = useGetLanguagesQuery();
 
   const genders = ["MALE", "FEMALE"];
@@ -60,23 +64,30 @@ export const UserForm = <T extends {
 
       {/* Second Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        {/* <InputField
-          label="Email"
-          value={user.email}
-          containerWidth="w-full"
-          width="w-full"
-          error={errors.email}
-          onChange={(e) => onChange("email", e.target.value)}
-        />
+        {/* يظهر الايميل والباسوورد فقط في حالة الإضافة */}
+        {!isEdit && (
+          <>
+            <InputField
+              label="Email"
+              value={user.email}
+              containerWidth="w-full"
+              width="w-full"
+              error={errors.email}
+              onChange={(e) => onChange("email", e.target.value)}
+            />
 
-        <InputField
-          label="Password"
-          value={user.password}
-          containerWidth="w-full"
-          width="w-full"
-          error={errors.password}
-          onChange={(e) => onChange("password", e.target.value)}
-        /> */}
+            <InputField
+            showPasswordToggle={true}
+              label="Password"
+              type="password"
+              value={user.password}
+              containerWidth="w-full"
+              width="w-full"
+              error={errors.password}
+              onChange={(e) => onChange("password", e.target.value)}
+            />
+          </>
+        )}
 
         <InputField
           label="Phone Number"
@@ -90,7 +101,6 @@ export const UserForm = <T extends {
 
       {/* Third Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
         {showRole && (
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-gray-700">

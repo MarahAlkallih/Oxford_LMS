@@ -9,6 +9,7 @@ import {
   useDeleteTrainingPlanMutation,
   useGetTrainingPlansQuery,
 } from "../../../services/traininigPlan/getTrainingplan";
+import { ErrorHandler } from "../../../utils/ErrorHandler";
 
 export const TrainingPlanPage = () => {
   const { data, isLoading, isError } = useGetTrainingPlansQuery();
@@ -41,12 +42,12 @@ export const TrainingPlanPage = () => {
       setOpenDeleteModal(false);
       setSelectedId(null);
     } catch (error) {
-      toast.error("Failed to delete training plan");
+     ErrorHandler.show(error)
     }
   };
 
   if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Failed to load data</p>;
+  // if (isError) return <p>Failed to load data</p>;
 
   return (
     <div className="p-6">

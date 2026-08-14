@@ -52,8 +52,8 @@ export const ExamCourse = ({ courseId, onAddStudents }: CourseProps) => {
 
   if (!events || events.length === 0) {
     return (
-      <div className="bg-white border border-gray-150 rounded-3xl p-8 text-center text-gray-400 font-semibold">
-        لا يوجد امتحانات مضافة لهذه الدورة حتى الآن.
+      <div className=" p-8 text-center text-gray-400 font-semibold">
+        No Exam Found 
       </div>
     );
   }

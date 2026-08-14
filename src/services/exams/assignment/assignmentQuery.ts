@@ -1,6 +1,6 @@
 import { baseApi } from "../../../api/baseApi";
-
- import type { AssignmentUser } from "../../../types/exam/assignmentUser";
+import type { Answers } from "../../../types/exam/Answer";
+import type { AssignmentUser } from "../../../types/exam/assignmentUser";
 import type { TraineesInfo } from "../../../types/exam/OneAssignment";
 
  const GetAssignmentsApi = baseApi.injectEndpoints({
@@ -25,6 +25,17 @@ import type { TraineesInfo } from "../../../types/exam/OneAssignment";
          })
      })
  })
+
+const GetAnswersApi=baseApi.injectEndpoints({
+     endpoints: (builder) => ({
+         getAnswers: builder.query<Answers, any>({
+             query: () => `/answers`,
+             providesTags: ["Assignment"]
+         })
+     })
+ })
+
+
  export const { useGetOneAssignmentQuery } = GetOneAssignmentApi
- 
- export const { useGetAssignmensQuery } = GetAssignmentsApi
+export const { useGetAssignmensQuery } = GetAssignmentsApi
+ export const { useGetAnswersQuery } = GetAnswersApi

@@ -132,6 +132,7 @@ export const EditTrainerPage = () => {
         user={user}
         errors={errors}
         onChange={handleChange}
+        isEdit={true}
       />
 
       {/* Submit Button */}

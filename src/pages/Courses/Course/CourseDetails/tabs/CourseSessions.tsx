@@ -59,7 +59,7 @@ export const SessionsPage = ({ courseId }: props) => {
   return (
     <div className="space-y-6 animate-[fadeIn_0.3s_ease-out]">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-gray-150 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4  p-2 rounded-2xl  shadow-xs">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-(--main-color)/10 text-(--main-color) flex items-center justify-center font-bold">
             <ClassIcon />
@@ -118,7 +118,7 @@ export const SessionsPage = ({ courseId }: props) => {
 
       {/* Grid List */}
       {!displayedSessions || displayedSessions.length === 0 ? (
-        <div className="bg-white border border-gray-150 rounded-2xl p-12 text-center text-gray-400 shadow-xs">
+        <div className="bg-white  p-12 text-center text-gray-400 shadow-xs">
           <EventIcon className="mb-2 text-gray-300" sx={{ fontSize: 48 }} />
           <p className="text-base font-semibold text-gray-600">
             {viewFilter === "weekly"

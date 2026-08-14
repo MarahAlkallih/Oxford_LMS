@@ -54,9 +54,7 @@ const [uploadTrainingPlan, { isLoading, isSuccess, isError, data, error }] =
 
     if ("data" in result) {
       toast.success("Uploaded successfully");
-    } else if ("error" in result) {
-      toast.error("Upload failed");
-    }
+    } 
 
     setImage(null);
     setFile(null);
@@ -70,15 +68,7 @@ const [uploadTrainingPlan, { isLoading, isSuccess, isError, data, error }] =
     toast.error("Unexpected error");
   }
 };
-useEffect(() => {
-  if (isSuccess) {
-    toast.success("Uploaded successfully");
-  }
 
-  if (isError) {
-    toast.error("Upload failed");
-  }
-}, [isSuccess, isError]);
   return (
     <div className="mx-auto mt-10 max-w-2xl rounded-2xl bg-white p-8 shadow-lg">
 
@@ -180,9 +170,9 @@ useEffect(() => {
         )}
       </div>
       {progress > 0 && (
-  <div className="w-full bg-gray-200 h-2 rounded mt-4">
+  <div className="w-full bg-gray-200 h-2 rounded m-4">
     <div
-      className="h-2 bg-green-600 rounded transition-all duration-300"
+      className="h-2 bg-(--main-color) rounded transition-all duration-300"
       style={{ width: `${progress}%` }}
     />
   </div>
