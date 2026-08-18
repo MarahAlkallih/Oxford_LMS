@@ -11,16 +11,24 @@ import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import LanguageIcon from "@mui/icons-material/Language";
 
 interface CourseInfoTabProps {
-  course: any; // يمكنكِ استبدال any بالـ Interface الخاص ببيانات الكورس لديكِ
+  course: any;
 }
 
+// دالة تحويل التاريخ مع الحفاظ على التوقيت المحلي بدقة
 const formatDate = (dateValue?: string | Date | null) => {
   if (!dateValue) return "Not Specified";
   const date = dateValue instanceof Date ? dateValue : new Date(dateValue);
+
+  if (isNaN(date.getTime())) return "Not Specified";
+
+  // استخدام timeZone المباشر أو التنسيق المحلي
   return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
   });
 };
 

@@ -28,8 +28,10 @@ import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 export const menuItems: MenuItem[] = [
-  { icon: DashboardIcon, label: "Dashboard", path: "/", adminRoles:["SUPER"] },
+  { icon: DashboardIcon, label: "Dashboard", path: "/dashboard", adminRoles:["SUPER"] },
    { icon: DatasetIcon, label: "Master Data", path: "/masterData", adminRoles:["SUPER"],
 
     children:[
@@ -135,12 +137,14 @@ export const menuItems: MenuItem[] = [
     { icon: CategoryOutlinedIcon, label: "Types", path: "/session/types", adminRoles:["SUPER"], },
   
     { icon: TuneOutlinedIcon, label: "Priorities", path: "/session/priorities", adminRoles:["SUPER"], },
-     { icon: SupervisorAccountOutlinedIcon, label: "Supervisor", path: "/session/supervisors", adminRoles:["SUPER"], },
+    //  { icon: SupervisorAccountOutlinedIcon, label: "Supervisor", path: "/session/supervisors", adminRoles:["SUPER"], },
       { icon: EventAvailableIcon, label: "My Sessions", path: "/session/my-sessions", adminRoles:["ATTENDANCE"], },
    ] },
-   { icon: EmojiEventsOutlinedIcon, label: "Certificates", path: "/certificates", adminRoles:["SUPER"],
+  { icon: EmojiEventsOutlinedIcon, label: "Certificates", path: "/certificates", adminRoles:["SUPER"],
 
      children:[
-      {icon: Add, label: "Create Certificate", path: "/certificates/create", adminRoles:["SUPER"],},]
+      {icon: WorkspacePremiumOutlinedIcon, label: "Certificates", path: "/assignments/certificates", adminRoles:["SUPER"],},
+      {icon: DescriptionOutlinedIcon, label: "Certificate Templates", path: "/assignments/certificates/templates", adminRoles:["SUPER"],},
+     ]
     },
 ]

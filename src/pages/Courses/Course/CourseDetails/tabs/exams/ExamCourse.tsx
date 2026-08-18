@@ -32,7 +32,7 @@ export const ExamCourse = ({ courseId, onAddStudents }: CourseProps) => {
       year: "numeric",
     });
   };
-
+  console.log("events",events)
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -60,7 +60,7 @@ export const ExamCourse = ({ courseId, onAddStudents }: CourseProps) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      {events.map((event: any) => {
+      {events.map((event) => {
         const { id, startDate, endDate, exam } = event;
 
         return (
@@ -140,7 +140,7 @@ export const ExamCourse = ({ courseId, onAddStudents }: CourseProps) => {
             {/* Bottom Actions Footer */}
             <div className="flex pt-4 mt-4 border-t border-gray-100 flex items-center gap-2">
               <button
-                onClick={() => {setIsOpenAdd(true),setId(exam.id)}}
+                onClick={() => {setIsOpenAdd(true),setId(event.id)}}
                 className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-(--main-color)
                 
                  text-amber-100 border rounded-2xl text-xs font-bold transition-all
@@ -157,7 +157,7 @@ export const ExamCourse = ({ courseId, onAddStudents }: CourseProps) => {
         );
       })}
       <AddUserToAssignment open={isOpenAdd} 
-      onClose={()=>{setIsOpenAdd(false)} } examEventId={id} courseId={courseId}      
+      onClose={()=>{setIsOpenAdd(false),console.log(id)} } examEventId={id} courseId={courseId}      
       />
     </div>
   );

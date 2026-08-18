@@ -55,12 +55,12 @@ export const AddUserToAssignment: React.FC<UserToAssignmentProps> = ({
 
     const payload = {
       examEventId,
-      traineeIds,
+      traineeIds
     };
 
     try {
         console.log("p",payload)
-        console.log("selectedStudents:", selectedStudents);
+      
 console.log("traineeIds:", traineeIds);
 console.log("examEventId:", examEventId);
 console.log("payload:", payload);

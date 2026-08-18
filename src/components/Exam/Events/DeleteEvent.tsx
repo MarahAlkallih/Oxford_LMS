@@ -10,7 +10,7 @@ export const DeleteEventModal=({open,onClose,id}:DeleteModalProps)=>{
   const handelDelete=async()=>{
     try{
       
-        const res=await deleteEvent({id}).unwrap()
+        const res=await deleteEvent({id:id}).unwrap()
      toast.success("Deleted Successfully")
      onClose();
         

@@ -16,7 +16,7 @@ export const {useGetStatusesQuery}=GetCourseStatusesApi;
 const GetActiveUncompingCourseApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
     getActiveUncompingCourse: builder.query<Course[], void>({
-      query: () => "/course/allActive",
+      query: () => "/course/allActiveForAdmin",
 
       providesTags: ["Courses"],
     }),

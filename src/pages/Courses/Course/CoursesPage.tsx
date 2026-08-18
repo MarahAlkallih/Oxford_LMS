@@ -76,7 +76,7 @@ export const CoursesPage = () => {
     inactiveQuery.isLoading ||
     categoryQuery.isLoading ||
     venueQuery.isLoading;
-
+   console.log("courses",courses)
   return (
     <div className="p-6">
       {/* Tabs */}

@@ -11,11 +11,19 @@ import CustomDropdown from "../../Fields/DropDown";
 import { useGetSessionTypesQuery } from "../../../services/sessions/type/typeQuery";
 import { useGetSessionPrioQuery } from "../../../services/sessions/priorities/prioritiesQuery";
 import { useGetLocationsQuery } from "../../../services/courses/location/locationQuery";
+
 interface CreateSessionModalProps {
   open: boolean;
   onClose: () => void;
   id: number;
 }
+
+// دالة مساعدة لتحويل التاريخ المحلي إلى UTC ISO string
+const toUTC = (dateStr: string) => {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  return isNaN(date.getTime()) ? "" : date.toISOString();
+};
 
 export const CreateSessionModal = ({
   open,
@@ -24,13 +32,13 @@ export const CreateSessionModal = ({
 }: CreateSessionModalProps) => {
   const { data } = useGetCourseTrainersQuery({ id: id });
   const { data: prio } = useGetSessionPrioQuery({});
-   const { data:allTypes} = useGetSessionTypesQuery({});
-  const {data:locations}=useGetLocationsQuery()
+  const { data: allTypes } = useGetSessionTypesQuery({});
+  const { data: locations } = useGetLocationsQuery();
   const [createSession, { isLoading }] = useCreateSessionMutation();
-console.log("typess",allTypes)
+
   const [session, setSession] = useState<{
     courseId: number;
-    trainerId: number;
+    trainerId: number | null;
     title: string;
     date: string;
     startTime: string;
@@ -41,7 +49,7 @@ console.log("typess",allTypes)
     locationId: number | null;
   }>({
     courseId: id,
-    trainerId: 0,
+    trainerId: null,
     title: "",
     date: "",
     startTime: "",
@@ -54,12 +62,20 @@ console.log("typess",allTypes)
 
   const handelCreateSession = async () => {
     try {
-      console.log(session.sessionTypeId)
-      await createSession(session).unwrap();
+      // تحويل جميع التواريخ للتوقيت العالمي (UTC) قبل الإرسال
+      const payload = {
+        ...session,
+        date: toUTC(session.date),
+        startTime: toUTC(session.startTime),
+        endTime: toUTC(session.endTime),
+      };
+console.log("payloood",payload)
+      await createSession(payload).unwrap();
       toast.success("Session Created Successfully");
+
       setSession({
         courseId: id,
-        trainerId: 0,
+        trainerId: null,
         title: "",
         date: "",
         startTime: "",
@@ -67,7 +83,7 @@ console.log("typess",allTypes)
         sessionNumber: 0,
         sessionTypeId: 0,
         sessionPriorityId: 0,
-        locationId:null
+        locationId: null,
       });
       onClose();
     } catch (err) {
@@ -83,10 +99,9 @@ console.log("typess",allTypes)
           Create New Session
         </h2>
 
-        {/* 💡 تحويل الحاوية لشبكة (Grid) ثنائية الأعمدة */}
+        {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          
-          {/* Title - يأخذ العرض الكامل */}
+          {/* Title */}
           <div className="md:col-span-2">
             <InputField
               label="Title"
@@ -127,13 +142,11 @@ console.log("typess",allTypes)
           <InputField
             label="Date"
             type="datetime-local"
-            value={session.date ? session.date.slice(0, 16) : ""}
+            value={session.date}
             onChange={(e) =>
               setSession({
                 ...session,
-                date: e.target.value
-                  ? new Date(e.target.value).toISOString()
-                  : "",
+                date: e.target.value,
               })
             }
           />
@@ -155,33 +168,29 @@ console.log("typess",allTypes)
           <InputField
             label="Start Time"
             type="datetime-local"
-            value={session.startTime ? session.startTime.slice(0, 16) : ""}
+            value={session.startTime}
             onChange={(e) =>
               setSession({
                 ...session,
-                startTime: e.target.value
-                  ? new Date(e.target.value).toISOString()
-                  : "",
+                startTime: e.target.value,
               })
             }
           />
 
-          {/* End Time (تم تصحيح القراءة من session.endTime) */}
+          {/* End Time */}
           <InputField
             label="End Time"
             type="datetime-local"
-            value={session.endTime ? session.endTime.slice(0, 16) : ""}
+            value={session.endTime}
             onChange={(e) =>
               setSession({
                 ...session,
-                endTime: e.target.value
-                  ? new Date(e.target.value).toISOString()
-                  : "",
+                endTime: e.target.value,
               })
             }
           />
 
-          {/* Select Session Type - يأخذ العرض الكامل */}
+          {/* Select Session Type & Location */}
           <div className="flex gap-2 md:col-span-2">
             <CustomDropdown
               options={allTypes?.map((t) => t.name) || []}
@@ -194,8 +203,8 @@ console.log("typess",allTypes)
                 });
               }}
             />
-                <CustomDropdown
-              options={locations?.map((l) =>l.cityName) || []}
+            <CustomDropdown
+              options={locations?.map((l) => l.cityName) || []}
               placeholder="Select Location (for onsite)"
               onSelect={(value) => {
                 const selected = locations?.find((l) => l.cityName === value);
@@ -207,31 +216,31 @@ console.log("typess",allTypes)
             />
           </div>
 
-          {/* الأزرار السفليّة - محاذاة لليمين بعرض كامل */}
+          {/* Buttons */}
           <div className="flex justify-end gap-3 md:col-span-2 mt-4 pt-4 border-t border-gray-100">
-              <Button
+            <Button
               name={isLoading ? "Creating..." : "Create"}
               onClick={handelCreateSession}
-              
             />
-            <CancelBtn name="Cancel" onClick={()=>{onClose(),
-
-                 setSession({
-        courseId: id,
-        trainerId: 0,
-        title: "",
-        date: "",
-        startTime: "",
-        endTime: "",
-        sessionNumber: 0,
-        sessionTypeId: 0,
-        sessionPriorityId: 0,
-        locationId:null
-      });
-            }} />
-          
+            <CancelBtn
+              name="Cancel"
+              onClick={() => {
+                onClose();
+                setSession({
+                  courseId: id,
+                  trainerId: null,
+                  title: "",
+                  date: "",
+                  startTime: "",
+                  endTime: "",
+                  sessionNumber: 0,
+                  sessionTypeId: 0,
+                  sessionPriorityId: 0,
+                  locationId: null,
+                });
+              }}
+            />
           </div>
-
         </div>
       </div>
     </Modal>

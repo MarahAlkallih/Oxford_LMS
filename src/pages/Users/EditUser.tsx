@@ -145,6 +145,7 @@ export const EditUserPage = () => {
         errors={errors}
         onChange={handleChange}
         showRole
+        isEdit={true}
       />
 
       {/* Submit Button */}

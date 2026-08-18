@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
 import { toast } from "react-toastify";
 import { useGetOneSessionQuery } from "../../../../../services/sessions/admin/sessionsQuery";
 import { useCancelSessionMutation } from "../../../../../services/sessions/admin/sessionMutation";
@@ -11,14 +10,16 @@ import { SessionGeneralInfo } from "./../tabs/session/SessionGeneralInfo";
 import { SessionSupervisors } from "./../tabs/session/SessionSupervisors";
 import { SessionFiles } from "../tabs/session/SessionFiles";
 import { SessionExams } from "./../tabs/session/SessionExams";
-import { SessionJoinRequests } from "./../tabs/session/SessionJoinRequests"; // المكون الجديد
+import { SessionJoinRequests } from "./../tabs/session/SessionJoinRequests";
+import { SessionOnsiteAttendance } from "./../tabs/session/SessionOnsiteAttendance"; // المكون الجديد
 
 export const SessionDetailsPage = () => {
   const { sId } = useParams();
   const navigate = useNavigate();
   const id1 = Number(sId);
-   const {id}=useParams()
-   const courseId=Number(id)
+  const { id } = useParams();
+  const courseId = Number(id);
+
   const [cancelSession, { isLoading: isCancelling }] = useCancelSessionMutation();
   const { data: session, isLoading: isLoadSession } = useGetOneSessionQuery(
     { id: id1 },
@@ -91,22 +92,25 @@ export const SessionDetailsPage = () => {
 
       {/* Dashboard Grid Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-        {/* Left / Main Content Area (Spans 2 columns on Large screens) */}
+        {/* Left / Main Content Area */}
         <div className="lg:col-span-2 space-y-6">
-          {/* General Session Info Card */}
           <SessionGeneralInfo session={session} />
 
-          {/* Join Requests Card */}
-          <SessionJoinRequests sessionId={id1} />
+          {/* العرض المشروط بناءً على نوع الجلسة (ONSITE أو ONLINE) */}
+          {!session.joinUrl ? (
+            <SessionOnsiteAttendance sessionId={id1} courseId={courseId} />
+          ) : (
+            <SessionJoinRequests sessionId={id1} />
+          )}
 
-          {/* Files & Exams Grid (Side-by-side inside main area) */}
+          {/* Files & Exams Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <SessionFiles sessionId={id1} />
             <SessionExams sessionId={id1} courseId={courseId} />
           </div>
         </div>
 
-        {/* Right Sidebar Area (Spans 1 column on Large screens) */}
+        {/* Right Sidebar Area */}
         <div className="lg:col-span-1 space-y-6">
           <SessionSupervisors sessionId={id1} />
         </div>

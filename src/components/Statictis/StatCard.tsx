@@ -1,104 +1,68 @@
 import React from "react";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import TrendingDownIcon from "@mui/icons-material/TrendingDown";
+import cir from "../../assets/c-1.png";
+import cir2 from "../../assets/c-2.png";
 
 interface StatCardProps {
-  title: string;
-  value: string | number;
-  percentage: number; 
-  icon: React.ReactNode;
-  trend?: string;
-  isPositive?: boolean;
-  variant?: "main" | "second"; 
+  title?: string;
+  value?: string | number;
+  subtext?: string;
+  icon?: React.ReactNode;
 }
 
 export const StatCard: React.FC<StatCardProps> = ({
-  title,
-  value,
-  percentage,
+  title = "Students",
+  value = "500",
+  subtext = "15% increased",
   icon,
-  trend,
-  isPositive = true,
-  variant = "main",
 }) => {
-  // تحديد لون المتغير بناءً على الـ variant المختار
-  const primaryColorVar =
-    variant === "main"
-      ? "var(--main-color)"
-      : "var(--second-color, var(--color-watermelon))";
-
-  // حسابات الدائرة البرمجية (SVG Calculations)
-  const radius = 32;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (percentage / 100) * circumference;
-
   return (
-    <div className="bg-white border border-gray-150 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-between gap-4">
+    <div className="relative overflow-hidden rounded-xl p-5 bg-gradient-to-r from-(--sec-color) to-(--third-color) w-72 h-44 shadow-sm select-none">
       
-      {/* القسم الأيسر: النصوص والأيقونة */}
-      <div className="space-y-2">
-        {/* خلفية الأيقونة تأخذ درجة شفافة وخفيفة من لون الثيم المختار */}
-        <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center border transition-colors"
-          style={{
-            backgroundColor: `color-mix(in srgb, ${primaryColorVar} 10%, transparent)`,
-            borderColor: `color-mix(in srgb, ${primaryColorVar} 25%, transparent)`,
-            color: primaryColorVar,
-          }}
-        >
-          {icon}
-        </div>
+      {/* 1. الدوائر بالزوايا */}
+      <img
+        src={cir}
+        alt="circle background bottom left"
+        className="absolute -bottom-8 -left-8 w-44 h-44 object-contain pointer-events-none z-0 opacity-80"
+      />
+      <img
+        src={cir2}
+        alt="circle background top right"
+        className="absolute -top-10 -right-8 w-52 h-52 object-contain pointer-events-none z-0 opacity-80"
+      />
 
-        <div>
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{title}</p>
-          <h3 className="text-2xl font-bold text-gray-900 mt-0.5">{value}</h3>
-        </div>
+      {/* 2. الطبقة الشفافة فوق الدوائر (Transparent Overlay) */}
+      <div className="absolute inset-0 rounded-xl bg-white/10 backdrop-blur-[2px]  z-0" />
 
-        {/* مؤشر التغير (الزيادة/النقصان) */}
-        {trend && (
-          <div className="flex items-center gap-1 text-xs font-bold">
-            <span className={isPositive ? "text-emerald-600" : "text-rose-600"}>
-              {isPositive ? <TrendingUpIcon sx={{ fontSize: 16 }} /> : <TrendingDownIcon sx={{ fontSize: 16 }} />}
-              {trend}
-            </span>
-            <span className="text-gray-400 font-medium">vs last month</span>
+      {/* 3. المحتوى العلوي الكارد */}
+      <div className="relative z-10 flex flex-col justify-between h-full text-[#1c241b]">
+        {/* Header: Title & Icon */}
+        <div className="flex items-center justify-between">
+          <span className="text-2xl font-normal tracking-wide text-gray-900">
+            {title}
+          </span>
+          <div>
+            {icon || (
+              <svg
+                className="w-6 h-6 text-gray-800"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+              </svg>
+            )}
           </div>
-        )}
+        </div>
+
+        {/* Body: Value & Trend Subtext */}
+        <div className="space-y-1">
+          <div className="text-3xl font-medium text-gray-900 leading-none">
+            {value}
+          </div>
+          <div className="text-xs text-gray-800/90 font-normal">
+            {subtext}
+          </div>
+        </div>
       </div>
-
-      {/* القسم الأيمن: دائرة النسب المئوية */}
-      <div className="relative flex items-center justify-center shrink-0">
-        <svg className="w-20 h-20 transform -rotate-90">
-          {/* خلفية الدائرة الرمادية الخفيفة */}
-          <circle
-            cx="40"
-            cy="40"
-            r={radius}
-            stroke="#f3f4f6"
-            strokeWidth="7"
-            fill="transparent"
-          />
-          {/* رسم الدائرة بلون متغر الهوية المختار */}
-          <circle
-            cx="40"
-            cy="40"
-            r={radius}
-            stroke={primaryColorVar}
-            strokeWidth="7"
-            strokeDasharray={circumference}
-            strokeDashoffset={strokeDashoffset}
-            strokeLinecap="round"
-            fill="transparent"
-            className="transition-all duration-1000 ease-out"
-          />
-        </svg>
-
-        {/* النص داخل منتصف الدائرة */}
-        <span className="absolute text-xs font-bold text-gray-700">
-          {percentage}%
-        </span>
-      </div>
-
     </div>
   );
 };

@@ -1,23 +1,21 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  // Tailwind should be configured via PostCSS (postcss.config.js).
-  plugins: [react()
-      
-  ],
-
+  plugins: [react()],
   server: {
+    port: 5173,
     proxy: {
       '/api': {
-        //https://oxford-lms.onrender.com
-        //http://localhost:3000
-        //http://153.92.210.41:3000
-        target: 'http://153.92.210.41:3000',
+        target: 'https://elastic-dirac.153-92-210-41.plesk.page',
         changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ''), // <--- أضيفي هذا السطر لحذف /api عند تحويل الطلب
+        headers: {
+          'Cookie': 'plesk_technical_domain=1'
+        }
+      }
+    }
+  }
+});
 
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
-})

@@ -107,7 +107,9 @@ export const baseApi = createApi({
     "SessionFiles",
     "SessionExams",
     "Assignment",
-     "Tasks"
+    "Tasks",
+    "CertificateTemplate",
+    "Certificate",
   ],
   endpoints: () => ({}),
 });

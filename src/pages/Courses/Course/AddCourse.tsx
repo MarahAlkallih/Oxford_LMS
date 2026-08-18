@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { useGetStatusesQuery } from "../../../services/courses/Admin-courses/coursesQuery"
+import { useGetStatusesQuery, useGetOneCourseQuery } from "../../../services/courses/Admin-courses/coursesQuery";
 import { useGetLocationsQuery } from "../../../services/courses/location/locationQuery";
 import { useGetCategoryQuery } from "../../../services/courses/catygory/getCategories";
 import { useGetLanguagesQuery } from "../../../services/languages/languageService";
 import { useGetVenuesQuery } from "../../../services/courses/veneus/getVenues";
-import {useGetOneCourseQuery} from "../../../services/courses/Admin-courses/coursesQuery"
 import { useAddCourseMutation, useEditCourseMutation } from "../../../services/courses/Admin-courses/coursesMutation";
 import { InputField } from "../../../components/Fields/InputField";
 import CustomDropdown from "../../../components/Fields/DropDown";
@@ -12,269 +11,226 @@ import { Button } from "../../../components/Buttons/SubmitBtn";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { ErrorHandler } from "../../../utils/ErrorHandler";
-export const AddCoursePage = () => {
-    const {id}=useParams()
-    const courseId=Number(id)
-    const { data: status } = useGetStatusesQuery();
-    const { data: locations } = useGetLocationsQuery()
-    const { data: category } = useGetCategoryQuery()
-    const { data: languages } = useGetLanguagesQuery()
-    const { data: venues } = useGetVenuesQuery()
-    const {data:courseData}=useGetOneCourseQuery({id:courseId})
-    const [addCourse,{isLoading,isSuccess}] = useAddCourseMutation();
-    const [editCourse, { isLoading: isEditing }] = useEditCourseMutation();
-    const [img, setImage] = useState<File | null>(null);
-    const navigate=useNavigate()
+
 type CourseType = {
+  // Required Fields
   status: string;
-  locationId: number | null;
   categoryId: number;
   languageId: number;
-  venueId: number | null;
   code: string;
   title: string;
   fee: number;
   hours: number;
+
+  // Optional Fields
+  locationId: number | null;
+  venueId: number | null;
+  subTitle: string | null;
+  description: string | null;
   startDate: Date | null;
   endDate: Date | null;
-  subTitle: string;
   registrationDeadline: Date | null;
   paymentDeadline: Date | null;
-  description: string;
+  expectedSessions: number | null;
+  tasksPercentage: number | null;
+  
+  // Booleans
   isAdd: boolean;
-  expectedSessions:number | null;
-  hasTasks:boolean;
-  isTasksGraded:boolean;
-  tasksPercentage:number | null;
+  hasTasks: boolean;
+  isTasksGraded: boolean;
 };
 
 const initialCourse: CourseType = {
   status: "",
-  locationId: null,
   categoryId: 0,
   languageId: 0,
-  venueId: null,
   code: "",
   title: "",
   fee: 0,
   hours: 0,
+  locationId: null,
+  venueId: null,
+  subTitle: null,
+  description: null,
   startDate: null,
   endDate: null,
-  subTitle: "",
   registrationDeadline: null,
   paymentDeadline: null,
-  description: "",
+  expectedSessions: null,
+  tasksPercentage: null,
   isAdd: false,
-  expectedSessions:null,
-  isTasksGraded:false,
-  hasTasks:false,
-  tasksPercentage:null
+  hasTasks: false,
+  isTasksGraded: false,
 };
 
-const [course, setCourse] = useState<CourseType>(initialCourse);
-   
-    useEffect(() => {
-  if (courseData) {
-    setCourse({
-      status: courseData.status,
-      locationId: courseData.locationId ?? null,
-      categoryId: courseData.categoryId,
-      languageId: courseData.languageId,
-      venueId: courseData.venueId ?? null,
+export const AddCoursePage = () => {
+  const { id } = useParams();
+  const courseId = Number(id);
+  const navigate = useNavigate();
 
-      code: courseData.code,
-      title: courseData.title,
-      subTitle: courseData.subTitle ?? "",
+  const { data: status } = useGetStatusesQuery();
+  const { data: locations } = useGetLocationsQuery();
+  const { data: category } = useGetCategoryQuery();
+  const { data: languages } = useGetLanguagesQuery();
+  const { data: venues } = useGetVenuesQuery();
+  const { data: courseData } = useGetOneCourseQuery({ id: courseId }, { skip: !id });
 
-      fee: courseData.fee,
-      hours: courseData.hours,
+  const [addCourse, { isLoading }] = useAddCourseMutation();
+  const [editCourse, { isLoading: isEditing }] = useEditCourseMutation();
+  const [img, setImage] = useState<File | null>(null);
 
-      description: courseData.description ?? "",
+  const [course, setCourse] = useState<CourseType>(initialCourse);
 
-      startDate: courseData.startDate
-        ? new Date(courseData.startDate)
-        : null,
-
-      endDate: courseData.endDate
-        ? new Date(courseData.endDate)
-        : null,
-
-      registrationDeadline: courseData.registrationDeadline
-        ? new Date(courseData.registrationDeadline)
-        : null,
-
-      paymentDeadline: courseData.paymentDeadline
-        ? new Date(courseData.paymentDeadline)
-        : null,
-
-      isAdd: courseData.isAdd,
-      expectedSessions :courseData.expectedSessions ?? null,
-      isTasksGraded:courseData.isTasksGraded ?? false,
-      hasTasks:courseData.hasTasks,
-      tasksPercentage:courseData.tasksPercentage
- });
-  }
-}, [courseData]);
-const handleSubmit = async () => {
-  const formData = new FormData();
-
-  formData.append("status", course.status);
-  formData.append("locationId", course.locationId?.toString() || "" );
-  formData.append("categoryId", course.categoryId.toString());
-  formData.append("languageId", course.languageId.toString());
-  formData.append("venueId", course.venueId?.toString() || "");
-
-  formData.append("code", course.code);
-  formData.append("title", course.title);
-  formData.append("subTitle", course.subTitle);
-  formData.append("description", course.description);
-
-  formData.append("fee", course.fee.toString());
-  formData.append("hours", course.hours.toString());
-
-  formData.append("startDate", course.startDate?.toISOString() || "");
-  formData.append("endDate", course.endDate?.toISOString() || "");
-  formData.append(
-    "registrationDeadline",
-    course.registrationDeadline?.toISOString() || ""
-  );
-  formData.append(
-    "paymentDeadline",
-    course.paymentDeadline?.toISOString() || ""
-  );
-
-  formData.append("isAdd", course.isAdd.toString());
-  formData.append("hasTasks", course.hasTasks.toString());
-    // tasksPercentage can be null, send empty string when null
-    formData.append(
-      "tasksPercentage",
-      course.tasksPercentage != null ? course.tasksPercentage.toString() : ""
-    );
-     formData.append(
-      "isTasksGraded",
-      course.tasksPercentage != null ? course.isTasksGraded.toString() : ""
-    );
-      formData.append(
-      "expectedSessions", course.expectedSessions != null ? course.expectedSessions.toString() : "" );
-    
-
-  if (img) {
-    formData.append("img", img);
-  }
-   if(!course.venueId){
-    // formData.append("loactaionId",course.locationId.toString() === "" )
-   }
-  try {
-    console.log(Array.from(formData))
-    if (id) {
-      await editCourse({
-        id: courseId,
-        data: formData,
-      }).unwrap();
-
-      toast.success("Course Updated Successfully");
-      navigate(-1)
-    } else {
-      await addCourse(formData).unwrap();
-
-      toast.success("Course Added Successfully");
-
-      setCourse(initialCourse);
-      setImage(null);
+  useEffect(() => {
+    if (courseData) {
+      setCourse({
+        status: courseData.status ?? "",
+        categoryId: courseData.categoryId ?? null,
+        languageId: courseData.languageId ?? null,
+        code: courseData.code ?? "",
+        title: courseData.title ?? "",
+        fee: courseData.fee ?? 0,
+        hours: courseData.hours ?? 0,
+        locationId: courseData.locationId ?? null,
+        venueId: courseData.venueId ?? null,
+        subTitle: courseData.subTitle ?? null,
+        description: courseData.description ?? null,
+        startDate: courseData.startDate ? new Date(courseData.startDate) : null,
+        endDate: courseData.endDate ? new Date(courseData.endDate) : null,
+        registrationDeadline: courseData.registrationDeadline ? new Date(courseData.registrationDeadline) : null,
+        paymentDeadline: courseData.paymentDeadline ? new Date(courseData.paymentDeadline) : null,
+        expectedSessions: courseData.expectedSessions ?? null,
+        tasksPercentage: courseData.tasksPercentage ?? null,
+        isAdd: Boolean(courseData.isAdd),
+        hasTasks: Boolean(courseData.hasTasks),
+        isTasksGraded: Boolean(courseData.isTasksGraded),
+      });
     }
-  } catch (err) {
-    ErrorHandler.show(err);
-  }
-};
+  }, [courseData]);
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+
+    // 1. الحقول الإلزامية (تُرسل دائماً)
+    formData.append("status", course.status);
+    formData.append("categoryId", course.categoryId.toString());
+    formData.append("languageId", course.languageId.toString());
+    formData.append("code", course.code);
+    formData.append("title", course.title);
+    formData.append("fee", course.fee.toString());
+    formData.append("hours", course.hours.toString());
+
+    // 2. دالة مساعدة لإضافة الحقول الاختيارية فقط إذا كانت تفيد بقيمة غير فارغة
+    const appendOptional = (key: string, value: any) => {
+      if (value !== null && value !== undefined && value !== "") {
+        if (value instanceof Date) {
+          formData.append(key, value.toISOString());
+        } else {
+          formData.append(key, value.toString());
+        }
+      }
+    };
+
+    // إلحاق الحقول الاختيارية
+    appendOptional("locationId", course.locationId);
+    appendOptional("venueId", course.venueId);
+    appendOptional("subTitle", course.subTitle);
+    appendOptional("description", course.description);
+    appendOptional("startDate", course.startDate);
+    appendOptional("endDate", course.endDate);
+    appendOptional("registrationDeadline", course.registrationDeadline);
+    appendOptional("paymentDeadline", course.paymentDeadline);
+    appendOptional("expectedSessions", course.expectedSessions);
+    appendOptional("tasksPercentage", course.tasksPercentage);
+
+    // Booleans
+    formData.append("isAdd", course.isAdd.toString());
+    formData.append("hasTasks", course.hasTasks.toString());
+    formData.append("isTasksGraded", course.isTasksGraded.toString());
+
+    if (img) {
+      formData.append("img", img);
+    }
+
+    try {
+      if (id) {
+        await editCourse({ id: courseId, data: formData }).unwrap();
+        toast.success("Course Updated Successfully");
+        navigate(-1);
+      } else {
+        await addCourse(formData).unwrap();
+        toast.success("Course Added Successfully");
+        setCourse(initialCourse);
+        setImage(null);
+      }
+    } catch (err) {
+      ErrorHandler.show(err);
+    }
+  };
+
   return (
-  <div className="max-w-7xl mx-auto p-6">
-   <h1>{id ? "Edit Course" : "Create Course"}</h1>
+    <div className="max-w-7xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">{id ? "Edit Course" : "Create Course"}</h1>
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-   
-      <div className="bg-(--light2-color) rounded-xl shadow-md border p-6">
-        <h2 className="text-xl font-semibold mb-5 border-b pb-2">
-          Basic Information
-        </h2>
-
-        <div className="space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Basic Information */}
+        <div className="bg-(--light2-color) rounded-xl shadow-md border p-6 space-y-4">
+          <h2 className="text-xl font-semibold mb-5 border-b pb-2">Basic Information</h2>
 
           <InputField
             label="Code"
             value={course.code}
             type="text"
-            onChange={(e) =>
-              setCourse({
-                ...course,
-                code: e.target.value,
-              })
-            }
+            onChange={(e) => setCourse({ ...course, code: e.target.value })}
           />
 
           <InputField
             label="Title"
             value={course.title}
             type="text"
-            onChange={(e) =>
-              setCourse({
-                ...course,
-                title: e.target.value,
-              })
-            }
+            onChange={(e) => setCourse({ ...course, title: e.target.value })}
           />
 
           <InputField
             label="Subtitle"
-            value={course.subTitle}
+            value={course.subTitle ?? ""}
             type="text"
+            onChange={(e) => setCourse({ ...course, subTitle: e.target.value || null })}
+          />
+
+          <InputField
+            label="Description"
+            value={course.description ?? ""}
+            type="text"
+            onChange={(e) => setCourse({ ...course, description: e.target.value || null })}
+          />
+
+          <InputField
+            label="Expected Sessions"
+            value={course.expectedSessions !== null ? String(course.expectedSessions) : ""}
+            type="number"
             onChange={(e) =>
               setCourse({
                 ...course,
-                subTitle: e.target.value,
+                expectedSessions: e.target.value !== "" ? Number(e.target.value) : null,
               })
             }
           />
 
           <InputField
-            label="Description"
-            value={course.description}
-            type="text"
-            onChange={(e) =>
-              setCourse({
-                ...course,
-                description: e.target.value,
-              })
-            }
-          />
-              <InputField
-            label="Expected Sessions"
-            value={String(course.expectedSessions)}
-            type="number"
-            onChange={(e) =>
-              setCourse({
-                ...course,
-                expectedSessions: Number(e.target.value),
-              })
-            }
-          />
-                <InputField
             label="Tasks Percentage"
-            value={String(course.tasksPercentage)}
+            value={course.tasksPercentage !== null ? String(course.tasksPercentage) : ""}
             type="number"
             onChange={(e) =>
               setCourse({
                 ...course,
-                tasksPercentage: Number(e.target.value),
+                tasksPercentage: e.target.value !== "" ? Number(e.target.value) : null,
               })
             }
           />
 
           <div>
-            <label className="block text-sm font-medium mb-2">
-              Course Image
-            </label>
-
+            <label className="block text-sm font-medium mb-2">Course Image</label>
             <input
               type="file"
               accept="image/*"
@@ -287,39 +243,23 @@ const handleSubmit = async () => {
             />
           </div>
         </div>
-      </div>
 
-      {/* Course Details */}
-      <div className="bg-(--light2-color) rounded-xl shadow-md border p-6">
-        <h2 className="text-xl font-semibold mb-5 border-b pb-2">
-          Course Details
-        </h2>
-
-        <div className="grid grid-cols-1 gap-4">
+        {/* Course Details */}
+        <div className="bg-(--light2-color) rounded-xl shadow-md border p-6 space-y-4">
+          <h2 className="text-xl font-semibold mb-5 border-b pb-2">Course Details</h2>
 
           <CustomDropdown
             options={status ?? []}
             placeholder="Select Status"
-            onSelect={(value) => {
-              setCourse({
-                ...course,
-                status: value,
-              });
-            }}
+            onSelect={(value) => setCourse({ ...course, status: value })}
           />
 
           <CustomDropdown
             options={locations?.map((l) => l.cityName) || []}
             placeholder="Select Location"
             onSelect={(value) => {
-              const selected = locations?.find(
-                (l) => l.cityName === value
-              );
-
-              setCourse({
-                ...course,
-                locationId: selected?.id || null,
-              });
+              const selected = locations?.find((l) => l.cityName === value);
+              setCourse({ ...course, locationId: selected?.id ?? null });
             }}
           />
 
@@ -327,14 +267,8 @@ const handleSubmit = async () => {
             options={category?.map((c) => c.title) || []}
             placeholder="Select Category"
             onSelect={(value) => {
-              const selected = category?.find(
-                (c) => c.title === value
-              );
-
-              setCourse({
-                ...course,
-                categoryId: selected?.id || 0,
-              });
+              const selected = category?.find((c) => c.title === value);
+              setCourse({ ...course, categoryId: selected?.id ?? 0 });
             }}
           />
 
@@ -342,14 +276,8 @@ const handleSubmit = async () => {
             options={languages?.map((l) => l.name) || []}
             placeholder="Select Language"
             onSelect={(value) => {
-              const selected = languages?.find(
-                (l) => l.name === value
-              );
-
-              setCourse({
-                ...course,
-                languageId: selected?.id || 0,
-              });
+              const selected = languages?.find((l) => l.name === value);
+              setCourse({ ...course, languageId: selected?.id ?? 0 });
             }}
           />
 
@@ -357,14 +285,8 @@ const handleSubmit = async () => {
             options={venues?.map((v) => v.venueTitle) || []}
             placeholder="Select Venue"
             onSelect={(value) => {
-              const selected = venues?.find(
-                (v) => v.venueTitle === value
-              );
-
-              setCourse({
-                ...course,
-                venueId: selected?.id || null,
-              });
+              const selected = venues?.find((v) => v.venueTitle === value);
+              setCourse({ ...course, venueId: selected?.id ?? null });
             }}
           />
 
@@ -372,180 +294,115 @@ const handleSubmit = async () => {
             label="Fee"
             value={course.fee.toString()}
             type="number"
-            onChange={(e) =>
-              setCourse({
-                ...course,
-                fee: e.target.valueAsNumber,
-              })
-            }
+            onChange={(e) => setCourse({ ...course, fee: Number(e.target.value) })}
           />
 
           <InputField
             label="Hours"
             value={course.hours.toString()}
             type="number"
-            onChange={(e) =>
-              setCourse({
-                ...course,
-                hours: e.target.valueAsNumber,
-              })
-            }
+            onChange={(e) => setCourse({ ...course, hours: Number(e.target.value) })}
           />
+        </div>
+
+        {/* Dates & Options */}
+        <div className="bg-(--light2-color) rounded-xl shadow-md border p-6 lg:col-span-2">
+          <h2 className="text-xl font-semibold mb-5 border-b pb-2">Dates & Options</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <InputField
+              label="Start Date"
+              type="datetime-local"
+              value={course.startDate ? course.startDate.toISOString().slice(0, 16) : ""}
+              onChange={(e) =>
+                setCourse({ ...course, startDate: e.target.value ? new Date(e.target.value) : null })
+              }
+            />
+
+            <InputField
+              label="End Date"
+              type="datetime-local"
+              value={course.endDate ? course.endDate.toISOString().slice(0, 16) : ""}
+              onChange={(e) =>
+                setCourse({ ...course, endDate: e.target.value ? new Date(e.target.value) : null })
+              }
+            />
+
+            <InputField
+              label="Registration Deadline"
+              type="datetime-local"
+              value={
+                course.registrationDeadline ? course.registrationDeadline.toISOString().slice(0, 16) : ""
+              }
+              onChange={(e) =>
+                setCourse({
+                  ...course,
+                  registrationDeadline: e.target.value ? new Date(e.target.value) : null,
+                })
+              }
+            />
+
+            <InputField
+              label="Payment Deadline"
+              type="datetime-local"
+              value={course.paymentDeadline ? course.paymentDeadline.toISOString().slice(0, 16) : ""}
+              onChange={(e) =>
+                setCourse({
+                  ...course,
+                  paymentDeadline: e.target.value ? new Date(e.target.value) : null,
+                })
+              }
+            />
+          </div>
+
+          <div className="mt-6 space-y-4">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={course.isAdd}
+                onChange={(e) => setCourse({ ...course, isAdd: e.target.checked })}
+                className="w-5 h-5"
+              />
+              <span className="font-medium">Featured Course (Is Add)</span>
+            </label>
+
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={course.hasTasks}
+                onChange={(e) => setCourse({ ...course, hasTasks: e.target.checked })}
+                className="w-5 h-5"
+              />
+              <span className="font-medium">Has Tasks</span>
+            </label>
+
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={course.isTasksGraded}
+                onChange={(e) => setCourse({ ...course, isTasksGraded: e.target.checked })}
+                className="w-5 h-5"
+              />
+              <span className="font-medium">Is Tasks Graded</span>
+            </label>
+          </div>
         </div>
       </div>
 
-      {/* Dates & Registration */}
-      <div className="bg-(--light2-color) rounded-xl shadow-md border p-6 lg:col-span-2">
-        <h2 className="text-xl font-semibold mb-5 border-b pb-2">
-          Dates & Registration
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-          <InputField
-            label="Start Date"
-            type="datetime-local"
-            value={
-              course.startDate
-                ? new Date(course.startDate)
-                    .toISOString()
-                    .slice(0, 16)
-                : ""
-            }
-            onChange={(e) =>
-              setCourse({
-                ...course,
-                startDate: e.target.value
-                  ? new Date(e.target.value)
-                  : null,
-              })
-            }
-          />
-
-          <InputField
-            label="End Date"
-            type="datetime-local"
-            value={
-              course.endDate
-                ? new Date(course.endDate)
-                    .toISOString()
-                    .slice(0, 16)
-                : ""
-            }
-            onChange={(e) =>
-              setCourse({
-                ...course,
-                endDate: e.target.value
-                  ? new Date(e.target.value)
-                  : null,
-              })
-            }
-          />
-
-          <InputField
-            label="Registration Deadline"
-            type="datetime-local"
-            value={ course.registrationDeadline
-                ? new Date(course.registrationDeadline)
-                    .toISOString()
-                    .slice(0, 16)
-                : ""}
-            onChange={(e) =>   setCourse({
-                ...course,
-                registrationDeadline: e.target.value
-                  ? new Date(e.target.value)
-                  : null,
-              })}
-          />
-
-          <InputField
-            label="Payment Deadline"
-            type="datetime-local"
-            value={ course.paymentDeadline
-                ? new Date(course.paymentDeadline)
-                    .toISOString()
-                    .slice(0, 16)
-                : ""}
-            onChange={(e) =>   setCourse({
-                ...course,
-                paymentDeadline: e.target.value
-                  ? new Date(e.target.value)
-                  : null,
-              })}
-          />
-        </div>
-
-        <div className="mt-6">
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={course.isAdd}
-              onChange={(e) =>
-                setCourse({
-                  ...course,
-                  isAdd: e.target.checked,
-                })
-              }
-              className="w-5 h-5"
-            />
-
-            <span className="font-medium">
-              Featured Course (Is Add)
-            </span>
-          </label>
-        </div>
-         <div className="mt-6">
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={course.hasTasks}
-              onChange={(e) =>
-                setCourse({
-                  ...course,
-                  hasTasks: e.target.checked,
-                })
-              }
-              className="w-5 h-5"
-            />
-
-            <span className="font-medium">
-              Has Tasks
-            </span>
-          </label>
-        </div>
+      <div className="flex w-fit mt-8">
+        <Button
+          name={
+            id
+              ? isEditing
+                ? "Saving..."
+                : "Save Changes"
+              : isLoading
+              ? "Creating..."
+              : "Create Course"
+          }
+          onClick={handleSubmit}
+        />
       </div>
-       <div className="mt-6">
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={course.isTasksGraded}
-              onChange={(e) =>
-                setCourse({
-                  ...course,
-                  isTasksGraded: e.target.checked,
-                })
-              }
-              className="w-5 h-5"
-            />
-
-            <span className="font-medium">
-              Featured Course (Is Add)
-            </span>
-          </label>
-        </div>
     </div>
-    
-
-    <div className="flex w-fit  mt-8">
-<Button
-  name={
-    id
-      ? (isEditing ? "Saving..." : "Save Changes")
-      : (isLoading ? "Creating..." : "Create Course")
-  }
-  onClick={handleSubmit}
-/>
-    </div>
-  </div>
-);
-}
+  );
+};

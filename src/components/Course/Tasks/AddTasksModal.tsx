@@ -73,7 +73,7 @@ export const AddTaskModal = ({ open, onClose, courseId }: AddTaskModalProps) => 
   return (
     <Modal open={open} onClose={handleClose}>
       {/* Scrollable Container with Maximum Height */}
-      <div className="p-4 sm:p-6 w-full max-w-2xl max-h-[85vh] overflow-y-auto space-y-4">
+      <div className="p-4 sm:p-6 w-full max-w-2xl max-h-[85vh]  space-y-4">
         <h2 className="text-xl font-bold text-center text-gray-800 border-b border-gray-100 pb-2">
           Add New Task
         </h2>

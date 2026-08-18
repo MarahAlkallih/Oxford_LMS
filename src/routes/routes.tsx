@@ -55,7 +55,11 @@ import { SessionExamDetails } from "../components/Exam/SessionExam/SessionExamDe
 import { ExamAssignment } from "../pages/Courses/Course/CourseDetails/tabs/exams/ExamAssignments";
 import { OneAssignment } from "../pages/Courses/Course/CourseDetails/tabs/exams/TraineesInfo";
 import { TaskDetails } from "../pages/Courses/Course/CourseDetails/tabs/tasks/TaskDetails";
-
+import { CertificateEditor } from "../pages/Certificate/CertificateEditor";
+import { CertificateTemplatesPage } from "../pages/Exams/certificates/CertificateTemplatesPage";
+import { CertificateTemplateEditorPage } from "../pages/Exams/certificates/CertificateTemplateEditorPage";
+import { CertificatesPage } from "../pages/Exams/certificates/CertificatesPage";
+import { OneCertificatePage } from "../pages/Exams/certificates/OneCertificatePage";
 function QuestionFormRoute() {
   const { id } = useParams();
 
@@ -117,6 +121,7 @@ function AppRoutes() {
             <Route path="/session/types" element={<SessionTypes/>} />
             <Route path="/session/priorities" element={<PrioritiesPage/>} />
             <Route path="/session/suoervisors" element={<Supervisorspage/>} />
+             <Route path="/certificates/create" element={<CertificateEditor />} />
         <Route path="assignments/types" element={<ExamConstants/>} />
         <Route path="assignments/forms" element={<FormsPage/>} />
         <Route path="assignments/instances" element={<ExamInstances/>} />
@@ -126,6 +131,11 @@ function AppRoutes() {
          <Route path="assignments/exams/:id" element={<ExamDetails/>} />
          <Route path="assignments/instances/:id/question/:questionId" element={<QuestionDetails/>} />
         <Route path="assignments/events" element={<EventsPage/>} />
+            <Route path="assignments/certificates/templates" element={<CertificateTemplatesPage/>} />
+        <Route path="assignments/certificates/templates/new" element={<CertificateTemplateEditorPage/>} />
+        <Route path="assignments/certificates/templates/:id/edit" element={<CertificateTemplateEditorPage/>} />
+        <Route path="assignments/certificates" element={<CertificatesPage/>} />
+        <Route path="assignments/certificates/:id" element={<OneCertificatePage/>} />
         <Route path="assignments/instances/:id" element={<InstanceDetails/>} />
          <Route path="courses/training-plan/add-files" element={<AddFiles/>} />
          <Route path="courses/training-plan/:id" element={<TrainingPlanDetails />} />
