@@ -3,7 +3,7 @@ import type {
   CertificateTemplate,
   CreateCertificateTemplateInput,
   UpdateCertificateTemplateInput,
-} from '../../types/certificate';
+} from "../../types/Certificate";
 
 const templateMutationApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { CertificateElementKey, CertificateLayout } from '../../../types/certificate';
+import type { CertificateElementKey, CertificateLayout } from "../../../types/Certificate";
 import {
   getCertificatePageSize,
   getDynamicFieldPreview,

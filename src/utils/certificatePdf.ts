@@ -1,5 +1,5 @@
 import { getAccessToken } from '../features/admin/auth/authStorage';
-import type { CertificateSampleData } from "../types/certificate";
+import type { CertificateSampleData } from "../types/Certificate";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL as string;
 

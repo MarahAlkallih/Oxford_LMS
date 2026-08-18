@@ -2,8 +2,8 @@ import type {
   CertificateElementKey,
   CertificateLayout,
   CertificateLayoutField,
-} from '../types/certificate';
-import { DEFAULT_CERTIFICATE_LAYOUT } from '../types/certificate';
+} from "../types/Certificate";
+import { DEFAULT_CERTIFICATE_LAYOUT } from "../types/Certificate";
 
 export type CertificatePageSize = {
   width: number;

@@ -3,7 +3,7 @@ import type {
   CertificateTemplate,
   CertificateTemplatesResponse,
   GetCertificateTemplatesParams,
-} from '../../types/certificate';
+} from "../../types/Certificate";
 
 const templateQueryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

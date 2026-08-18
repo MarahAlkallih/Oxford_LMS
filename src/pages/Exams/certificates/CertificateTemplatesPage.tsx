@@ -14,7 +14,7 @@ import {
   useSetDefaultCertificateTemplateMutation,
 } from '../../../services/certificates/templateMutation';
 import { useGetCertificateTemplatesQuery } from '../../../services/certificates/templateQuery';
-import type { CertificateSampleData } from '../../../types/certificate';
+import type { CertificateSampleData } from "../../../types/Certificate";
 import { ErrorHandler } from '../../../utils/ErrorHandler';
 import { openCertificateTemplatePdf } from '../../../utils/certificatePdf';
 

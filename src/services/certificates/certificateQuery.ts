@@ -1,5 +1,5 @@
 import { baseApi } from '../../api/baseApi';
-import type { CertificateRecord, CertificatesResponse, GetCertificatesParams } from '../../types/certificate';
+import type { CertificateRecord, CertificatesResponse, GetCertificatesParams } from "../../types/Certificate";
 
 const certificateQueryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

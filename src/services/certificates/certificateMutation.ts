@@ -1,5 +1,5 @@
 import { baseApi } from '../../api/baseApi';
-import type { CertificateRecord } from '../../types/certificate';
+import type { CertificateRecord } from "../../types/Certificate";
 
 const certificateMutationApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

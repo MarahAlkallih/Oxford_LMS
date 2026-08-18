@@ -3,7 +3,7 @@ import type {
   CertificateLayout,
   CertificateLayoutField,
   CertificateTemplateStatus,
-} from '../../../types/certificate';
+} from "../../../types/Certificate";
 import {
   CERTIFICATE_ELEMENT_LABELS,
   isDynamicFieldKey,

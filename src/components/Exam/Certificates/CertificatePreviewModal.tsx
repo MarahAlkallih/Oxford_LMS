@@ -3,7 +3,7 @@ import { Button } from '../../Buttons/SubmitBtn';
 import { CancelBtn } from '../../Buttons/CancelBtn';
 import { InputField } from '../../Fields/InputField';
 import { Modal } from '../../global/Modals';
-import type { CertificateSampleData } from "../../../types/certificate";
+import type { CertificateSampleData } from "../../../types/Certificate";
 
 type CertificatePreviewModalProps = {
   open: boolean;
