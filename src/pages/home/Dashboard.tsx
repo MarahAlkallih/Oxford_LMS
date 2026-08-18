@@ -19,7 +19,7 @@ export const Dashboard = () => {
         <StatCard />
         <StatCard />
         <StatCard />
-        <StatCard />
+       
       </Box>
 
       {/* Map */}
