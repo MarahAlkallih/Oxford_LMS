@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://elastic-dirac.153-92-210-41.plesk.page/:splat"
+  status = 200
+  force = true
