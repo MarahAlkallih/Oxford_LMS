@@ -36,6 +36,7 @@ const handleLogout = async () => {
     if(role?.toLowerCase()=== "trainer"){
       navigate("/trainer/profile")
     }
+   
   };
   
   return (
@@ -120,10 +121,11 @@ const handleLogout = async () => {
           </IconButton>
         </Box>
 
-        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} >
+          {role?.toLowerCase() !== "admin"?
+         <MenuItem onClick={handleMenuClose}>Profile</MenuItem> :
+         null}
+         <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
       </Box>
     </Box>

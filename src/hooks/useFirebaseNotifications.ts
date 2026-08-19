@@ -23,7 +23,7 @@ export const useFirebaseNotifications = () => {
         if (token) {
           console.log("Firebase Token:", token);
 
-          // هون لاحقاً رح نبعتو للـ Backend
+        
         } else {
           console.log("No registration token available.");
         }

@@ -110,6 +110,9 @@ export const baseApi = createApi({
     "Tasks",
     "CertificateTemplate",
     "Certificate",
+    "SessionAttendance",
+    "Notifications",
+    "UnreadCount"
   ],
   endpoints: () => ({}),
 });

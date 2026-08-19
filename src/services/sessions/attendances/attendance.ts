@@ -11,7 +11,7 @@ const GetJoinsApi = baseApi.injectEndpoints({
         url: `/session-attendance/session/${id}/requests`,
       
       }),
-      providesTags: ["Session-priorities"],
+      providesTags: ["SessionAttendance"],
     }),
   }),
 });
@@ -27,8 +27,24 @@ export const EditAttendanceApi = baseApi.injectEndpoints({
         body: data,
       }),
 
-      invalidatesTags: ["Session-priorities"],
+      invalidatesTags: ["SessionAttendance"],
     }),
   })
 })
 export const {useEditAttendanceMutation}=EditAttendanceApi;
+////////////////////////////////////////////////////////////////
+export const BulkPresentApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+
+    bulkPresent: builder.mutation({
+      query: ({data,id}) => ({
+        url:`/session-attendance/session/${id}/bulk-present` ,
+        method: "POST",
+        body: data,
+      }),
+
+      invalidatesTags: ["SessionAttendance"],
+    }),
+  })
+})
+export const {useBulkPresentMutation}=BulkPresentApi;
