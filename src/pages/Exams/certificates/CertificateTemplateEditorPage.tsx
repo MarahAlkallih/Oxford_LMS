@@ -1,26 +1,27 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Button } from '../../../../../../../Oxford_LMS_front/src/components/Buttons/SubmitBtn';
-import { CancelBtn } from '../../../../../../../Oxford_LMS_front/src/components/Buttons/CancelBtn';
-import { CertificateCanvas } from '../../../../../../../Oxford_LMS_front/src/components/Exam/Certificates/CertificateCanvas';
-import { CertificateEditorSidebar } from '../../../../../../../Oxford_LMS_front/src/components/Exam/Certificates/CertificateEditorSidebar';
-import { BACKEND_URL } from '../../../../../../../Oxford_LMS_front/src/config/env';
+import { Button } from '../../../components/Buttons/SubmitBtn';
+import { CancelBtn } from '../../../components/Buttons/CancelBtn';
+import { CertificateCanvas } from '../../../components/Exam/Certificates/CertificateCanvas';
+import { CertificateEditorSidebar } from '../../../components/Exam/Certificates/CertificateEditorSidebar';
+// Use environment variable for backend URL when local config import is unavailable
+const BACKEND_URL = import.meta.env.VITE_TARGET;
 import {
   useCreateCertificateTemplateMutation,
   useUpdateCertificateTemplateMutation,
   useUploadCertificateTemplateAssetMutation,
-} from '../../../../../../../Oxford_LMS_front/src/services/certificates/templateMutation';
-import { useGetCertificateTemplateByIdQuery } from '../../../../../../../Oxford_LMS_front/src/services/certificates/templateQuery';
+} from '../../../services/certificates/templateMutation';
+import { useGetCertificateTemplateByIdQuery } from '../../../services/certificates/templateQuery';
 import type {
   CertificateElementKey,
   CertificateLayout,
   CertificateTemplateStatus,
   CreateCertificateTemplateInput,
-} from '../../../../../../../Oxford_LMS_front/src/types/Certificate';
-import { DEFAULT_CERTIFICATE_LAYOUT } from '../../../../../../../Oxford_LMS_front/src/types/Certificate';
-import { ErrorHandler } from '../../../../../../../Oxford_LMS_front/src/utils/ErrorHandler';
-import { mergeCertificateLayout } from '../../../../../../../Oxford_LMS_front/src/utils/certificateLayout';
+} from '../../../types/Certificate';
+import { DEFAULT_CERTIFICATE_LAYOUT } from '../../../types/Certificate';
+import { ErrorHandler } from "../../../utils/ErrorHandler"
+import { mergeCertificateLayout } from "../../../utils/certificateLayout";
 
 function buildAssetUrl(path: string | null): string | null {
   if (!path) {

@@ -8,7 +8,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { type GridColDef } from '@mui/x-data-grid';
 import CustomDataGrid from '../../../components/DataGrid/DataGrid';
 
-import { Button } from '../../../../../../../Oxford_LMS_front/src/components/Buttons/SubmitBtn';
+import { Button } from '../../../components/Buttons/SubmitBtn';
 import { useRegenerateCertificateMutation } from '../../../services/certificates/certificateMutation';
 import { useGetCertificatesQuery } from '../../../services/certificates/certificateQuery';
 import { ErrorHandler } from '../../..//utils/ErrorHandler';
