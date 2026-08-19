@@ -55,7 +55,7 @@ import { SessionExamDetails } from "../components/Exam/SessionExam/SessionExamDe
 import { ExamAssignment } from "../pages/Courses/Course/CourseDetails/tabs/exams/ExamAssignments";
 import { OneAssignment } from "../pages/Courses/Course/CourseDetails/tabs/exams/TraineesInfo";
 import { TaskDetails } from "../pages/Courses/Course/CourseDetails/tabs/tasks/TaskDetails";
-import { CertificateEditor } from "../pages/Certificate/CertificateEditor";
+
 import { CertificateTemplatesPage } from "../pages/Exams/certificates/CertificateTemplatesPage";
 import { CertificateTemplateEditorPage } from "../pages/Exams/certificates/CertificateTemplateEditorPage";
 import { CertificatesPage } from "../pages/Exams/certificates/CertificatesPage";
@@ -121,7 +121,7 @@ function AppRoutes() {
             <Route path="/session/types" element={<SessionTypes/>} />
             <Route path="/session/priorities" element={<PrioritiesPage/>} />
             <Route path="/session/suoervisors" element={<Supervisorspage/>} />
-             <Route path="/certificates/create" element={<CertificateEditor />} />
+          
         <Route path="assignments/types" element={<ExamConstants/>} />
         <Route path="assignments/forms" element={<FormsPage/>} />
         <Route path="assignments/instances" element={<ExamInstances/>} />

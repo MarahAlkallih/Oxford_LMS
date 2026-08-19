@@ -1,5 +1,5 @@
 import React from "react";
-import type { CertificateLayout } from "../../types/certificate";
+import type { CertificateLayout } from "../../types/Certificate";
 
 interface CanvasProps {
   layout: CertificateLayout;
