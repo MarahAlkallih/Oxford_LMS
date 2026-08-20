@@ -6,21 +6,24 @@ import {BrowserRouter} from "react-router-dom"
 import AppRoutes from './routes/routes'
 import { AppToastContainer } from './components/global/Toast'
 import { useFirebaseNotifications } from './hooks/useFirebaseNotifications'
-
-function App() {
+const NotificationListener = () => {
   useFirebaseNotifications();
+  return null;
+};
+function App() {
+ 
  
   return (
-    <Provider store={store}>
+  <>
       <BrowserRouter>
        <div className="App">
-       
+       <NotificationListener />
         <AppRoutes />
        
       </div>
       </BrowserRouter>
       <AppToastContainer />
-    </Provider>
+</>
   )
 }
 

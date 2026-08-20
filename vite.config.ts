@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'https://elastic-dirac.153-92-210-41.plesk.page',
+        target: 'https://lms.oxfordtraining.uk',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ''), // <--- أضيفي هذا السطر لحذف /api عند تحويل الطلب

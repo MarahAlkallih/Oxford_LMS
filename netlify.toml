@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/api/*"
-  to = "https://elastic-dirac.153-92-210-41.plesk.page/:splat"
+  to = "https://lms.oxfordtraining.uk"
   status = 200
   force = true
