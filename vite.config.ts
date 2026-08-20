@@ -10,12 +10,8 @@ export default defineConfig({
         target: 'https://lms.oxfordtraining.uk',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''), // <--- أضيفي هذا السطر لحذف /api عند تحويل الطلب
-        headers: {
-          'Cookie': 'plesk_technical_domain=1'
-        }
+        rewrite: (path) => path.replace(/^\/api/, ''),
       }
     }
   }
 });
-
