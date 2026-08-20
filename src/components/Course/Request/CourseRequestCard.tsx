@@ -6,6 +6,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import LanguageIcon from "@mui/icons-material/Language";
 import SchoolIcon from "@mui/icons-material/School";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import { BACKEND_URL } from "../../../config/env";
 
 interface CourseRequestCardProps {
   request: CourseRequest;
@@ -33,7 +34,7 @@ export const CourseRequestCard: React.FC<CourseRequestCardProps> = ({
   onViewDetails,
   onUpdateStatus,
 }) => {
-  const imageUrl = request.img ? `http://153.92.210.41:3000/${request.img}` : null;
+  const imageUrl = request.img ? `${BACKEND_URL}/${request.img}` : null;
 
   return (
     <div className="bg-white rounded-3xl border border-gray-150 p-5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full group">

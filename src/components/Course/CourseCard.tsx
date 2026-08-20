@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useActiveCourseMutation } from "../../services/courses/Admin-courses/coursesMutation";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../../config/env";
 interface CourseCardProps {
   course: Course;
 }
@@ -35,7 +36,7 @@ export const CourseCard = ({ course }: CourseCardProps) => {
       <div className="h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
         {course.img ? (
           <img
-            src={`http://153.92.210.41:3000/${course.img}`}
+            src={`${BACKEND_URL}/${course.img}`}
             alt={course.title}
             className="w-full h-full object-cover"
           />

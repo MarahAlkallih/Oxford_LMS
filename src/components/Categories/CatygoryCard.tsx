@@ -2,6 +2,7 @@
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 import type { Category } from "../../types/Category";
 import { DeleteIcon, EditIcon } from "../Icons";
+import { BACKEND_URL } from "../../config/env";
 
 interface Props {
     category: Category;
@@ -36,7 +37,7 @@ export const CategoryCard = ({
                 {/* IMAGE */}
                 <div className="relative">
                     <img
-                        src={`http://153.92.210.41:3000/${category.imagePath}`}
+                        src={`${BACKEND_URL}/${category.imagePath}`}
                         alt={category.title}
                         className={`w-24 h-24 rounded-full object-cover border-2 border-(--main-color)
             ${isUpdatingImage ? "opacity-50" : ""}`}

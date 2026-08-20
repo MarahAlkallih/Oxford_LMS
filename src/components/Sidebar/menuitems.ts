@@ -68,7 +68,7 @@ export const menuItems: MenuItem[] = [
      
     children:[
        
-      {icon:AdminPanelSettingsIcon,label:"Users",path:"/users/display", adminRoles: ["SUPER", "HR"]},
+      {icon:AdminPanelSettingsIcon,label:"Admins",path:"/users/display", adminRoles: ["SUPER", "HR"]},
       {icon:CoPresentIcon,label:"Trainer",path:"users/trainer",  adminRoles: ["SUPER"]},
      
       {icon:PeopleIcon,label:"Trainees",path:"users/trainees", adminRoles: ["SUPER"]},
