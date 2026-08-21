@@ -1,8 +1,7 @@
-// components/notifications/NotificationCard.tsx
 import React from "react";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord"; // أيقونة الإشعار غير المقروء
 import type { NotificationItem } from "../../types/Notifications/notification";
 
 interface NotificationCardProps {
@@ -16,9 +15,10 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({
   onMarkAsRead,
   onNavigate,
 }) => {
-  const isUnread = !notification.readAt;
+  // الاعتماد المباشر على قيمة readAt (null تعني غير مقروء)
+  const isUnread = notification.readAt === null;
 
-  // فك تشفير حقل الـ data إذا كان يحتوي على مسار
+  // فك تشفير المسار إن وجد
   let route: string | undefined;
   try {
     if (notification.data) {
@@ -29,7 +29,7 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({
     console.error("Failed to parse notification data", e);
   }
 
-  // تنسيق تاريخ وتوقيت الإشعار
+  // تنسيق التاريخ
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString("ar-EG", {
@@ -54,16 +54,11 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({
       onClick={handleClick}
       className={`relative flex items-start gap-3.5 p-4 rounded-2xl border transition-all cursor-pointer ${
         isUnread
-          ? "bg-emerald-50/50 border-emerald-200/80 hover:bg-emerald-50 shadow-2xs"
-          : "bg-white border-gray-150 hover:bg-gray-50/80"
+          ? "bg-emerald-50/60 border-emerald-200/80 hover:bg-emerald-50"
+          : "bg-white border-gray-100 hover:bg-gray-50/80"
       }`}
     >
-      {/* مؤشر الإشعار غير المقروء (دائرة خضراء) */}
-      {isUnread && (
-        <span className="absolute top-4 left-4 w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse" />
-      )}
-
-      {/* أيقونة أو صورة الإشعار */}
+      {/* أيقونة/صورة الإشعار */}
       <div
         className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
           isUnread
@@ -87,7 +82,7 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({
         <div className="flex items-center justify-between gap-2 mb-1">
           <h4
             className={`text-sm font-bold truncate ${
-              isUnread ? "text-gray-900" : "text-gray-700"
+              isUnread ? "text-gray-900" : "text-gray-600"
             }`}
           >
             {notification.title}
@@ -108,19 +103,14 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({
         )}
       </div>
 
-      {/* زر تعليم كمقروء عند التحويم */}
+      {/* أيقونة تدل على أنه "غير مقروء" فقط إذا كانت قيمة readAt تساوي null */}
       {isUnread && (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onMarkAsRead(notification.id);
-          }}
-          className="p-1.5 text-gray-400 hover:text-emerald-600 hover:bg-emerald-100/60 rounded-lg transition-colors shrink-0"
-          title="تحديد كمقروء"
+        <div
+          className="flex items-center justify-center text-emerald-600 shrink-0 pt-1"
+          title="غير مقروء"
         >
-          <CheckCircleOutlineIcon fontSize="small" />
-        </button>
+          <FiberManualRecordIcon sx={{ fontSize: 12 }} />
+        </div>
       )}
     </div>
   );

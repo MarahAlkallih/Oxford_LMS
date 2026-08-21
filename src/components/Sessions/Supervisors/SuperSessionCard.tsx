@@ -48,7 +48,7 @@ export const SuperSessionCard: React.FC<SuperSessionCardProps> = ({ session }) =
     });
   };
 
-  // لون شارة الحالة (بدون أزرق)
+  // لون شارة الحالة
   const getStatusStyle = (status: string) => {
     switch (status?.toUpperCase()) {
       case "SCHEDULED":
@@ -61,6 +61,11 @@ export const SuperSessionCard: React.FC<SuperSessionCardProps> = ({ session }) =
       default:
         return "bg-purple-50 text-purple-700 border-purple-200";
     }
+  };
+
+  const handleNavigateToDetails = () => {
+    // الانتقال وتمرير courseId مع sessionId
+    navigate(`${session.sessionId}/courses/${session.courseId}`);
   };
 
   return (
@@ -132,7 +137,7 @@ export const SuperSessionCard: React.FC<SuperSessionCardProps> = ({ session }) =
         {/* Details Button */}
         <button
           type="button"
-          onClick={() => navigate(`${session.assignmentId}`)}
+          onClick={handleNavigateToDetails}
           className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-bold text-white bg-(--main-color) hover:opacity-90 rounded-xl transition-all shadow-2xs cursor-pointer"
         >
           <InfoIcon sx={{ fontSize: 16 }} />

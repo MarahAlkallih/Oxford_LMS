@@ -105,7 +105,7 @@ function AppRoutes() {
             <Route path="/courses/mycourses" element={<MyCoursesPage/>} />
               <Route path="/courses/mycourses/mysessions/:id" element={<MySessionsPage/>} />
               <Route path="/session/my-sessions" element={<MySessionsPageSuper/>} />
-               <Route path="/session/my-sessions/:id" element={<MySessionDetails/>} />
+               <Route path="session/my-sessions/:id/courses/:courseId/" element={<MySessionDetails/>} />
              <Route path="/courses/mycourses/student/:id" element={<StudentPage/>} />
             <Route path="/courses/requested" element={<RequestedCoursePage/>} />
              <Route path="/courses/requested/:id" element={<OneRequestedCourse/>} />

@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useGetSuperSessionQuery } from "../../../services/sessions/supervisor/supervisor/sessionsQuery";
 import { SessionDetailsSidebar } from "./SessionDetailsSidebar";
-import { SessionJoinRequestsSection } from "./SessionJoinRequestsSection";
+import { SupervisorSessionAttendance } from "./SessionJoinRequestsSection";
 
 export const MySessionDetails = () => {
   const { sessionId } = useParams();
   const id = Number(sessionId);
-
+  const { courseId } = useParams();
+  const courseIdNum = Number(courseId);
   const { data, isLoading } = useGetSuperSessionQuery({});
 
   // جلب معلومات الجلسة المحددة
@@ -50,7 +51,7 @@ export const MySessionDetails = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Large Section (Main - Join Requests) */}
         <div className="lg:col-span-8 order-2 lg:order-1">
-          <SessionJoinRequestsSection sessionId={id} />
+          <SupervisorSessionAttendance sessionId={id} courseId={courseIdNum}  />
         </div>
 
         {/* Small Section (Sidebar - Details) */}
