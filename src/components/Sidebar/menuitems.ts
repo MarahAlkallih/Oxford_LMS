@@ -30,6 +30,9 @@ import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccount
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import ChatIcon from "@mui/icons-material/Chat";
+
+import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 export const menuItems: MenuItem[] = [
   { icon: DashboardIcon, label: "Dashboard", path: "/dashboard", adminRoles:["SUPER"] },
    { icon: DatasetIcon, label: "Master Data", path: "/masterData", adminRoles:["SUPER"],
@@ -147,4 +150,11 @@ export const menuItems: MenuItem[] = [
       {icon: DescriptionOutlinedIcon, label: "Certificate Templates", path: "/assignments/certificates/templates", adminRoles:["SUPER"],},
      ]
     },
+    { icon: ChatIcon, label: "Chat", path: "/chat", adminRoles:["SUPER"],
+
+        children:[
+         {icon: CategoryOutlinedIcon, label: "Request Type", path: "chats/requestsType", adminRoles:["SUPER"],},
+          {icon: MessageOutlinedIcon, label: "Chat", path: "chats/chat", adminRoles:["SUPER","HR","ATTENDANCE"],role:"trainer",},
+    ]
+     },
 ]

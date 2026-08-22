@@ -4,6 +4,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Delete } from "@mui/icons-material";
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 import ToggleOffIcon from "@mui/icons-material/ToggleOff";
+import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 interface IconProps {
   size?: number; 
   color?: string; 
@@ -21,6 +22,9 @@ export const DeleteIcon: React.FC<IconProps> = ({ size = 18, color, className })
 );
 export const VisibilityIcon: React.FC<IconProps> = ({ size = 18, color, className }) => (
   <VisibilityOutlinedIcon className={className} sx={{ fontSize: size, color:"#4B5945" }} />
+);
+export const AddCommentIcon: React.FC<IconProps> = ({ size = 18, color, className }) => (
+  <AddCommentOutlinedIcon className={className} sx={{ fontSize: size, color:"#4B5945" }} />
 );
 export const ToggleOn: React.FC<IconProps> = ({ size = 18, color, className }) => (
   <ToggleOnIcon className={className} sx={{ fontSize: size, color:"green" }} />

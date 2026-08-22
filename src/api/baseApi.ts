@@ -112,7 +112,12 @@ export const baseApi = createApi({
     "Certificate",
     "SessionAttendance",
     "Notifications",
-    "UnreadCount"
+    "UnreadCount",
+    "Request-Chats",
+    "Direct-Chats",
+    "Group-Chats",
+    "Messages",
+    "Chats"
   ],
   endpoints: () => ({}),
 });

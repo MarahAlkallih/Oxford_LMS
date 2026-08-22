@@ -3,18 +3,17 @@ import {Button} from "../../components/Buttons/SubmitBtn"
 import { useGetUsersQuery } from "../../services/users/User";
 import type { GridColDef } from "@mui/x-data-grid";
 import { IconButton, Stack, Tooltip } from "@mui/material";
-
 import type { User, Account } from "../../types/user"
 import CustomDataGrid from "../../components/DataGrid/DataGrid";
-import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import { useState } from "react";
 import { ActiveUserModal } from "../../components/User/ActiveUserModal";
 import { DeActiveUserModal } from "../../components/User/DeActiveUserModal";
-import { EditIcon,ToggleOff,ToggleOn, VisibilityIcon } from "../../components/Icons";
+import { EditIcon,ToggleOff,ToggleOn, VisibilityIcon,AddCommentIcon } from "../../components/Icons";
+
 const UsersPage = () => {
   const [isOpneActive,setIsOpenActive]=useState(false)
    const [isOpneDeActive,setIsOpenDeActive]=useState(false)
+    const [isOpneChat,setIsOpenChat]=useState(false)
   const [selecetedId,setSelectedId]=useState(0)
   const [userName,setUserName]=useState("")
 const navigate = useNavigate();
@@ -89,7 +88,18 @@ const columns: GridColDef<UserRow>[] = [
               <VisibilityIcon  size={24}/>
             </IconButton>
           </Tooltip>
-
+             {/* <Tooltip title="Chat">
+            <IconButton
+              size="small"
+              sx={{ color: "#4B5945" }}
+              onClick={() => {
+                setIsOpenChat(true);
+                setSelectedId(params.row.id)
+              }}
+            >
+              <AddCommentIcon  size={22}/>
+            </IconButton>
+          </Tooltip> */}
           {/* زر التعديل */}
           <Tooltip title="Edit">
             <IconButton
@@ -174,6 +184,11 @@ const getRowId = (row: UserRow) => row.id;
             id={selecetedId} 
             userName={userName}            
             />
+            {/* <CreateDirectChatModal
+            open={isOpneChat}
+            onClose={()=>setIsOpenChat(false)}
+            recipientAccountId={selecetedId}
+            /> */}
         </div>
     );
 };

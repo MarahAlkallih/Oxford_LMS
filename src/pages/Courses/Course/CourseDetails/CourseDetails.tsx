@@ -8,6 +8,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import GroupIcon from "@mui/icons-material/Group";
 import InfoIcon from "@mui/icons-material/Info";
 import ClassIcon from "@mui/icons-material/Class";
+import { ChatOutlined } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import QuizIcon from "@mui/icons-material/Quiz";
@@ -20,6 +21,8 @@ import { SessionsPage } from "./tabs/CourseSessions";
 import { CourseMediaTab } from "./tabs/MediaTab";
 import { ExamCourse } from "./tabs/exams/ExamCourse";
 import { TasksPage } from "./tabs/tasks/Tasks";
+import ChatPage from "../../../Conversation/Chat/ChatPage";
+import { GroupChat } from "./tabs/session/GroupChat";
 export const CourseDetails = () => {
   const { id } = useParams();
   const courseId = Number(id);
@@ -66,6 +69,7 @@ export const CourseDetails = () => {
     { id: "sessions", label: "Sessions", icon: <ClassIcon fontSize="small" /> },
     { id: "exams", label: "Exams", icon: <QuizIcon fontSize="small" /> },
     { id: "tasks", label: "Tasks", icon: <TaskAltOutlinedIcon fontSize="small" /> },
+   
     ...(role !== "ATTENDANCE"
       ? [{ id: "media", label: "Course Media", icon: <PermMediaIcon fontSize="small" /> }]
       : []),
@@ -165,6 +169,7 @@ export const CourseDetails = () => {
         {activeTab === "media" && role !== "ATTENDANCE" && (
           <CourseMediaTab courseId={courseId} />
         )}
+       
       </div>
       <ConfirmModal
         open={isOpenDelete}

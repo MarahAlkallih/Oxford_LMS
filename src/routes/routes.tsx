@@ -60,6 +60,8 @@ import { CertificateTemplatesPage } from "../pages/Exams/certificates/Certificat
 import { CertificateTemplateEditorPage } from "../pages/Exams/certificates/CertificateTemplateEditorPage";
 import { CertificatesPage } from "../pages/Exams/certificates/CertificatesPage";
 import { OneCertificatePage } from "../pages/Exams/certificates/OneCertificatePage";
+import { RequestsType } from "../pages/Conversation/Requests/RequestsType";
+import ChatPage from "../pages/Conversation/Chat/ChatPage";
 function QuestionFormRoute() {
   const { id } = useParams();
 
@@ -139,6 +141,8 @@ function AppRoutes() {
         <Route path="assignments/instances/:id" element={<InstanceDetails/>} />
          <Route path="courses/training-plan/add-files" element={<AddFiles/>} />
          <Route path="courses/training-plan/:id" element={<TrainingPlanDetails />} />
+         <Route   path="chats/requestsType" element={<RequestsType /> }/>
+          <Route   path="chats/chat" element={<ChatPage /> }/>
       </Route>
     </Routes>
   );
